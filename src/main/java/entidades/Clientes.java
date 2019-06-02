@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.UniqueElements;
 import validators.Nif;
 
 import javax.persistence.*;
@@ -31,11 +32,10 @@ import javax.validation.constraints.Size;
         @Min (value=18, message="La Edad minima para registrarse es de 18 años")
         @Max (value=100, message="La Edad maxima para registrarse es de 100 años")
         private int edad;
-        @javax.validation.constraints.NotEmpty(message="El nombre no puede quedar vacio")
+        @javax.validation.constraints.NotEmpty(message="La direccion no puede quedar vacio")
         private String direccion;
 
-
-        @Nif(message="El dni no esta regulado")
+         @Nif(message="El dni no esta regulado")
        // @Size (min=9,max=9, message="Introduzca un dni de 9 digitos ")
         @javax.validation.constraints.NotEmpty(message="El dni no puede quedar vacio")
         private String dni;
