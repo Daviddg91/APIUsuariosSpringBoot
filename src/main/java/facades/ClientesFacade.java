@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import services.ClientesService;
 
 import javax.persistence.OrderBy;
+import javax.script.ScriptException;
 import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class ClientesFacade {
 
-     @Autowired
+      @Autowired
      private ClientesService clientesService;
 
 
@@ -50,15 +51,9 @@ public class ClientesFacade {
      }
 
      public String addClient(Clientes clienteNew) {
-          Optional<Clientes> clienteOptional = clientesService.getClientesDni(clienteNew.getDni());
           Clientes cliente2 = null;
           String resultado = "";
-          if (clienteOptional.isPresent()) {
-            /*  Clientes.setErrorMessage(BOOK_ALREADY_EXISTS.getMessage());
-               bookDTO.setError(BOOK_ALREADY_EXISTS.getCode());*/
-               resultado = "Ya existe un usuario con ese DNI";
 
-          } else {
                cliente2 = Clientes
                        .builder()
                        .dni(clienteNew.getDni())
@@ -73,7 +68,7 @@ public class ClientesFacade {
 
                cliente2 = clientesService.save(cliente2);
                clienteNew.setId(cliente2.getId());
-          }
+
           if (cliente2 != null) {
                resultado = "Cliente creado con exito";
           }
