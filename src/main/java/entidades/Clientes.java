@@ -6,8 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
-import org.hibernate.validator.constraints.UniqueElements;
-import validators.Nif;
+ import validators.Nif;
+import validators.UniqueNif;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -35,7 +35,8 @@ import javax.validation.constraints.Size;
         @javax.validation.constraints.NotEmpty(message="La direccion no puede quedar vacio")
         private String direccion;
 
-         @Nif(message="El dni no esta regulado")
+        @UniqueNif(message="El dni esta repetido")
+        @Nif(message="El dni no esta regulado")
        // @Size (min=9,max=9, message="Introduzca un dni de 9 digitos ")
         @javax.validation.constraints.NotEmpty(message="El dni no puede quedar vacio")
         private String dni;
