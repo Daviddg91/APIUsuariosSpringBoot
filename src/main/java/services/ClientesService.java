@@ -2,28 +2,50 @@ package services;
 
 import entidades.Clientes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import repositories.ClientesRepository;
+import repositories.PageRepository;
+
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+
 public  class ClientesService {
 
     @Autowired
     ClientesRepository clientesRepository;
 
     @Autowired
+    PageRepository pageRepository;
+
+    @Autowired
     public ClientesService(ClientesRepository clientesRepository){
         this.clientesRepository = clientesRepository;
     }
 
-    public List<Clientes> getClientes() {
+    /*public List<Clientes> getClientes() {
         List<Clientes> listaClientes = clientesRepository.findAll();
          return listaClientes;
+    }*/
+
+    public List<Clientes> getClientes(Pageable pageable) {
+        List<Clientes> listaClientes= pageRepository.findAll(pageable).getContent();
+        return listaClientes;
     }
+   /* public Integer getClientesTotalElements(Pageable pageable) {
+        Integer totalElements=  pageRepository.findAll(pageable).getNumberOfElements();
+        return totalElements;
+    }*/
+   public Integer getClientesTotalElements() {
+       Integer totalElements=  pageRepository.findAllCountUsers();
+       return totalElements;
+   }
+
     public List<Clientes> buscarClientes(String cadenaBusqueda) {
         List<Clientes> listaClientes = clientesRepository.findAllByNombreAndApellidosAndDni2(cadenaBusqueda);
         return listaClientes;

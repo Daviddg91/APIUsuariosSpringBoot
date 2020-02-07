@@ -27,10 +27,10 @@ public class ClientesFacade {
           this.clientesService = clientesService;
      }
 
-     public List<Clientes> getAllClientes() {
+    /* public List<Clientes> getAllClientes() {
           return clientesService.getClientes();
      }
-
+*/
      public List<Clientes> getAllClientesOrder(String ordenar) {
           return  clientesService.getClientesOrdenar(ordenar);
      }

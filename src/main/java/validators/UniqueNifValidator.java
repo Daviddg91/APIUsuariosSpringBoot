@@ -19,7 +19,14 @@ public class UniqueNifValidator implements ConstraintValidator<UniqueNif, String
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        Optional<Clientes> clienteOptional = clientesService.getClientesDni(value);
+        Optional<Clientes> clienteOptional =null;
+
+
+        if(clientesService==null) {
+            return true;
+        }else{
+            clienteOptional = clientesService.getClientesDni(value);
+        }
 
         if (clienteOptional.isPresent()) {
            return false;

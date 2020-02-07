@@ -35,7 +35,7 @@ import javax.validation.constraints.Size;
         @javax.validation.constraints.NotEmpty(message="La direccion no puede quedar vacio")
         private String direccion;
 
-        @UniqueNif(message="El dni esta repetido")
+        //@UniqueNif(message="El dni esta repetido")
         @Nif(message="El dni no esta regulado")
        // @Size (min=9,max=9, message="Introduzca un dni de 9 digitos ")
         @javax.validation.constraints.NotEmpty(message="El dni no puede quedar vacio")

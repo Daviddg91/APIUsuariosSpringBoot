@@ -4,21 +4,26 @@ package controllers;
 import entidades.Clientes;
 import facades.ClientesFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import services.ClientesService;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/users")
+//@CrossOrigin(origins ={"http://localhost:9090","http://78.30.47.216:9090", "http://78.30.47.216:8080","http://192.168.1.133:8080","http://192.168.1.133:9090"})
 public class UsuariosController {
 
     @Autowired
     private ClientesFacade clientesFacade;
+    @Autowired
+    private ClientesService cleintesService;
 
     @PostMapping
     public String añadirCliente(@RequestBody @Valid Clientes cliente) {
@@ -28,11 +33,28 @@ public class UsuariosController {
     public String modificarCliente(@RequestBody @Valid Clientes cliente){
         return clientesFacade.modificarCliente(cliente);
     }
-@RequestMapping
+   /*
+   @RequestMapping()
 public List<Clientes> getAll(){
 
     return clientesFacade.getAllClientes();
-}@RequestMapping(params = "ordenar")
+}
+*/
+   @RequestMapping()
+   public List<Clientes> getAll(Pageable pageable){
+
+       return cleintesService.getClientes(pageable);
+   }
+    @RequestMapping(params = "totalElements")
+    public Integer getTotalElements(){
+
+        return cleintesService.getClientesTotalElements();
+    }
+
+
+
+
+    @RequestMapping(params = "ordenar")
 public List<Clientes> getAllOrder(@RequestParam("ordenar") String ordenar){
 
     return clientesFacade.getAllClientesOrder(ordenar);
