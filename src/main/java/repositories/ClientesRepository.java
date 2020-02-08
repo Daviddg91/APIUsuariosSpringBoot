@@ -13,6 +13,8 @@ import java.util.Optional;
 @Repository
 public interface ClientesRepository extends CrudRepository<Clientes, Long> {
 
+    @Query("SELECT count(*) FROM Clientes")
+    int findAllCountUsers();
 
     List<Clientes> findAll();
     List<Clientes> findAllByOrderByApellidos();

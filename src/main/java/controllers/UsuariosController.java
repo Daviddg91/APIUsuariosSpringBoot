@@ -2,6 +2,7 @@ package controllers;
 
 
 import entidades.Clientes;
+import entidades.ModifyClientes;
 import facades.ClientesFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -30,16 +31,10 @@ public class UsuariosController {
         return clientesFacade.addClient(cliente);
     }
     @PutMapping
-    public String modificarCliente(@RequestBody @Valid Clientes cliente){
-        return clientesFacade.modificarCliente(cliente);
+    public String modificarCliente(@RequestBody @Valid ModifyClientes modifyClientes){
+        return clientesFacade.modificarCliente(modifyClientes);
     }
-   /*
-   @RequestMapping()
-public List<Clientes> getAll(){
-
-    return clientesFacade.getAllClientes();
-}
-*/
+ 
    @RequestMapping()
    public List<Clientes> getAll(Pageable pageable){
 

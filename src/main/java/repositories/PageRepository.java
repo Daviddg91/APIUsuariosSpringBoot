@@ -13,8 +13,6 @@ import java.io.Serializable;
 public interface PageRepository extends PagingAndSortingRepository<Clientes, Serializable> {
 
 
-    @Query("SELECT count(nombre) FROM Clientes")
-    int findAllCountUsers();
 
     Page<Clientes> findAll(Pageable pageable);
 }

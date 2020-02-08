@@ -28,21 +28,18 @@ public  class ClientesService {
         this.clientesRepository = clientesRepository;
     }
 
-    /*public List<Clientes> getClientes() {
-        List<Clientes> listaClientes = clientesRepository.findAll();
-         return listaClientes;
-    }*/
+ 
 
     public List<Clientes> getClientes(Pageable pageable) {
         List<Clientes> listaClientes= pageRepository.findAll(pageable).getContent();
         return listaClientes;
     }
-   /* public Integer getClientesTotalElements(Pageable pageable) {
+   public Integer getClientesTotalElements(Pageable pageable) {
         Integer totalElements=  pageRepository.findAll(pageable).getNumberOfElements();
         return totalElements;
-    }*/
+    }
    public Integer getClientesTotalElements() {
-       Integer totalElements=  pageRepository.findAllCountUsers();
+       Integer totalElements=  clientesRepository.findAllCountUsers();
        return totalElements;
    }
 

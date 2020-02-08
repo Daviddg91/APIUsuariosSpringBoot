@@ -13,7 +13,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 @Data
 @Builder
@@ -21,7 +20,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @Entity
 @Table(name = "clientes")
-    public class Clientes {
+    public class ModifyClientes {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Integer id;
@@ -36,7 +35,7 @@ import javax.validation.constraints.Size;
         @javax.validation.constraints.NotEmpty(message="La direccion no puede quedar vacio")
         private String direccion;
 
-        @UniqueNif(message="El dni esta repetido")
+        //@UniqueNif(message="El dni esta repetido")
         @Nif(message="El dni no esta regulado")
        // @Size (min=9,max=9, message="Introduzca un dni de 9 digitos ")
         @javax.validation.constraints.NotEmpty(message="El dni no puede quedar vacio")
@@ -46,16 +45,9 @@ import javax.validation.constraints.Size;
         @NotNull (message="El Codigo Postal no puede quedar vacio")
         private int cp;
         // @Pattern(regexp = "[0-9]+", message = "holaholaholas")
-    
-        
-        
-       /* @Range(min = 100000000,max = 999999999L, message="Introduzca un Telefono correcto")
-        @Max(value = 999999999L, message="El telefono tiene demasiados digitos")*/
+        @Range(min = 100000000,max = 999999999, message="Introduzca un Telefono correcto")
         @NotNull (message="El telefono no puede quedar vacio")
-        @Min(value = 100000000, message="El telefono tiene demasiados digitos")
-        @Max(value = 999999999L, message="El telefono tiene demasiados digitos")
-	
-        private String telefono;
+        private int telefono;
         @javax.validation.constraints.Email(message="Escriba un email valido")
         @javax.validation.constraints.NotEmpty(message="El correo no puede quedar vacio")
         private String correo;

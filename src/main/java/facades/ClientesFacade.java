@@ -2,6 +2,8 @@ package facades;
 
 
 import entidades.Clientes;
+import entidades.ModifyClientes;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -27,10 +29,7 @@ public class ClientesFacade {
           this.clientesService = clientesService;
      }
 
-    /* public List<Clientes> getAllClientes() {
-          return clientesService.getClientes();
-     }
-*/
+ 
      public List<Clientes> getAllClientesOrder(String ordenar) {
           return  clientesService.getClientesOrdenar(ordenar);
      }
@@ -74,19 +73,19 @@ public class ClientesFacade {
           }
           return resultado;
      }
-     public String modificarCliente(Clientes clienteNew) {
+     public String modificarCliente(ModifyClientes modifyClientes) {
           String resultado;
-          Optional<Clientes> clienteOptional = clientesService.getClientesDni(clienteNew.getDni());
+          Optional<Clientes> clienteOptional = clientesService.getClientesDni(modifyClientes.getDni());
 
                if (clienteOptional.isPresent()) {
                    Clientes clienteLocal =clienteOptional.get();
-                    clienteLocal.setNombre(clienteNew.getNombre());
-                    clienteLocal.setApellidos(clienteNew.getApellidos());
-                    clienteLocal.setCorreo(clienteNew.getCorreo());
-                    clienteLocal.setDireccion(clienteNew.getDireccion());
-                    clienteLocal.setCp(clienteNew.getCp());
-                    clienteLocal.setTelefono(clienteNew.getTelefono());
-                    clienteLocal.setEdad(clienteNew.getEdad());
+                    clienteLocal.setNombre(modifyClientes.getNombre());
+                    clienteLocal.setApellidos(modifyClientes.getApellidos());
+                    clienteLocal.setCorreo(modifyClientes.getCorreo());
+                    clienteLocal.setDireccion(modifyClientes.getDireccion());
+                    clienteLocal.setCp(modifyClientes.getCp());
+                    clienteLocal.setTelefono(String.valueOf((modifyClientes.getTelefono())));
+                    clienteLocal.setEdad(modifyClientes.getEdad());
 
                     clientesService.save(clienteLocal);
                     resultado = "El cliente " + clienteLocal.getNombre() +" se ha modificado con exito";
