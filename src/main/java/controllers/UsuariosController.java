@@ -25,7 +25,10 @@ public class UsuariosController {
     private ClientesFacade clientesFacade;
     @Autowired
     private ClientesService cleintesService;
-
+    @GetMapping("/welcome")
+    public String welcome() {
+        return "welcome";
+    }
     @PostMapping
     public String añadirCliente(@RequestBody @Valid Clientes cliente) {
         return clientesFacade.addClient(cliente);
