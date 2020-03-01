@@ -5,6 +5,7 @@ import entidades.Clientes;
 import entidades.ModifyClientes;
 import facades.ClientesFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -39,9 +40,8 @@ public class UsuariosController {
     }
  
    @RequestMapping()
-   public List<Clientes> getAll(Pageable pageable){
-
-       return cleintesService.getClientes(pageable);
+   public List<Clientes> getAll(){
+       return cleintesService.getClientes();
    }
     @RequestMapping(params = "totalElements")
     public Integer getTotalElements(){
@@ -57,8 +57,12 @@ public List<Clientes> getAllOrder(@RequestParam("ordenar") String ordenar){
 
     return clientesFacade.getAllClientesOrder(ordenar);
 }
+    
 
-
+    @RequestMapping(params = {"busqueda", "count"})
+    public int getBusquedaClientesCount(@RequestParam("busqueda") String busqueda){
+        return clientesFacade.GetClientesBusqueda(busqueda).size();
+}
     @RequestMapping(params = "busqueda")
     public List<Clientes> getBusquedaClientes(@RequestParam("busqueda") String busqueda){
         return clientesFacade.GetClientesBusqueda(busqueda);

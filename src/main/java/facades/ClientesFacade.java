@@ -107,7 +107,7 @@ public class ClientesFacade {
                clientesService.delete(clienteOptional.get());
 
           } else {
-               resultado = "Ya existe un usuario con ese DNI";
+               resultado = "No existe un usuario con ese DNI";
 
           }
           return resultado;

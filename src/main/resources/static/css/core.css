@@ -1,9 +1,11 @@
+
+.navbar{background-color:black; }  
 body {
     padding-top: 60px;
     padding-bottom: 40px;
     background-color: #f5f5f5;
 }
-
+.relative{position:relative}
 .social-links {
     max-width: 800px;
     margin: 0 auto;
@@ -17,3 +19,73 @@ body {
     display: inline-block;
     margin: auto;
 }
+
+.icon-bar{
+ 
+	    display: block;
+   width: 31px;
+    height: 5px;
+     margin-bottom: 5px;
+    background-color: #f5f5f5;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+	}
+
+ button#menu {
+    display: none;
+}
+
+button#menu:focus +  #superior {
+    display: block;
+}
+
+ #superior div { margin-left:8px; color:violet; background:rgba(215, 211, 44, 0.2); border-radius:20px; 
+ padding-left:10px; 
+ padding-right:10px;}
+#botonBurguer{display:none; }
+
+@media all and (max-width: 700px) {
+    button#menu {
+        display: block;
+    }
+	#superior {
+        display: none!important;
+    }
+#botonBurguer{display:block; }
+
+}
+.navbar{height:50px;}
+.alignLeft{
+	
+	    margin-left: auto!important;
+}
+
+.displayNone{    display: none;
+
+}
+.estilosCollapsableMenu{background-color:black;
+border-radius:17px;
+   margin-left: auto;
+   width:50%;}
+   .estilosCollapsableMenu div{
+   margin-bottom:5px;
+      margin-top:-5px;
+   
+   }
+   
+.estilosCollapsableMenu div{
+margin-left:8px; color:violet; background:rgba(215, 211, 44, 0.2); border-radius:20px; 
+ padding-left:10px; 
+ padding-right:10px;}
+	
+	
+}
+.menuSlideContainer{
+    height: 145px!important;
+}
+
+ 

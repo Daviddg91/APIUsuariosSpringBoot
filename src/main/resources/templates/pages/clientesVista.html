@@ -1,0 +1,441 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+  <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+      
+  <th:block layout:fragment="content">     
+ 	  <script type="text/javascript" th:src="@{/js/jquery.tablesorter.js}"></script>
+	 
+	 
+	  <link th:href="@{/css/dataTables.bootstrap4.min.css}" rel="stylesheet" type="text/css"/>
+	<script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+               
+             <style>
+               /* Styles for wrapping the search box */
+@media (max-width: 760px){
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+	
+	td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+	
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "Id"; }
+	td:nth-of-type(2):before { content: "Nombre"; }
+	td:nth-of-type(3):before { content: "Apellidos"; }
+	td:nth-of-type(4):before { content: "DNI"; }
+	td:nth-of-type(5):before { content: "Email"; }
+	td:nth-of-type(6):before { content: "Telefono"; }
+	td:nth-of-type(7):before { content: "Dirección"; }
+	td:nth-of-type(8):before { content: "Código postal"; }
+	td:nth-of-type(9):before { content: "Edad"; }
+	td:nth-of-type(10):before { content: ""; }
+	td:nth-of-type(11):before { content: ""; }
+	
+	td div {
+    margin-top: 20px!important;
+
+}
+}
+
+
+.main {
+    width: 70%;
+    margin: 50px auto;
+}
+
+#buscboton{
+   min-height:38px;
+   height: 0%;
+   min-width: 110px;
+    margin-left:30.5%;
+}
+
+
+
+
+
+
+.has-search .form-control-feedback {
+    right: initial;
+    left: 0;
+    color: #ccc;
+}
+
+.has-search .form-control {
+    padding-right: 12px;
+    padding-left: 34px;
+}  
+        .rot180 {
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	rotation: 180deg;
+        }
+           .rot0 {
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	rotation: 0deg;
+        }
+.triangulo  {
+ cursor:pointer;
+ color:green;
+ margin-left: 3.4%;
+}
+#buscresult{
+    text-align: left;
+    
+}
+#spantri {
+  display: flex;
+  
+  
+   justify-content:space-between;
+  align-content: space-around;
+  
+}
+#padrebusc{
+     
+   display: flex;
+
+   
+}
+#buscresult a {
+    min-width:100px;
+    max-width:20%;
+    max-height:20%;
+}
+
+#buscresult a {
+    
+    display: flex;
+   justify-content: center;
+   align-items: center;
+    
+}
+ body a {
+    
+    display: flex;
+   justify-content: center;
+   align-items: center;
+    
+}
+.flexcolumn{
+     display: flex;
+  flex-direction: column;
+    
+    
+}
+body{
+    background-color: white;
+}
+#tablebody a {
+    
+    margin-top: 5px;
+}
+.cursor{
+    cursor: pointer;
+    
+}
+#buscboton{
+    margin: 0;
+    margin-left: 30px;
+}
+ 
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-top-color:#00c851;
+  border-bottom-color: #00c851;
+  
+  
+  
+   max-width:45px;
+ width:45px;
+ max-height:34px;
+ height:34px;
+}
+ 
+
+.pagination a.active {
+  background-color: #00c851;
+  color: white;
+  border: 1px solid #00c851;
+  border-radius: 0px;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+.pagination a:hover:first-child {background-color: #00c851;}
+.pagination a:hover:last-child {background-color: #00c851;}
+
+.pagination a:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: #00c851;
+  color:white;
+}
+
+.pagination a:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+    background-color: #00c851;
+  color:white;
+}
+             </style>  
+              
+               <input id="dniParam" name="prodId" type="hidden"  />
+     			<input id="nombreParam" name="prodId" type="hidden"  />
+                <input type="hidden" id="limiteElementos" value="15"  />
+                <input type="hidden" id="nPaginaActual"  value="0"  />
+                
+                <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
+                
+                     <div id="contenido">
+                <h1>Listado de Clientes</h1>    
+   
+            
+    
+                 <a  href="#" th:href="@{/crearCliente}" class="btn btn-success"> Crear Nuevo Cliente </a>
+                  <a  href="#" th:href="@{/editarCliente}" class="btn btn-success"> Crear Nuevo Cliente </a>
+ 
+                  
+                    <div class="">
+        <table id="buscresult" class="table table-bordered table-striped table-hover">
+            <thead>
+          <tr>
+            <th>ID</th>
+   
+            <th class="cursor" onclick="rotar180(this);"><div id="spantri" ><div>Nombre</div><div class="triangulo"  id="triangulo1">&#x25BC;</div></div></th>
+            <th class="cursor" onclick="rotar180(this);"  ><div id="spantri"><div>Apellidos</div><div class="triangulo"  id="triangulo2">&#x25BC;</div></div></th>
+            <th class="cursor" onclick="rotar180(this);" ><div id="spantri"><div>DNI</div><div class="triangulo"   id="triangulo3">&#x25BC;</div></div> </th>
+            <th class="cursor" onclick="rotar180(this);" ><div id="spantri"><div>Correo</div><div class="triangulo"   id="triangulo3">&#x25BC;</div></div></th>
+            <th class="cursor" onclick="rotar180(this);" ><div id="spantri"><div>Telefono</div><div class="triangulo"   id="triangulo3">&#x25BC;</div></div> </th>
+            <th class="cursor" onclick="rotar180(this);" ><div id="spantri"><div>Direccion</div><div class="triangulo"   id="triangulo3">&#x25BC;</div></div></th>
+            <th class="cursor" onclick="rotar180(this);" ><div id="spantri"><div>CP</div><div class="triangulo"   id="triangulo3">&#x25BC;</div></div></th>
+            <th class="cursor" onclick="rotar180(this);"  ><div id="spantri"><div>Edad</div><div class="triangulo"   id="triangulo4">&#x25BC;</div></div></th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+            
+          </tr>
+             
+            </thead>
+         
+       
+    <tbody id="tablebody">
+        
+        </tbody>
+         </table>
+                        </div>
+                    
+                    
+
+ 
+                
+        
+	      
+         
+
+                </div>     
+                
+                
+             <script  th:inline="javascript"  >
+ 
+
+ 
+ 
+
+
+	 var _ctx = $("meta[name='_ctx']");
+	  var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
+	  
+ 
+function clickBusqueda(){
+    
+    var input = document.getElementById("inputbusqueda");
+     
+      input.value="";
+       
+}
+
+    function AllTrianDown(){
+     
+       $("[id*=triangulo]").removeClass("rot180");
+
+      
+}
+
+
+    
+ function rotar180(elem){
+              
+    AllTrianDown();
+       $(elem).find(".triangulo").addClass("rot180");
+
+          }   
+
+  function getQueryVariable(variable) {
+   var query = window.location.search.substring(1);
+   var vars = query.split("?");
+ 
+    
+  for (var i=0; i < vars.length; i++) {
+       var pair = vars[i].split("=");
+       if(pair[0] == variable) {
+           return pair[1];
+       }
+   }
+   return false;
+}
+    
+        
+        /* get context path */
+    mostrarUsuarios();
+   
+	
+	  
+    function mostrarUsuarios(){
+      
+    	
+    	
+    		 
+    		
+    	
+
+     
+    
+  
+      var url4 ="http://"+ip+"/users";
+      
+    
+      
+       var list2=null;
+             $.ajax({
+            type : "GET",
+            url : url4,
+            dataType: "json",
+           data: {users: list2},
+           
+            success : function(result) {
+            	
+               $('#tablebody').html("");
+                  $.each(result,function(key, val) {
+                var clase = "class='btn btn-success'";  
+               //var editar='  <div><a href="#" th:href="@{/editarCliente}">Editar</a></div>';
+              // var editar='  <div><a href="#" th:href="www.google.es" ">Editar</a></div>';
+             //   var editar='<a  th:href="@{/editarCliente}"  ' +clase +'  >Editar </a>';
+             var  dni="'" + val.dni + "'";
+             // th:onclick="'window.location.href = \'' + @{/deviceevent/list/{id}(id=${deviceEvent.id})} + '\''"
+
+                // var editar =' <button type="submit" class="btn btn-success"  th:onclick="window.location.href = \' + @{/editarCliente/(dni='+ dni +')} + '\''" > Editar </button></form>';
+               //  var editar =' <button type="submit" class="btn btn-success"  th:onclick="|window.location.href="@{/editarCliente(dni='+dni+')}'|" > Editar </button></form>';
+			    var editar =' <button type="submit" class="btn btn-success" onclick="pasarUrl('+"'"+ val.dni+"'"+')" > Editar </button></form>';
+
+        
+        var  nombre="'" + val.nombre + "'";
+        var onclickElDni='parametroDni('+ nombre + ','+ dni + ')';
+               var div1='  <div onclick="'+onclickElDni + '">';
+                var boton1='<button type="button" id="botondni" class="btn btn-success"  data-toggle="modal" data-target="#exampleModal" >Eliminar</button>';
+ 
+  
+  
+  
+  
+var eliminar=div1+boton1+'</div>';
+
+var htmlrow ="<tr>"+"<td><div>" + val.id + "</td></div>"+"<td><div>" + val.nombre + "</td></div>"+"<td><div>" + val.apellidos + "</td></div>"+"<td><div>" + val.dni + "</td></div>"+"<td><div>" + val.correo + "</td></div>"+"<td><div>" + val.telefono + "</td></div>"+"<td><div>" + val.direccion + "</td></div>"+"<td><div>" + val.cp + "</td></div>"+"<td><div>" + val.edad + "</td></div>"+"<td><div>" +  editar + "</td></div>"+"<td><div>" +  eliminar + "</td></div>"+"</tr>";         
+             $('#tablebody').append(htmlrow);
+        });
+                  $(document).ready(function(){
+            		  $('#buscresult').DataTable();
+                	 // $('#buscresult').ajax.reload();                    
+            	  }); 
+            } 
+        });   
+             
+        
+             
+             
+    }
+   
+    function pasarUrl(dni){
+    	 var baseUrl = /*[[@{/editarCliente}]]*/'';
+         location.href = baseUrl + "?dni=" + dni;
+    	
+
+    }
+ 
+	 
+ 
+$(document).ready(function() {
+ 
+  $("table").tablesorter();
+	 
+  $('#exampleModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus');
+});
+  
+});
+
+
+
+
+
+
+ 
+   
+   
+</script>
+  			<div th:include="pages/crud/borrarCliente"> </div>
+
+<script th:inline="javascript">
+function parametroDni(nombre,dni){
+	 
+	document.getElementById('nombreParam').value = nombre;
+
+	document.getElementById('dniParam').value = dni;
+	  
+	borrarCliente();
+}
+
+</script>
+    
+
+  
+                
+      
+    
+</th:block>

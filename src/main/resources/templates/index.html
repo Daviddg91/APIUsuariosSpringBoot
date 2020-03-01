@@ -3,15 +3,11 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 
-<head>
-    <title>Hello Spring Boot!</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script type="application/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-</head>
+ 
 <body>
-<!-- Header -->
+<!-- Aqui van los scripts  del content-->
+
+
 <div>
     <!-- ============================================================================ -->
     <!-- This content is only used for static prototyping purposes (natural templates)-->
@@ -33,6 +29,11 @@
 <!-- Insert content into the layouts/layout.html -->
 <th:block layout:fragment="content">
     <div class="hero-unit">
+    
+    
+    
+
+
         <h1>Test</h1>
         <p>
             Welcome to the Spring Boot Thymeleaf Application! The time is: <strong th:text="${#temporals.format(now, 'dd/MMM/yyyy HH:mm')}">31/12/2015 15:00</strong>

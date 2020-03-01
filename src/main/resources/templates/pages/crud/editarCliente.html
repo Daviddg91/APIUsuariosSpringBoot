@@ -1,0 +1,318 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+  
+  <th:block layout:fragment="content">   
+                <style>
+                    body{
+                    background-color:white;
+                    
+                    }
+                      .alert {
+                        padding: 0;
+                        margin: auto;
+                    }
+                  
+                    .alerta{
+                        max-width: 35%;
+                        color:red;
+                    }
+                    input{
+                         max-width: 35%;
+                      
+                       border: 1px solid #ced4da;
+                         
+                        -moz-box-shadow: none !important;
+                        box-shadow: none !important;
+                        
+                    }
+                      .flex-container {
+                        display: flex;
+
+                      }              
+                        
+                           .alertIcon{
+ 
+                    
+                    background: url("https://www.wolfert.nl/tweetalig/wp-content/uploads/sites/4/2018/11/cross.png");
+                    background-position: 90% ;
+                     background-repeat: no-repeat;
+                    background-size: 20px 20px;
+                    box-sizing: border-box;
+                    border-color: red;
+                    border-radius: 4px;
+                      
+                      }
+                         
+                      .alertExito{
+                           background: url("https://cdn4.iconfinder.com/data/icons/flat-icons-for-web-and-seo/341/18-512.png");
+                    background-position: 90% ;
+                     background-repeat: no-repeat;
+                    background-size: 20px 20px;
+                    box-sizing: border-box;
+                    border-color: green;
+                    border-radius: 4px;
+                         
+                          
+                      }
+                    
+                </style>
+                
+             <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
+                        
+                     <script type="text/javascript">
+ 
+const foo  = window.location.href;
+ 
+  
+  
+var url_string = window.location.href;
+var url = new URL(url_string);
+var c = url.searchParams.get("dni");
+     
+var _ctx = $("meta[name='_ctx']");
+var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
+
+   buscarUsuario();
+  
+     function buscarUsuario(){
+           
+         var url = "http://"+ip+"/users?dni="+c;
+ 
+       var list2=null;
+             $.ajax({
+            type : "GET", 
+            url : url,
+            dataType: "json",
+           
+             success: function (result) {
+                 
+               
+                 
+               document.getElementById("nombre").value=result.nombre;
+               document.getElementById("apellidos").value=result.apellidos;
+               document.getElementById("dni").value= result.dni;
+               document.getElementById("telefono").value = result.telefono;
+               document.getElementById("correo").value = result.correo;
+               document.getElementById("cp").value = result.cp;
+               document.getElementById("edad").value = result.edad; 
+               document.getElementById("direccion").value = result.direccion;
+              
+          },
+          error: function (xhr, ajaxOptions, thrownError) {
+              
+               
+         
+          }
+
+            
+        });   
+        
+       
+        
+    }
+var error1;
+
+     function rellenarUsuario(){
+  
+       
+          var nombre = document.getElementById("nombre").value;
+         var apellidos = document.getElementById("apellidos").value;
+         var dni = document.getElementById("dni").value;
+          var telefono = document.getElementById("telefono").value;
+          var correo = document.getElementById("correo").value;
+          var cp = document.getElementById("cp").value;
+          var edad = document.getElementById("edad").value;
+          var direccion = document.getElementById("direccion").value;
+            let json1 = [];
+             json1= {
+             nombre : nombre,
+                 edad  : edad,
+                 cp : cp,
+                 direccion : direccion,
+                 telefono : telefono,
+                 dni : dni,
+                 apellidos : apellidos,
+                 correo : correo};
+            
+           
+            
+             $.ajax({
+            type : "PUT", 
+            url : "http://"+ip+"/users",
+            contentType: 'application/json',
+            data:JSON.stringify(json1),
+             dataType: "json",
+            success: function (xhr, ajaxOptions, thrownError) {
+        
+            
+         //   alert("hola2");
+          },
+         error: function(xhr, status, error) {
+                $("div[id^='div-']").empty();
+               $("input").removeClass("alertIcon");
+               $("input").removeClass("alertExito");
+             // alert(xhr.status);
+                 if(JSON.stringify(xhr.status)==200){
+                     var mensaje=JSON.stringify(xhr.responseText);
+                 $("#mensaje1").append(mensaje);
+                  $('#exampleModal2').modal('show');
+                   setTimeout(function(){
+                  $('#exampleModal2').modal('hide');
+                  location.reload();
+
+                     }, 2000);
+
+             }else{
+                   
+              
+ 
+            json1=JSON.parse(xhr.responseText);
+             
+            jsonError=JSON.stringify(json1.errors);
+            let json2=JSON.parse(jsonError);
+            
+            
+            if(document.getElementById("nombre").value!=""){
+                
+                $('#'+"nombre").addClass("alertExito");
+            }
+              if(document.getElementById("apellidos").value!=""){
+                
+                $('#'+"apellidos").addClass("alertExito");
+            }
+           
+              if(document.getElementById("dni").value!=""){
+                
+                $('#'+"dni").addClass("alertExito");
+            }
+              if(document.getElementById("telefono").value!=""){
+                
+                $('#'+"telefono").addClass("alertExito");
+            }
+              if(document.getElementById("correo").value!=""){
+                
+                $('#'+"correo").addClass("alertExito");
+            }
+              if(document.getElementById("cp").value!=""){
+                
+                $('#'+"cp").addClass("alertExito");
+            }
+              if(document.getElementById("edad").value!=""){
+                
+                $('#'+"edad").addClass("alertExito");
+            }
+                if(document.getElementById("direccion").value!=""){
+                
+                $('#'+"direccion").addClass("alertExito");
+            }
+        
+             
+              for (let i in json2) {
+                var elementID=JSON.stringify(json2[i].field);
+                 elementID=elementID.replace(/['"]+/g, '');
+                 
+                var  elementIdDiv="div-"+elementID;
+                      
+                  $('#'+elementIdDiv).html('<div id="errores" class="alert2" >'+JSON.stringify(json2[i].defaultMessage)+"</div>"+"");
+                 $('#'+elementID).removeClass("alertExito");
+                  $('#'+elementID).addClass("alertIcon");
+                  
+          }
+             }
+}
+         
+
+            
+        });   
+          
+    }
+  
+     
+</script>     
+                    <div>Nombre:
+            <input type="text"  id="nombre" class="form-control" /></div>
+            <div class="alerta" id="div-nombre"></div>
+            
+                    
+            
+                            <div>Apellidos:
+                <input type="text" class="form-control" id="apellidos"/>
+                </div>
+                        <div class="alerta" id="div-apellidos"></div>
+           
+                     
+                     
+                    
+                       
+                        <div>DNI:
+                            <input type="text" class="form-control" id="dni"/>
+                            </div>
+                         <div class="alerta" id="div-dni">
+                            
+                        </div>
+                  
+                     
+                     
+                     
+                    
+    <div>     Correo:
+           <input type="text" class="form-control"   id="correo"/>
+           </div>
+                            <div class="alerta" id="div-correo"></div>
+
+                    
+                     
+                     
+                     
+                                        
+
+                                            <div>     Telefono:
+                                                <input  class="form-control" id="telefono" type="number"/></div>
+                <div class="alerta" id="div-telefono"></div>
+                                       
+                     
+                     
+                     
+                                              
+           <div>Dirección:
+            <input type="text"  class="form-control" id="direccion"/> </div>
+            <div class="alerta" id="div-direccion"></div>
+           
+                           
+                     
+                     
+                     
+               
+            <div>Codigo Postal:
+                <input  class="form-control" id="cp" type="number" /></div>
+                
+                            <div class="alerta" id="div-cp"></div>
+            
+                     
+                     
+                     
+                
+             
+                 <div> Edad:
+           <select id="edad" class="form-control" style="max-width:35%;" value="Edades"  >              
+    <option th:each="i: ${#numbers.sequence(18, 99)}" th:value="${i}"  th:utext="${i}"></option>
+
+ 
+	</c:forEach>
+           </select><br/>   
+               </div>
+                <div class="alerta" id="div-edad"></div> 
+            
+                       
+                <button class="btn btn-success" onclick="rellenarUsuario();" value ="Modificar">Modificar </button>
+           <!--Modal -->
+         
+			<div th:include="pages/crud/modalExitoCrear"> content here </div>
+            </ui:define>
+
+        </ui:composition>
+</html>
+

@@ -1,0 +1,24 @@
+ <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+   
+   
+<th:block layout:fragment="content"> 
+                 <style>
+        body{
+            background-color: #036fab;
+            color: white;
+        }
+        
+    </style>
+     
+                <div id="contenido">
+                <h1>BUENAS NOCHES</h1>  <br/>
+                     <img src="images/atardecer.jpeg" height="200" width="250"/>
+
+                La hora es: <span th:text="${#temporals.format(hora, 'dd/MMM/yyyy HH:mm')}"/>   
+                
+                  
+</th:block> 
+   
+ 

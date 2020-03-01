@@ -2,6 +2,7 @@ package services;
 
 import entidades.Clientes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -27,11 +28,14 @@ public  class ClientesService {
     public ClientesService(ClientesRepository clientesRepository){
         this.clientesRepository = clientesRepository;
     }
-
+    public List<Clientes> buscarClientes(String busqueda) {
+        List<Clientes> listaClientes = clientesRepository.findAllByNombreAndApellidosAndDni2(busqueda);
+        return listaClientes;
+    }
  
-
-    public List<Clientes> getClientes(Pageable pageable) {
-        List<Clientes> listaClientes= pageRepository.findAll(pageable).getContent();
+    
+    public List<Clientes> getClientes( ) {
+        List<Clientes> listaClientes= clientesRepository.findAll();
         return listaClientes;
     }
    public Integer getClientesTotalElements(Pageable pageable) {
@@ -43,10 +47,7 @@ public  class ClientesService {
        return totalElements;
    }
 
-    public List<Clientes> buscarClientes(String cadenaBusqueda) {
-        List<Clientes> listaClientes = clientesRepository.findAllByNombreAndApellidosAndDni2(cadenaBusqueda);
-        return listaClientes;
-    }
+ 
 
     public Optional<Clientes> getClientesDni(String dni) {
         Optional<Clientes> listaClientes = clientesRepository.findClientesByDni(dni);

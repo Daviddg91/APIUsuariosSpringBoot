@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+ 
+ <th:block layout:fragment="content">        
+                        <style>
+                            body{
+                                background-color: white;
+                            }
+   
+                        </style>
+                          <body>
+                Bienvenido a la pagina web de ejemplo de JSF numero:
+                <h:outputLabel value="#{inicioVariado.aleat}"/><br/>
+                Una de las tecnologias usadas en esta web es una Api en SpringBoot<br/>
+                    <img src="images/spring-boot-logo.jpg" height="200" width="250"/>
+
+ </th:block> 
+
