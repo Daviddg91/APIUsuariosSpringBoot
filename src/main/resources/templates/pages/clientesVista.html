@@ -7,68 +7,30 @@
  	  <script type="text/javascript" th:src="@{/js/jquery.tablesorter.js}"></script>
 	 
 	 
+	  
 	  <link th:href="@{/css/dataTables.bootstrap4.min.css}" rel="stylesheet" type="text/css"/>
+	  
+	  <!--  <link th:href="@{/css/dataTables.datatables.min.css}" rel="stylesheet" type="text/css"/> -->
+	  <link th:href="@{/css/datatables.css}" rel="stylesheet" type="text/css"/>
+	  
 	<script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
 	<script type="text/javascript" th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+     <script type="text/javascript" th:src="@{/js/dataTables.responsive.js}"></script>
                
              <style>
-               /* Styles for wrapping the search box */
-@media (max-width: 760px){
-
-	/* Force table to not be like tables anymore */
-	table, thead, tbody, th, td, tr { 
-		display: block; 
-	}
-	
-	/* Hide table headers (but not display: none;, for accessibility) */
-	thead tr { 
-		position: absolute;
-		top: -9999px;
-		left: -9999px;
-	}
-	
-	tr { border: 1px solid #ccc; }
-	
-	td { 
-		/* Behave  like a "row" */
-		border: none;
-		border-bottom: 1px solid #eee; 
-		position: relative;
-		padding-left: 50%; 
-	}
-	
-	td:before { 
-		/* Now like a table header */
-		position: absolute;
-		/* Top/left values mimic padding */
-		top: 6px;
-		left: 6px;
-		width: 45%; 
-		padding-right: 10px; 
-		white-space: nowrap;
-	}
-	
-	/*
-	Label the data
-	*/
-	td:nth-of-type(1):before { content: "Id"; }
-	td:nth-of-type(2):before { content: "Nombre"; }
-	td:nth-of-type(3):before { content: "Apellidos"; }
-	td:nth-of-type(4):before { content: "DNI"; }
-	td:nth-of-type(5):before { content: "Email"; }
-	td:nth-of-type(6):before { content: "Telefono"; }
-	td:nth-of-type(7):before { content: "Dirección"; }
-	td:nth-of-type(8):before { content: "Código postal"; }
-	td:nth-of-type(9):before { content: "Edad"; }
-	td:nth-of-type(10):before { content: ""; }
-	td:nth-of-type(11):before { content: ""; }
-	
-	td div {
-    margin-top: 20px!important;
+             .next a {padding-right: 85px!important;}
+.previous a {padding-right: 85px!important;}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0.5em 0.3em!important;
 
 }
-}
+</style>
+<style>
 
+  
+
+
+/* estilos de la tabla */
 
 .main {
     width: 70%;
@@ -230,10 +192,9 @@ body{
             
     
                  <a  href="#" th:href="@{/crearCliente}" class="btn btn-success"> Crear Nuevo Cliente </a>
-                  <a  href="#" th:href="@{/editarCliente}" class="btn btn-success"> Crear Nuevo Cliente </a>
- 
+  
                   
-                    <div class="">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <table id="buscresult" class="table table-bordered table-striped table-hover">
             <thead>
           <tr>
@@ -380,9 +341,30 @@ var htmlrow ="<tr>"+"<td><div>" + val.id + "</td></div>"+"<td><div>" + val.nombr
              $('#tablebody').append(htmlrow);
         });
                   $(document).ready(function(){
-            		  $('#buscresult').DataTable();
-                	 // $('#buscresult').ajax.reload();                    
+            		  $('#buscresult').DataTable({
+            			  responsive: true,
+            			  "info": false,
+            			    //para cambiar el lenguaje a español
+            		        "language": {
+            		                "lengthMenu": "Mostrar _MENU_ registros",
+            		                "zeroRecords": "No se encontraron resultados",
+            		                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            		                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            		                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            		                "sSearch": "Buscar:",
+            		                "oPaginate": {
+            		                    "sFirst": "Primero",
+            		                    "sLast":"Último",
+            		                    "sNext":"Siguiente",
+            		                    "sPrevious": "Anterior"
+            					     },
+            					     "sProcessing":"Procesando...",
+            		            }
+            		    });     
             	  }); 
+                  
+                  
+                  
             } 
         });   
              
