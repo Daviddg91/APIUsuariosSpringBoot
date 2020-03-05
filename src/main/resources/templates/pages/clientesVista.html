@@ -6,31 +6,21 @@
   <th:block layout:fragment="content">     
  	  <script type="text/javascript" th:src="@{/js/jquery.tablesorter.js}"></script>
 	 
-	 
-	  
+	   <link th:href="@{/css/datatables.css}" rel="stylesheet" type="text/css"/>
 	  <link th:href="@{/css/dataTables.bootstrap4.min.css}" rel="stylesheet" type="text/css"/>
-	  
-	  <!--  <link th:href="@{/css/dataTables.datatables.min.css}" rel="stylesheet" type="text/css"/> -->
-	  <link th:href="@{/css/datatables.css}" rel="stylesheet" type="text/css"/>
 	  
 	<script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
 	<script type="text/javascript" th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
-     <script type="text/javascript" th:src="@{/js/dataTables.responsive.js}"></script>
+    <script type="text/javascript" th:src="@{/js/dataTables.responsive.js}"></script>
                
              <style>
-             .next a {padding-right: 85px!important;}
+              .next a {padding-right: 85px!important;}
 .previous a {padding-right: 85px!important;}
 .dataTables_wrapper .dataTables_paginate .paginate_button {
-    padding: 0.5em 0.3em!important;
+    padding: 0.5em 0.2em!important;
 
 }
-</style>
-<style>
 
-  
-
-
-/* estilos de la tabla */
 
 .main {
     width: 70%;
@@ -192,9 +182,10 @@ body{
             
     
                  <a  href="#" th:href="@{/crearCliente}" class="btn btn-success"> Crear Nuevo Cliente </a>
-  
+                  <a  href="#" th:href="@{/editarCliente}" class="btn btn-success"> Crear Nuevo Cliente </a>
+ 
                   
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="">
         <table id="buscresult" class="table table-bordered table-striped table-hover">
             <thead>
           <tr>
@@ -341,7 +332,7 @@ var htmlrow ="<tr>"+"<td><div>" + val.id + "</td></div>"+"<td><div>" + val.nombr
              $('#tablebody').append(htmlrow);
         });
                   $(document).ready(function(){
-            		  $('#buscresult').DataTable({
+                	  $('#buscresult').DataTable({
             			  responsive: true,
             			  "info": false,
             			    //para cambiar el lenguaje a español
@@ -361,10 +352,8 @@ var htmlrow ="<tr>"+"<td><div>" + val.id + "</td></div>"+"<td><div>" + val.nombr
             					     "sProcessing":"Procesando...",
             		            }
             		    });     
+            	                 
             	  }); 
-                  
-                  
-                  
             } 
         });   
              

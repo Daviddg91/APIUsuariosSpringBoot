@@ -301,7 +301,7 @@ var error1;
     <option th:each="i: ${#numbers.sequence(18, 99)}" th:value="${i}"  th:utext="${i}"></option>
 
  
-	 
+	</c:forEach>
            </select><br/>   
                </div>
                 <div class="alerta" id="div-edad"></div> 
@@ -311,6 +311,8 @@ var error1;
            <!--Modal -->
          
 			<div th:include="pages/crud/modalExitoCrear"> content here </div>
-         </th:block>
+            </ui:define>
+
+        </ui:composition>
 </html>
 
