@@ -185,7 +185,7 @@ body{
  
                   
                     <div class="">
-        <table id="buscresult" class="table table-bordered table-striped table-hover">
+        <table id="buscresult" class="table table-responsive table-bordered table-striped table-hover">
             <thead>
           <tr>
             <th>ID</th>
@@ -305,15 +305,8 @@ function clickBusqueda(){
                $('#tablebody').html("");
                   $.each(result,function(key, val) {
                 var clase = "class='btn btn-success'";  
-               //var editar='  <div><a href="#" th:href="@{/editarCliente}">Editar</a></div>';
-              // var editar='  <div><a href="#" th:href="www.google.es" ">Editar</a></div>';
-             //   var editar='<a  th:href="@{/editarCliente}"  ' +clase +'  >Editar </a>';
-             var  dni="'" + val.dni + "'";
-             // th:onclick="'window.location.href = \'' + @{/deviceevent/list/{id}(id=${deviceEvent.id})} + '\''"
-
-                // var editar =' <button type="submit" class="btn btn-success"  th:onclick="window.location.href = \' + @{/editarCliente/(dni='+ dni +')} + '\''" > Editar </button></form>';
-               //  var editar =' <button type="submit" class="btn btn-success"  th:onclick="|window.location.href="@{/editarCliente(dni='+dni+')}'|" > Editar </button></form>';
-			    var editar =' <button type="submit" class="btn btn-success" onclick="pasarUrl('+"'"+ val.dni+"'"+')" > Editar </button></form>';
+              var  dni="'" + val.dni + "'";
+ 			    var editar =' <button type="submit" class="btn btn-success" onclick="pasarUrl('+"'"+ val.dni+"'"+')" > Editar </button></form>';
 
         
         var  nombre="'" + val.nombre + "'";
