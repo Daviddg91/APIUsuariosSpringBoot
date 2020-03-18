@@ -18,7 +18,6 @@ import javax.validation.constraints.Size;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "clientes")
     public class ModifyClientes {
         @Id

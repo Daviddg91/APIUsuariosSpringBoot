@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+  <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+      
+  <th:block layout:fragment="content">     
+ 
+                 <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
+ 
+<div class="form-group blu-margin" style="max-width:35%">
+    <select id="selectUsers" class="form-control"   >
+   
+
+
+
+    </select>
+</div>
+    
+<script>
+var _ctx = $("meta[name='_ctx']");
+var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
+
+var url4 ="http://"+ip+"/adminuser/usuarios";
+
+
+
+var list2=null;
+      $.ajax({
+     type : "GET",
+     url : url4,
+     dataType: "json",
+    data: {users: list2},
+    
+     success : function(result) {
+     	console.log(result);
+        $('#selectUsers').html("");
+        var salida=' <option value="0">Selecciona el usuario:</option>';
+         
+           $.each(result,function(key, val) {
+                 salida+=' <option value="'+val.id+'">'+ val.firstName+" "+ val.lastName +'</option>';
+
+ 	});
+           $('#selectUsers').append(salida);
+}
+      });
+      
+      
+     
+</script>
+  
+       
+        
+      <input type="text" id="roleName">Añadir Role </input> <button class="btn" onclick="añadirRole()">
+      
+      <script>
+      function añadirRole(){
+    	  var url4 ="http://"+ip+"/adminuser/usuarios";
+    	  
+    	  var nombreRole = $('#roleName').text();
+    	  
+
+    	  var list2=null;
+    	        $.ajax({
+    	       type : "GET",
+    	       url : url4,
+    	      data: {name: nombreRole},
+    	      
+    	       success : function(result) {
+    	       	
+    	          $('#selectRoles').html("");
+    	          var salida= "";
+    	  }
+    	        });
+      } 
+      
+      </script>
+    
+</th:block>

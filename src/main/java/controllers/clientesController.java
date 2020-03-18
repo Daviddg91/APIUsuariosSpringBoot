@@ -20,7 +20,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/users")
 //@CrossOrigin(origins ={"http://localhost:9090","http://78.30.47.216:9090", "http://78.30.47.216:8080","http://192.168.1.133:8080","http://192.168.1.133:9090"})
-public class UsuariosController {
+public class clientesController {
 
     @Autowired
     private ClientesFacade clientesFacade;
