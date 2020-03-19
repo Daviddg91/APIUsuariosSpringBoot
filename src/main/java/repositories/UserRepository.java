@@ -1,14 +1,9 @@
 package repositories;
 
 import java.util.List;
-import java.util.Set;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import entidades.Role;
 import entidades.User;
 
 @Repository
@@ -41,8 +36,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	
 	 List findRolesbyUserRoles(@Param("userId") Long idUsuario);
   */
-	@Query("select u from User u ")
+/*	@Query("select u from User u ")
 	 List findRolesbyUserRoles(@Param("userId") Long idUsuario);
- 
+ */
  
 }

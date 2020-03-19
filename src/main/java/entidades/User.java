@@ -10,6 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Embeddable
 public class User {
 
     @Id
@@ -25,11 +26,11 @@ public class User {
    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private  Collection<Role> roles;
  */
-   @ManyToMany(fetch = FetchType.EAGER, targetEntity = User_roles.class , cascade = CascadeType.ALL)
+   @OneToMany(fetch = FetchType.EAGER, targetEntity = User_roles.class , cascade = CascadeType.ALL)
    private Set<User_roles> user_roles;
    
     /* Aqui carga los roles */
-   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Collection<Role> roles;
     
      
@@ -46,12 +47,13 @@ public class User {
         this.password = password;
     }
 
-    public User(String firstName, String lastName, String email, String password, Collection < Role > roles) {
+    public User(String firstName, String lastName, String email, String password, Collection < Role > roles, Set<User_roles> usr_roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-       // this.roles =  roles;
+        this.roles =  roles;
+        this.user_roles =  usr_roles;
     }
 
     public Long getId() {

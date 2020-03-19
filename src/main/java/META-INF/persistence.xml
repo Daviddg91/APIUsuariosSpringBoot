@@ -5,5 +5,5 @@
 		<class>entidades.Role</class>
 		<class>entidades.User</class>
 		<class>entidades.User_roles</class>
-	</persistence-unit>
+ 	</persistence-unit>
 </persistence>

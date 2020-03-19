@@ -28,19 +28,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/css/**",
                             "/img/**",
                             "/webjars/**").permitAll()
-                    .anyRequest().anonymous()
+                    .anyRequest().permitAll()
+                     
                     .and()
                     .formLogin()
-                        .loginPage("/login")
-                            .permitAll()
+                        .loginPage("/login").permitAll()      
+                        .and()
+                        .formLogin().loginPage("/login")
+                           .defaultSuccessUrl("/welcome")
                 .and()
                     .logout()
-                        .invalidateHttpSession(true)
+                     /*   .invalidateHttpSession(true)
                         .clearAuthentication(true)
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))*/
                         .logoutSuccessUrl("/login?logout")
-                .permitAll();
-    }
+                        
+                .permitAll()
+                .and().csrf().disable();
+     }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){

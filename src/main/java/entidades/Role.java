@@ -25,9 +25,9 @@ public class Role {
     public Role(String name) {
         this.name = name;
     }
-/*    @OneToMany(targetEntity = User_roles.class , fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = User_roles.class)
     private Collection < User_roles > user_roles;
-    */
+    
  
     public Long getId() {
         return id;

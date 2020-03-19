@@ -15,6 +15,7 @@ import entidades.Role;
 import entidades.User;
 import repositories.RolesRepository;
 import repositories.UserRepository;
+import repositories.User_rolesRepository;
 
 @RestController("")
 public class userController {
@@ -23,7 +24,9 @@ public class userController {
 	UserRepository userRepository;
 	@Autowired
 	RolesRepository rolesRepository;
-	 
+	/*@Autowired
+	User_rolesRepository user_rolesRepository;
+	*/
 	   @GetMapping("adminuser/usuarios")
 	    List<User> listaUsuarios() {
 		   
@@ -44,5 +47,10 @@ public class userController {
 	        return listaRoles;
 	 
 	    }
-	
+	 /*  @GetMapping("adminuser/rolesbyIDdUser")
+	    List buscarRolesusuarios(@RequestParam("userId") Long idUsuario) {
+	        List listaRoles =  user_rolesRepository.findRolesbyUserRolesById(idUsuario);
+	        return listaRoles;
+	 
+	    }*/
 }
