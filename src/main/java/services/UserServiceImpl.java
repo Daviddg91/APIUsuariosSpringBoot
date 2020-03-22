@@ -1,7 +1,10 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import entidades.Role;
 import entidades.User;
+import repositories.RolesRepository;
 import repositories.UserRepository;
 import dto.UserRegistrationDto;
 
@@ -22,21 +26,47 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private RolesRepository roleRepository;
+    @Autowired 
+    RolesService roleService;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     public User findByEmail(String email){
         return userRepository.findByEmail(email);
     }
-
+    public Optional<User> findById(Long id){
+        return userRepository.findById(id);
+    }
+   
     public User save(UserRegistrationDto registration){
-        User user = new User();
+    	
+    	Optional<Role> roleCanFound = roleService.returnRepeatRole("ROLE_USER");
+        Collection<Role> roles = new ArrayList();
+        
+		if(roleCanFound.isPresent()) {
+			Role roleFound =  roleCanFound.get();
+			  roles.add(roleFound);
+        	
+        }else {
+        	Role role = new Role("ROLE_USER");
+        	
+       	 
+            roles.add(role);
+        	
+           
+        	
+        }
+ 
+         User user = new User();
+       
+       
         user.setFirstName(registration.getFirstName());
         user.setLastName(registration.getLastName());
         user.setEmail(registration.getEmail());
         user.setPassword(passwordEncoder.encode(registration.getPassword()));
-        user.setRoles(Arrays.asList(new Role("ROLE_USER")));
+        user.setRoles(roles);
         return userRepository.save(user);
     }
 
@@ -56,4 +86,7 @@ public class UserServiceImpl implements UserService {
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
     }
+ 
+    
+    
 }

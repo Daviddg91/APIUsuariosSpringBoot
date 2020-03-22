@@ -7,6 +7,8 @@
  
                  <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
  
+ <input type="hidden" id="idUser">
+ Usuarios:
 <div class="form-group blu-margin" style="max-width:35%">
     <select id="selectUsers" class="form-control"   >
    
@@ -20,10 +22,35 @@
 var _ctx = $("meta[name='_ctx']");
 var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
 
-var url4 ="http://"+ip+"/adminuser/usuarios";
+function cargaRoles(){
+    var url4 ="http://"+ip+"/adminuser/roles";
 
+  	  var list2=null;
+	        $.ajax({
+	       type : "GET",
+	       url : url4,
 
+	       success : function(result) {
+	          $('#selectAllRoles').html("");
+	         var salida=' <option value="0">Selecciona el Rol:</option>';
 
+	          
+	           $.each(result,function(key, val) {
+	        	salida+='<option  value="'+ val.name + '" > '+val.name +'</option>';
+	 	});
+		          $('#selectAllRoles').append(salida);
+
+	  }
+	        });
+	        $("#selectAllRoles").change(function(){
+	        	 var nombreRole = $(this).children("option:selected").val();
+	        	$("#roleName").val(nombreRole);
+	        	$("#roleDeleteName").val(nombreRole);
+	        });
+}
+
+function cargaUsuarios(){
+	var url4 ="http://"+ip+"/adminuser/usuarios";
 var list2=null;
       $.ajax({
      type : "GET",
@@ -32,7 +59,7 @@ var list2=null;
     data: {users: list2},
     
      success : function(result) {
-     	console.log(result);
+   
         $('#selectUsers').html("");
         var salida=' <option value="0">Selecciona el usuario:</option>';
          
@@ -44,35 +71,190 @@ var list2=null;
 }
       });
       
-      
-     
-</script>
-  
-       
-        
-      <input type="text" id="roleName">Añadir Role </input> <button class="btn" onclick="añadirRole()">
-      
-      <script>
-      function añadirRole(){
-    	  var url4 ="http://"+ip+"/adminuser/usuarios";
-    	  
-    	  var nombreRole = $('#roleName').text();
-    	  
+} 
+cargaUsuarios();
 
-    	  var list2=null;
+</script>
+<div class="d-flex">
+    <div class="form-group  col-6" style="">
+  Roles del usuario: </br>
+    <div id="selectUsersRoles" class="form-control w-100"   >
+   
+
+
+
+    </div>
+</div>
+      <script>
+      function RecargaRolesUsuario(){
+          var url4 ="http://"+ip+"/adminuser/RolesbyUser";
+             var idUser = document.getElementById("idUser").value;
+        	  var list2=null;
     	        $.ajax({
     	       type : "GET",
     	       url : url4,
-    	      data: {name: nombreRole},
+    	       data:{
+    	    	   userId : idUser
+    	    	   
+    	       },
+    	       
     	      
     	       success : function(result) {
-    	       	
-    	          $('#selectRoles').html("");
-    	          var salida= "";
+     	          $('#selectUsersRoles').html("");
+    	          var salida="";
+    	          
+    	           $.each(result,function(key, val) {
+    	        	salida+= val.name + '</br>';
+    	 	});
+    		          $('#selectUsersRoles').append(salida);
+
     	  }
     	        });
+    	        
+        
+     }
+      
+      function cargaRolesUsuario(){
+      var url4 ="http://"+ip+"/adminuser/RolesbyUser";
+
+      
+      $("#selectUsers").change(function(){
+          var idUser = $(this).children("option:selected").val();
+          document.getElementById("idUser").value = idUser;
+          cargaRoles();
+    	  var list2=null;
+	        $.ajax({
+	       type : "GET",
+	       url : url4,
+	       data:{
+	    	   userId : idUser
+	    	   
+	       },
+	       
+	      
+	       success : function(result) {
+ 	          $('#selectUsersRoles').html("");
+	          var salida="";
+	          
+	           $.each(result,function(key, val) {
+	        	salida+= val.name + '</br>';
+	 	});
+		          $('#selectUsersRoles').append(salida);
+
+	  }
+	        });
+	        
+      });
+ }
+      cargaRolesUsuario();
+      
+      
+      </script> 
+  <div class="form-group   col-6" style="">
+ Todos los Roles: </br>
+    <select  id="selectAllRoles" class="form-control"   >
+   
+
+
+
+    </select >
+</div>
+      <script>
+  
+     
+      
+      </script> 
+   </div>     
+   <div class="d-flex" >
+   <div class="col-6"> 
+      <input type="text" disabled  id="roleName"></input> <button class="btn" onclick="añadirRoleaUsuario()">Añadir Roles </button>
+      </div>
+      <script>
+      function añadirRoleaUsuario(){
+    	  
+          var idUser = document.getElementById("idUser").value;
+
+    	  var url4 ="http://"+ip+"/adminuser/AñadirRolesUser";
+    	  
+    	  var nombreRole = $('#roleName').val();
+    	    
+          $.ajax({
+   	       type : "GET",
+   	       url : url4,
+   	    	data: { 
+ 	   	   userId : idUser,
+	       roleName : nombreRole
+ 	      },
+   	       
+   	      
+   	       success : function(result) {
+			console.log("hola" + result);
+			RecargaRolesUsuario();
+
+   	  }
+   	        });
+          
       } 
       
       </script>
-    
+       <div class="col-6 d-flex"> 
+        <div class="col-6"> 
+         <input type="text"    id="roleNewName"></input> <button class="btn" onclick="añadirRole()">Añadir Roles </button>
+      </div>
+       <div class="col-6"> 
+      <input type="text" disabled  id="roleDeleteName"></input> <button class="btn" onclick="borrarRole()">Borrar Roles </button>
+      </div>
+      </div>
+      <script>
+      function añadirRole(){
+    	  
+          var idUser = document.getElementById("idUser").value;
+
+    	  var url4 ="http://"+ip+"/adminuser/AñadirNewRoles";
+    	  
+    	  var nombreRole = $('#roleNewName').val();
+    	 
+          $.ajax({
+   	       type : "GET",
+   	       url : url4,
+   	    	data: { 
+	       roleName : nombreRole
+ 	      },
+   	       
+   	      
+   	       success : function(result) {
+			console.log(result);
+			cargaRoles();
+
+   	  }
+   	        });
+          
+      } 
+  function  borrarRole(){
+    	  
+          var idUser = document.getElementById("idUser").value;
+
+    	  var url4 ="http://"+ip+"/adminuser/borrarRole";
+    	  
+    	  var nombreRole = $('#roleDeleteName').val();
+    	 
+          $.ajax({
+   	       type : "GET",
+   	       url : url4,
+   	    	data: { 
+	       roleName : nombreRole
+ 	      },
+   	       
+   	      
+   	       success : function(result) {
+			console.log(result);
+			cargaRoles();
+			$('#roleDeleteName').val("");
+   	  }
+   	        });
+          
+      } 
+     
+      </script>
+    </div>
 </th:block>

@@ -21,22 +21,19 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-    /* Asi es como veria */
-  /*  
-   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private  Collection<Role> roles;
- */
-   @OneToMany(fetch = FetchType.EAGER, targetEntity = User_roles.class , cascade = CascadeType.ALL)
-   private Set<User_roles> user_roles;
-   
+ 
     /* Aqui carga los roles */
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  /*  @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))*/
     private Collection<Role> roles;
     
      
-  /*  @OneToOne(fetch = FetchType.EAGER, targetEntity = User_roles.class)
-    private Collection<User_roles> user_roles;
-    */
+  
     
     public User() {}
 
@@ -47,14 +44,13 @@ public class User {
         this.password = password;
     }
 
-    public User(String firstName, String lastName, String email, String password, Collection < Role > roles, Set<User_roles> usr_roles) {
+    public User(String firstName, String lastName, String email, String password, Collection < Role > roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.roles =  roles;
-        this.user_roles =  usr_roles;
-    }
+     }
 
     public Long getId() {
         return id;
@@ -98,16 +94,6 @@ public class User {
 	 
 
  
- 
- 
-
-	public Set<User_roles> getUser_roles() {
-		return user_roles;
-	}
-
-	public void setUser_roles(Set<User_roles> user_roles) {
-		this.user_roles = user_roles;
-	}
 
 	public Collection<Role> getRoles() {
 		return roles;
@@ -137,7 +123,7 @@ public class User {
             ", lastName='" + lastName + '\'' +
             ", email='" + email + '\'' +
             ", password='" + "*********" + '\'' +
-          //  ", roles=" + roles +
+            ", roles=" + roles +
              
             '}';
     }

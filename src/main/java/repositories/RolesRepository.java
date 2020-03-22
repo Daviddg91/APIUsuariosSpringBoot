@@ -19,5 +19,15 @@ public interface RolesRepository extends JpaRepository<Role, Long> {
 	 
 	
 	  //@Query("SELECT r FROM Role r join fetch r.role_id  where r.user_id = :userId ")
-	 
+ 
+		@Query("select u.roles from User u ")
+		 List<Role> findRoles();
+		@Query("select r.name from Role r")
+		 List<String> findRolesNames();
+		
+		@Query("select r.name from Role r where name = :role_name")
+		 Role findRolesByNames(@Param("role_name") String role_name);
+
+	/*	@Query("delete from User_roles where roles_id= :roleId")
+		Role deleteRelation(@Param("roleId") Long long1);*/
 }
