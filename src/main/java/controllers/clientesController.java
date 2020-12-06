@@ -40,11 +40,11 @@ public class clientesController {
     }
     
     @RequestMapping(path = "/addCliente", method = RequestMethod.POST,consumes = {"multipart/form-data"})
-    public String añadirCliente(@ModelAttribute @Valid clientesFileupload clienteFileUploadModel) {
+    public String añadirCliente(@ModelAttribute @Valid clientesFileupload clienteFileUploadModel , @ModelAttribute @Valid Clientes cliente1) {
     	 
     	MultipartFile imagen = clienteFileUploadModel.getImage();
     	
-    	return clientesFacade.addClient(clienteFileUploadModel,imagen);
+    	return clientesFacade.addClient(cliente1, imagen);
 
     	
     	

@@ -46,7 +46,7 @@ import javax.validation.constraints.Size;
         //  @Pattern(regexp="^(0|[1-9][0-9]*)$", message="Introduzca numeros en el Codigo postal")
         @Range(min = 1000,max = 999999, message="Introduzca un Codigo Postal correcto")
         @NotNull (message="El Codigo Postal no puede quedar vacio")
-        private int cp;
+        private Integer cp;
         // @Pattern(regexp = "[0-9]+", message = "holaholaholas")
     
         

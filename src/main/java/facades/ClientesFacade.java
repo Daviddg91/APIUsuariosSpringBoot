@@ -55,7 +55,7 @@ public class ClientesFacade {
 
           return (Clientes) cliente1;
      }
-     public String addClient(clientesFileupload clienteNew, MultipartFile imagen) {
+     public String addClient(Clientes clienteNew, MultipartFile imagen) {
     	 boolean conimagen=false ;
     	 if(imagen!=null) {
     	 if(!imagen.isEmpty()) {
