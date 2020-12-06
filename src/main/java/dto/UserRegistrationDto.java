@@ -1,6 +1,8 @@
 package dto;
 
 
+import java.io.File;
+
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -36,6 +38,16 @@ public class UserRegistrationDto {
     @AssertTrue
     private Boolean terms;
 
+    public File getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(File avatar) {
+		this.avatar = avatar;
+	}
+
+	private File avatar;
+    
     public String getFirstName() {
         return firstName;
     }

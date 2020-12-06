@@ -16,7 +16,9 @@ public class NifValidator implements ConstraintValidator<Nif, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-
+        if(value==null) {
+            return false;
+        }
         final Matcher matcher = mask.matcher(value);
 
         if(!matcher.matches()){

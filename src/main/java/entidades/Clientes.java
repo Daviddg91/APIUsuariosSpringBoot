@@ -9,6 +9,8 @@ import org.hibernate.validator.constraints.Range;
  import validators.Nif;
 import validators.UniqueNif;
 
+import java.util.Collection;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -52,16 +54,16 @@ import javax.validation.constraints.Size;
        /* @Range(min = 100000000,max = 999999999L, message="Introduzca un Telefono correcto")
         @Max(value = 999999999L, message="El telefono tiene demasiados digitos")*/
         @NotNull (message="El telefono no puede quedar vacio")
-        @Min(value = 100000000, message="El telefono tiene demasiados digitos")
-        @Max(value = 999999999L, message="El telefono tiene demasiados digitos")
+        @Min(value = 99999, message="El telefono tiene pocos digitos")
+        @Max(value = 999999999, message="El telefono tiene demasiados digitos")
 	
         private String telefono;
         @javax.validation.constraints.Email(message="Escriba un email valido")
         @javax.validation.constraints.NotEmpty(message="El correo no puede quedar vacio")
         private String correo;
+        private String imagen;
 
-
-
+    
 
     }
 

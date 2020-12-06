@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    
+     			
+     
+     
+                    
+                       
+                
+<div class="modal fade" id="exampleModalBorrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmación</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="mensajeBorrar" class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" onclick="borrarProductoConfirmado()" class="btn btn-primary">Borrar cliente</button>
+      </div>
+    </div>
+  </div>
+</div> 
+  <!-- Modal exito -->
+   
+                <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
+   
+ <script type="text/javascript">
+ 
+ 
+    
+ 
+ function borrarCliente(){
+	 var nombre = document.getElementById("nombreParam").value;
+     
+	 $(document).ready(function(){
+		  
+		 	$("#mensajeBorrar").html("Desea borrar a el producto "+ nombre +"?");
+		    $('#exampleModalBorrar').modal('show');
+
+               
+	  });
+
+ }
+ </script>
+ 
+ 
+    			<div th:include="pages/crud/productos/modalExitoBorrar"> content here </div>
+ 
+ <script>
+ var _ctx = $("meta[name='_ctx']");
+ var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
+ 
+ function borrarProductoConfirmado(){
+	 var dni=document.getElementById("isbnParam").value;
+	 
+    var url4 ="http://"+ip+"/products?eliminarISBN="+ dni;
+	 var list2=null;
+     $.ajax({
+    type : "POST",
+    url : url4,
+   data: {users: list2},
+   
+    success : function(result) {
+    	
+    	 $(document).ready(function(){
+    		 $('#exampleModalBorrar').modal('hide');
+    	    	$("#mensajeBorrar2").html("Producto borrado con exito");
+    	        $('#exampleModalBorrar2').modal('show');
+    	         setTimeout(function(){
+    	        $('#exampleModalBorrar2').modal('hide');
+    	           }, 2000);     
+    	         setTimeout(function(){
+    	        	    var baseUrl = /*[[@{/productosVista}]]*/'';
+                        location.href = baseUrl;
+    	         
+    	         }, 2700);  
+ 	  });
+    	
+    },
+    error : function(result) {
+    	 console.log(result);
+   	 $(document).ready(function(){
+   		$("#mensajeBorrar2").html("El Producto no fue borrado");
+        $('#exampleModalBorrar2').modal('show');
+         setTimeout(function(){
+        $('#exampleModalBorrar2').modal('hide');
+
+
+           }, 2000);
+	  });
+    
+    	
+    }
+});   
+     
+	
+}
+  
+     
+</script>  
+
+ 
+

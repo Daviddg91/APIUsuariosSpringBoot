@@ -15,7 +15,7 @@ import entidades.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 	User findByEmail(String email);
 	List<User> findAll();
-	
+	 
 	
 	
  
@@ -26,11 +26,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	 List<Role> findRolesbyUserRoles(@Param("userId") Long idUsuario);
 	
 	@Query("select u.roles from User u where u.id = :userId")
-	 List<Role> InsertRolesToUser(@Param("userId") Long idUsuario);
+	 List<Role> GetRolesFromUser(@Param("userId") Long idUsuario);
 
 	@Query("select u from User u where u.id = :userId")
 	  Optional<User> findById(@Param("userId") Long idUsuario);
-	 
-	 
+ 	 
+	
 	  
 }

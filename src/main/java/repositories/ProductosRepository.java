@@ -8,19 +8,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import entidades.Productos;
 import entidades.Role;
-import entidades.User_roles;
-
- 
+import entidades.User;
 
 @Repository
-public interface UserRolesRepository extends JpaRepository<User_roles, Long> {
-	 
-
-		@Query("selec ur from User_roles ur where roles_id= :roleId")
-		User_roles getUserRoleById(@Param("roleId") Long long1);
-
-		 
-}
-
+public interface ProductosRepository extends JpaRepository<Productos, Long> {
  
+	
+	@Query("select u from Productos u where u.isbn = :isbn")
+	  Optional<Productos> findByIsbn(@Param("isbn") String isbn);
+	  
+}

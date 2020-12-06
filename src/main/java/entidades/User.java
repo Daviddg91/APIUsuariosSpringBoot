@@ -3,7 +3,7 @@ package entidades;
 
 import javax.persistence.*;
 
- 
+import java.io.File;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -15,21 +15,23 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
     private Long id;
 
     private String firstName;
     private String lastName;
     private String email;
     private String password;
- 
+    private File avatar; 
+    
     /* Aqui carga los roles */
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  /*  @JoinTable(
+    @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(
                     name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))*/
+                    name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
     
      
@@ -37,7 +39,15 @@ public class User {
     
     public User() {}
 
-    public User(String firstName, String lastName, String email, String password) {
+    public File getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(File avatar) {
+		this.avatar = avatar;
+	}
+
+	public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

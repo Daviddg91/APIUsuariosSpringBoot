@@ -70,16 +70,16 @@ const foo  = window.location.href;
   
 var url_string = window.location.href;
 var url = new URL(url_string);
-var searchParamDNI = url.searchParams.get("dni");
+var searchParam = url.searchParams.get("isbnProduct");
      
 var _ctx = $("meta[name='_ctx']");
 var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
 
-   buscarUsuario();
+   buscarProducto();
   
-     function buscarUsuario(){
+     function buscarProducto(){
            
-         var url = "http://"+ip+"/users?dni="+searchParamDNI;
+         var url = "http://"+ip+"/products?isbnProduct="+searchParam;
  
        var list2=null;
              $.ajax({
@@ -91,14 +91,11 @@ var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
                  
                
                  
+               document.getElementById("nomenclatura").value=result.nomenclatura;
                document.getElementById("nombre").value=result.nombre;
-               document.getElementById("apellidos").value=result.apellidos;
-               document.getElementById("dni").value= result.dni;
-               document.getElementById("telefono").value = result.telefono;
-               document.getElementById("correo").value = result.correo;
-               document.getElementById("cp").value = result.cp;
-               document.getElementById("edad").value = result.edad; 
-               document.getElementById("direccion").value = result.direccion;
+               document.getElementById("isbn").value= result.isbn;
+               document.getElementById("descripcion").value = result.descripcion;
+  
               
           },
           error: function (xhr, ajaxOptions, thrownError) {
@@ -115,39 +112,33 @@ var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
     }
 var error1;
 
-     function rellenarUsuario(){
+     function rellenarProducto(){
   
        
-          var nombre = document.getElementById("nombre").value;
-         var apellidos = document.getElementById("apellidos").value;
-         var dni = document.getElementById("dni").value;
-          var telefono = document.getElementById("telefono").value;
-          var correo = document.getElementById("correo").value;
-          var cp = document.getElementById("cp").value;
-          var edad = document.getElementById("edad").value;
-          var direccion = document.getElementById("direccion").value;
+          var nomenclatura = document.getElementById("nomenclatura").value;
+         var nombre = document.getElementById("nombre").value;
+         var isbn = document.getElementById("isbn").value;
+          var descripcion = document.getElementById("descripcion").value;
+ 
             let json1 = [];
              json1= {
-             nombre : nombre,
-                 edad  : edad,
-                 cp : cp,
-                 direccion : direccion,
-                 telefono : telefono,
-                 dni : dni,
-                 apellidos : apellidos,
-                 correo : correo};
+            		 nomenclatura : nomenclatura,
+            		 nombre  : nombre,
+            		 isbn : isbn,
+            		 descripcion : descripcion
+             };
             
            
-             
+            
              $.ajax({
             type : "PUT", 
-            url : "http://"+ip+"/users",
+            url : "http://"+ip+"/products",
             contentType: 'application/json',
             data:JSON.stringify(json1),
              dataType: "json",
             success: function (xhr, ajaxOptions, thrownError) {
         
-            	
+            
          //   alert("hola2");
           },
          error: function(xhr, status, error) {
@@ -162,7 +153,7 @@ var error1;
                    setTimeout(function(){
                   $('#exampleModal2').modal('hide');
                   location.reload();
-                  
+
                      }, 2000);
 
              }else{
@@ -175,39 +166,24 @@ var error1;
             let json2=JSON.parse(jsonError);
             
             
-            if(document.getElementById("nombre").value!=""){
+            if(document.getElementById("nomenclatura").value!=""){
+                
+                $('#'+"nomenclatura").addClass("alertExito");
+            }
+              if(document.getElementById("nombre").value!=""){
                 
                 $('#'+"nombre").addClass("alertExito");
             }
-              if(document.getElementById("apellidos").value!=""){
-                
-                $('#'+"apellidos").addClass("alertExito");
-            }
            
-              if(document.getElementById("dni").value!=""){
+              if(document.getElementById("isbn").value!=""){
                 
-                $('#'+"dni").addClass("alertExito");
+                $('#'+"isbn").addClass("alertExito");
             }
-              if(document.getElementById("telefono").value!=""){
+              if(document.getElementById("descripcion").value!=""){
                 
-                $('#'+"telefono").addClass("alertExito");
+                $('#'+"descripcion").addClass("alertExito");
             }
-              if(document.getElementById("correo").value!=""){
-                
-                $('#'+"correo").addClass("alertExito");
-            }
-              if(document.getElementById("cp").value!=""){
-                
-                $('#'+"cp").addClass("alertExito");
-            }
-              if(document.getElementById("edad").value!=""){
-                
-                $('#'+"edad").addClass("alertExito");
-            }
-                if(document.getElementById("direccion").value!=""){
-                
-                $('#'+"direccion").addClass("alertExito");
-            }
+              
         
              
               for (let i in json2) {
@@ -232,25 +208,25 @@ var error1;
   
      
 </script>     
-                    <div>Nombre:
-            <input type="text"  id="nombre" class="form-control" /></div>
-            <div class="alerta" id="div-nombre"></div>
+                    <div>Nomenclatura:
+            <input type="text"  id="nomenclatura" class="form-control" /></div>
+            <div class="alerta" id="div-nomenclatura"></div>
             
                     
             
-                            <div>Apellidos:
-                <input type="text" class="form-control" id="apellidos"/>
+                            <div>Nombre:
+                <input type="text" class="form-control" id="nombre"/>
                 </div>
-                        <div class="alerta" id="div-apellidos"></div>
+                        <div class="alerta" id="div-nombre"></div>
            
                      
                      
                     
                        
-                        <div>DNI:
-                            <input type="text" class="form-control" id="dni"/>
+                        <div>ISBN:
+                            <input type="text" class="form-control" id="isbn"/>
                             </div>
-                         <div class="alerta" id="div-dni">
+                         <div class="alerta" id="div-isbn">
                             
                         </div>
                   
@@ -258,60 +234,17 @@ var error1;
                      
                      
                     
-    <div>     Correo:
-           <input type="text" class="form-control"   id="correo"/>
+    <div>     Descripcion:
+           <input type="text" class="form-control"   id="descripcion"/>
            </div>
-                            <div class="alerta" id="div-correo"></div>
+                            <div class="alerta" id="div-descripcion"></div>
 
                     
-                     
-                     
-                     
-                                        
-
-                                            <div>     Telefono:
-                                                <input  class="form-control" id="telefono" type="number"/></div>
-                <div class="alerta" id="div-telefono"></div>
-                                       
-                     
-                     
-                     
-                                              
-           <div>Dirección:
-            <input type="text"  class="form-control" id="direccion"/> </div>
-            <div class="alerta" id="div-direccion"></div>
-           
-                           
-                     
-                     
-                     
                
-            <div>Codigo Postal:
-                <input  class="form-control" id="cp" type="number" /></div>
-                
-                            <div class="alerta" id="div-cp"></div>
-            
-                     
-                     
-                     
-                
-             
-                 <div> Edad:
-           <select id="edad" class="form-control" style="max-width:35%;" value="Edades"  >              
-    <option th:each="i: ${#numbers.sequence(18, 99)}" th:value="${i}"  th:utext="${i}"></option>
-
- 
-	 
-           </select><br/>   
-               </div>
-                <div class="alerta" id="div-edad"></div> 
-            
-                       
-                <button class="btn btn-success" onclick="rellenarUsuario();" value ="Modificar">Modificar </button>
+                <button class="btn btn-success" onclick="rellenarProducto();" value ="Modificar">Modificar </button>
            <!--Modal -->
          
 			<div th:include="pages/crud/modalExitoCrear"> content here </div>
-           
-</th:block>
+        </th:block>
 </html>
 

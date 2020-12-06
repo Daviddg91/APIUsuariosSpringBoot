@@ -10,6 +10,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import dto.clientesFileupload;
 import services.ClientesService;
 
 import javax.validation.Valid;
@@ -26,13 +29,25 @@ public class clientesController {
     private ClientesFacade clientesFacade;
     @Autowired
     private ClientesService cleintesService;
-    @GetMapping("/welcome")
-    public String welcome() {
-        return "welcome";
-    }
+ 
     @PostMapping
     public String añadirCliente(@RequestBody @Valid Clientes cliente) {
-        return clientesFacade.addClient(cliente);
+    	
+    	return clientesFacade.addClient(cliente);
+
+    	
+    	
+    }
+    
+    @RequestMapping(path = "/addCliente", method = RequestMethod.POST,consumes = {"multipart/form-data"})
+    public String añadirCliente(@ModelAttribute @Valid clientesFileupload clienteFileUploadModel) {
+    	 
+    	MultipartFile imagen = clienteFileUploadModel.getImage();
+    	
+    	return clientesFacade.addClient(clienteFileUploadModel,imagen);
+
+    	
+    	
     }
     @PutMapping
     public String modificarCliente(@RequestBody @Valid ModifyClientes modifyClientes){

@@ -7,11 +7,18 @@ import entidades.ModifyClientes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import dto.clientesFileupload;
 import services.ClientesService;
 
 import javax.persistence.OrderBy;
 import javax.script.ScriptException;
 import java.awt.print.Book;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -48,11 +55,90 @@ public class ClientesFacade {
 
           return (Clientes) cliente1;
      }
+     public String addClient(clientesFileupload clienteNew, MultipartFile imagen) {
+    	 boolean conimagen=false ;
+    	 if(imagen!=null) {
+    	 if(!imagen.isEmpty()) {
+    		 Path directorioGuardado = Paths.get("src//main//resources//static/uploads");
+    		 String rutaAbsoluta = directorioGuardado.toFile().getAbsolutePath();
+    		 try {
+				byte[] bytesImg = imagen.getBytes();
+				Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+				Files.write(rutaCompleta, bytesImg);
+				conimagen = true;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	 }
+    	 }
+    	 Clientes cliente2 = null;
+         String resultado = "";
+         
+    	 if (conimagen) {
+    		
+                      cliente2 = Clientes
+                              .builder()
+                              .dni(clienteNew.getDni())
+                              .nombre(clienteNew.getNombre())
+                              .apellidos(clienteNew.getApellidos())
+                              .correo(clienteNew.getCorreo())
+                              .direccion(clienteNew.getDireccion())
+                              .cp(clienteNew.getCp())
+                              .telefono(clienteNew.getTelefono())
+                              .edad(clienteNew.getEdad())
+                              .imagen(imagen.getOriginalFilename())
+                              .build();
 
+                      cliente2 = clientesService.save(cliente2);
+                       
+    		 
+    	 }else{
+
+             cliente2 = Clientes
+                     .builder()
+                     .dni(clienteNew.getDni())
+                     .nombre(clienteNew.getNombre())
+                     .apellidos(clienteNew.getApellidos())
+                     .correo(clienteNew.getCorreo())
+                     .direccion(clienteNew.getDireccion())
+                     .cp(clienteNew.getCp())
+                     .telefono(clienteNew.getTelefono())
+                     .edad(clienteNew.getEdad())
+                     .imagen("")
+                     .build();
+
+             cliente2 = clientesService.save(cliente2);
+              
+    	 }
+    	   if (cliente2 != null) {
+               resultado = "Cliente creado con exito";
+          }
+          return resultado;
+     }
      public String addClient(Clientes clienteNew) {
-          Clientes cliente2 = null;
-          String resultado = "";
 
+    	 Clientes cliente2 = null;
+         String resultado = "";
+         
+    	 
+                  cliente2 = Clientes
+                          .builder()
+                          .dni(clienteNew.getDni())
+                          .nombre(clienteNew.getNombre())
+                          .apellidos(clienteNew.getApellidos())
+                          .correo(clienteNew.getCorreo())
+                          .direccion(clienteNew.getDireccion())
+                          .cp(clienteNew.getCp())
+                          .telefono(clienteNew.getTelefono())
+                          .edad(clienteNew.getEdad())
+                          .imagen(clienteNew.getImagen())
+                          .build();
+
+                  cliente2 = clientesService.save(cliente2);
+                  clienteNew.setId(cliente2.getId());
+    		 
+    /*	 }else {
                cliente2 = Clientes
                        .builder()
                        .dni(clienteNew.getDni())
@@ -67,7 +153,7 @@ public class ClientesFacade {
 
                cliente2 = clientesService.save(cliente2);
                clienteNew.setId(cliente2.getId());
-
+    	 }*/
           if (cliente2 != null) {
                resultado = "Cliente creado con exito";
           }

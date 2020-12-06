@@ -4,6 +4,7 @@
 		<class>entidades.Clientes</class>
 		<class>entidades.Role</class>
 		<class>entidades.User</class>
-		<class>entidades.User_roles</class>
+		<class>entidades.Productos</class>
+		<class>entidades.Pedidos</class>
  	</persistence-unit>
 </persistence>

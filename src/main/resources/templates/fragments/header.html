@@ -1,20 +1,85 @@
 <!-- Navbar -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <header>
+  <style>
+       .navbar{
+          padding: unset;
+      
+      }
+      #superior a {
+      line-height:3;
+      }
+        #superior i {
+      line-height:2;
+      }
+      </style>
+  </header>
+      
+ 
 <div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
  
-    	<div class=" alignLeft">
+    	<div class=" alignLeft h-100">
 	
 	    
-			<div id="superior" class=" col-12 col-md-12 col-xs-12 col-lg-12 col-xl-12 d-flex  justify-content-between ">
-			
+			<div id="superior" class="h-100 col-12 col-md-12 col-xs-12 col-lg-12 col-xl-12 d-flex  justify-content-between ">
+			 	<div sec:authorize="!isAuthenticated()">
+			 	<a href="#" th:href="@{/login}">
+				 	<div class="d-flex">
+					 	<div class="mr-2"><i class="fas fa-sign-in-alt"style="font-size:25px;color:white;"></i></div>
+					 	<div>Login</div>
+				 	</div>
+				 	</a>
+			 	</div>
 				  <div><a href="#" th:href="@{/saludo}">Saludo</a></div>
-			   <div><a href="#" th:href="@{/loremipsum}">loremipsum</a></div>
-                <div><a href="#" th:href="@{/clientesVista}">clientesVista</a></div>
-                <div><a href="#" th:href="@{/tecnologias}">TecnologiasAleatorias</a></div>
-                <div><a href="#" th:href="@{/editarCliente}">Pedidos</a></div>
-                <div><a href="#" th:href="@{/}">ADMINistracion</a></div>
+			 	  <div><a href="#" th:href="@{/pedidos}">Pedidos</a></div>			 	  
+            	 <div><a href="#" th:href="@{/clientesVista}">clientesVista</a></div>
+            	 <div><a href="#" th:href="@{/productosVista}">ProductosVista</a></div>
+            	  <div><a href="#" th:href="@{/tecnologias}">TecnologiasAleatorias</a></div>
+           	      <div th:if="${#httpServletRequest.isUserInRole('ROLE_ADMIN')}" ><a href="#" th:href="@{/adminuser}">ADMINistracion</a></div>
+			 	<div sec:authorize="isAuthenticated()">
+			 		<a href="#" th:href="@{/logout}">
+			 			<div class="d-flex">
+			 				<div class="mr-2"><i class="fas fa-sign-out-alt"style="font-size:25px;color:white;"></i></div>
+			 				<div style="    display: contents;">Logout cuenta:<span id="nombreLogout"   ></span></div>
+			 			</div>
+			 		</a>
+			 	</div>
+			
 			</div>
-		
 		 
+		 <script th:inline="javascript">
+		 var _ctx = $("meta[name='_ctx']");
+		 var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
+		 
+   	 
+
+    var principal = /*[[${#authentication.principal}]]*/ ;
+    if(principal.username!=null){
+    	  console.log(principal.username);
+    	  var url4 ="http://"+ip+"/userLogin/userById";
+    	  
+    	    $.ajax({
+    	  	       type : "GET",
+    	  	       url : url4,
+    	  	    	data: { 
+    		       email : principal.username
+    		      },
+    	  	       
+    	  	      
+    	  	       success : function(result) {
+    				console.log(result);
+    			 $("#nombreLogout").html(result.firstName);
+    				 
+    				
+    	  	  }
+    	  	        });
+    }
+  
+
+ 
+</script>
         <!--/.nav-collapse -->
     </div>
       <div id="botonBurguer">
@@ -28,14 +93,30 @@
 		  
     	 <div id="slideMenu" class=" estilosCollapsableMenu displayNone      ">
 			
-			 <div><a href="#" th:href="@{/saludo}">Saludo</a></div>
-			   <div><a href="#" th:href="@{/loremipsum}">loremipsum</a></div>
-                <div><a href="#" th:href="@{/clientesVista}">clientesVista</a></div>
-                <div><a href="#" th:href="@{/tecnologias}">TecnologiasAleatorias</a></div>
-                <div><a href="#" th:href="@{/}">Pedidos</a></div>
-                <div><a href="#" th:href="@{/}">ADMINistracion</a></div>
-			</div>   
+	 	<div sec:authorize="!isAuthenticated()">
+		 	<a href="#" th:href="@{/login}">
+		 	<div class="d-flex">
+			 	<div class="mr-2"><i class="fas fa-sign-in-alt"style="font-size:25px;color:white;"></i></div>
+			 	<div>Login</div>
+			 </div>
+		 	</a>
+	 	</div>
+				  <div><a href="#" th:href="@{/saludo}">Saludo</a></div>
+			 	  <div><a href="#" th:href="@{/pedidos}">Pedidos</a></div>
+            	 	   <div><a href="#" th:href="@{/clientesVista}">clientesVista</a></div>
+            	 	    <div><a href="#" th:href="@{/productosVista}">ProductosVista</a></div>
+            	    <div><a href="#" th:href="@{/tecnologias}">TecnologiasAleatorias</a></div>
+           	      <div th:if="${#httpServletRequest.isUserInRole('ROLE_ADMIN')}" ><a href="#" th:href="@{/adminuser}">ADMINistracion</a></div>
+			 	<div sec:authorize="isAuthenticated()">
+				 	<a href="#" th:href="@{/logout}">
+				 	<div class="d-flex">
+					 	<div class="mr-2"><i class="fas fa-sign-out-alt"style="font-size:25px;color:white;"></i></div>
+					 	<div style="    display: contents;">Logout cuenta:<span th:text="${#authentication.principal.username}" ></span></div>
+				 	</div>
+			 		</a>
+			 	</div>
+						</div>   
 			</div>  
 </div>
- 
+ </html>
 

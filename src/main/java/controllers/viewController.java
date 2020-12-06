@@ -44,7 +44,11 @@ class viewController {
     	
     	return "pages/inicios/"+ inicio;
     }
-    
+    @GetMapping("/pedidos")
+    String pedidos() {
+ 
+    	return "pages/pedidos";
+    }
     @GetMapping("/loremipsum")
     String loremipsum() {
     	
@@ -72,11 +76,23 @@ class viewController {
     }
     @GetMapping("/login")
     public String login(Model model) {
-        return "pages/login";
+        return "pages/admin/login";
     }
     @RequestMapping("/adminuser" )
     String paginaAdminUsers( ) {
          return "pages/admin/usersRoles";
  
+    }
+    @RequestMapping("/productosVista")
+    String paginaProductosVista( ) {
+         return "pages/crud/productos/productosVista";
+    }
+    @RequestMapping("/crearProducto" )
+    String paginaCrearProducto( ) {
+        return "pages/crud/productos/CrearProductos";
+    }
+    @RequestMapping("/editarProducto" )
+    String paginaEditarProducto( ) {
+        return "pages/crud/productos/editarProducto";
     }
 }

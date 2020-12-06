@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,9 +16,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.WebContext;
 
 import entidades.Role;
 import entidades.User;
+import io.micrometer.core.ipc.http.HttpSender.Request;
 import repositories.RolesRepository;
 import repositories.UserRepository;
 import dto.UserRegistrationDto;
@@ -51,8 +55,7 @@ public class UserServiceImpl implements UserService {
         	
         }else {
         	Role role = new Role("ROLE_USER");
-        	
-       	 
+
             roles.add(role);
         	
            
@@ -67,12 +70,14 @@ public class UserServiceImpl implements UserService {
         user.setEmail(registration.getEmail());
         user.setPassword(passwordEncoder.encode(registration.getPassword()));
         user.setRoles(roles);
+      //  user.setAvatar(registration.getAvatar());
         return userRepository.save(user);
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
+ 
         if (user == null){
             throw new UsernameNotFoundException("Invalid username or password.");
         }

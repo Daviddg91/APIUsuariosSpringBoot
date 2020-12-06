@@ -78,141 +78,154 @@ var c = url.searchParams.get("dni");
      
 
 var error1;
+/*var avatarBytes ="";
+document.querySelector('#avatar').addEventListener('change', function() {
 
+	  var reader = new FileReader();
+	  reader.onload = function() {
 
+	    var arrayBuffer = this.result,
+	      array = new Uint8Array(arrayBuffer),
+	      binaryString = String.fromCharCode.apply(null, array);
 
-     function rellenarUsuario(){
+	    console.log(binaryString);
+
+	  }
+	   avatarBytes = reader.readAsArrayBuffer(this.files[0]);
+
+	}, false);*/
+
+ 
+    	 
   
-       
-          var nombre = document.getElementById("nombre").value;
-         var apellidos = document.getElementById("apellidos").value;
-         var dni = document.getElementById("dni").value;
-          var telefono = document.getElementById("telefono").value;
-          var correo = document.getElementById("correo").value;
-          var cp = document.getElementById("cp").value;
-          var edad = document.getElementById("edad").value;
-          var direccion = document.getElementById("direccion").value;
-            let json1 = [];
-             json1= {
-             nombre : nombre,
-                 edad  : edad,
-                 cp : cp,
-                 direccion : direccion,
-                 telefono : telefono,
-                 dni : dni,
-                 apellidos : apellidos,
-                 correo : correo};
             
-           
-            
-             $.ajax({
-            type : "POST", 
-            url : "http://"+ip+"/users",
-            contentType: 'application/json',
-            data:JSON.stringify(json1),
-             dataType: "json",
-            success: function (xhr, ajaxOptions, thrownError) {
-            	
-          	  $(document).ready(function(){
-        		  
-                  $('#exampleModal2').modal('show');
-                  setTimeout(function(){
-                      $('#exampleModal2').modal('hide');
-                      location.reload();
+	$( document ).ready(function() {
+		
+		
+		
+        $("#submitPeticionButton").click(function(event) {
+        	event.preventDefault();
+		var form = $('#form1')[0];
 
-                         }, 2000);
-        	  });
-         
-          },
-             error: function(xhr, status, error) {
-                $("div[id^='div-']").empty();
-               $("input").removeClass("alertIcon");
-               $("input").removeClass("alertExito");
-             // alert(xhr.status);
-                 if(JSON.stringify(xhr.status)==200){
-                     var mensaje=JSON.stringify(xhr.responseText);
-                 $("#mensaje1").append(mensaje);
-                  $('#exampleModal2').modal('show');
-                   setTimeout(function(){
-                  $('#exampleModal2').modal('hide');
+            	 var data = new FormData(form);
  
-                     }, 2000);
+                         
+                         $.ajax({
+                             type: "POST",
+                             url: "http://"+ip+"/users/addCliente",
+                             data: data,
+                             enctype: 'multipart/form-data',
+                             processData: false, 
+                             contentType: false,
+                             cache: false,
+                             responseType: 'text',
+                          success: function (xhr, ajaxOptions, thrownError) {
+                               $("#mensaje1").append(xhr);
+                                $('#exampleModal2').modal('show');
+                                 setTimeout(function(){
+                              	   setTimeout(function(){
+                                         $('#exampleModal2').modal('hide');
+                                         var baseUrl = /*/crearCliente*/'';
+                                         location.href = baseUrl;
+                                            }, 1000);
+                                   }, 2000);
+                     	  $(document).ready(function(){
+                   		  
+                             $('#exampleModal2').modal('show');
+                             setTimeout(function(){
+                                 $('#exampleModal2').modal('hide');
+                                 
 
-             }else{
-                   
-              
- 
-            json1=JSON.parse(xhr.responseText);
-             
-            jsonError=JSON.stringify(json1.errors);
-            let json2=JSON.parse(jsonError);
-            
-            
-            if(document.getElementById("nombre").value!=""){
-                
-                $('#'+"nombre").addClass("alertExito");
-            }
-              if(document.getElementById("apellidos").value!=""){
-                
-                $('#'+"apellidos").addClass("alertExito");
-            }
-           
-              if(document.getElementById("dni").value!=""){
-                
-                $('#'+"dni").addClass("alertExito");
-            }
-              if(document.getElementById("telefono").value!=""){
-                
-                $('#'+"telefono").addClass("alertExito");
-            }
-              if(document.getElementById("correo").value!=""){
-                
-                $('#'+"correo").addClass("alertExito");
-            }
-              if(document.getElementById("cp").value!=""){
-                
-                $('#'+"cp").addClass("alertExito");
-            }
-              if(document.getElementById("edad").value!=""){
-                
-                $('#'+"edad").addClass("alertExito");
-            }
-                if(document.getElementById("direccion").value!=""){
-                
-                $('#'+"direccion").addClass("alertExito");
-            }
-        
-             
-              for (let i in json2) {
-                var elementID=JSON.stringify(json2[i].field);
-                 elementID=elementID.replace(/['"]+/g, '');
-                 
-                var  elementIdDiv="div-"+elementID;
+                                    }, 2000);
+                   	  });
+                    
+                     },
+                        error: function(xhr, status, error) {
+                           $("div[id^='div-']").empty();
+                          $("input").removeClass("alertIcon");
+                          $("input").removeClass("alertExito");
+                        // alert(xhr.status);
+                           
+                              
+                         
+                      json1=JSON.parse(xhr.responseText);
+                       jsonError=JSON.stringify(json1.errors);
+                       let json2=JSON.parse(jsonError);
+                       
+                       
+                       if(document.getElementById("nombre").value!=""){
+                           
+                           $('#'+"nombre").addClass("alertExito");
+                       }
+                         if(document.getElementById("apellidos").value!=""){
+                           
+                           $('#'+"apellidos").addClass("alertExito");
+                       }
                       
-                  $('#'+elementIdDiv).html('<div id="errores" class="alert2" >'+JSON.stringify(json2[i].defaultMessage)+"</div>"+"");
-                 $('#'+elementID).removeClass("alertExito");
-                  $('#'+elementID).addClass("alertIcon");
-                  
-          }
-             }
-}
-         
+                         if(document.getElementById("dni").value!=""){
+                           
+                           $('#'+"dni").addClass("alertExito");
+                       }
+                         if(document.getElementById("telefono").value!=""){
+                           
+                           $('#'+"telefono").addClass("alertExito");
+                       }
+                         if(document.getElementById("correo").value!=""){
+                           
+                           $('#'+"correo").addClass("alertExito");
+                       }
+                         if(document.getElementById("cp").value!=""){
+                           
+                           $('#'+"cp").addClass("alertExito");
+                       }
+                         if(document.getElementById("edad").value!=""){
+                           
+                           $('#'+"edad").addClass("alertExito");
+                       }
+                           if(document.getElementById("direccion").value!=""){
+                           
+                           $('#'+"direccion").addClass("alertExito");
+                       }
+                   
+                        
+                         for (let i in json2) {
+                           var elementID=JSON.stringify(json2[i].field);
+                            elementID=elementID.replace(/['"]+/g, '');
+                            
+                           var  elementIdDiv="div-"+elementID;
+                                 
+                             $('#'+elementIdDiv).html('<div id="errores" class="alert2" >'+JSON.stringify(json2[i].defaultMessage)+"</div>"+"");
+                            $('#'+elementID).removeClass("alertExito");
+                             $('#'+elementID).addClass("alertIcon");
+                             
+                     }
+                        
+                        }
+                    
 
+                       
+                   });   
+                         });
             
-        });   
-          
-    }
+
+     });
+     
+
+    
   
+
      
 </script>     
+    <form id="form1" enctype="multipart/form-data"  >
+
                  <div>Nombre:
-            <input type="text"  id="nombre" class="form-control" /></div>
+            <input type="text"  id="nombre" name="nombre" class="form-control" /></div>
             <div class="alerta" id="div-nombre"></div>
             
                     
             
                             <div>Apellidos:
-                <input type="text" class="form-control" id="apellidos"/>
+                <input type="text" class="form-control" id="apellidos" name="apellidos"/>
                 </div>
                         <div class="alerta" id="div-apellidos"></div>
            
@@ -221,7 +234,7 @@ var error1;
                     
                        
                         <div>DNI:
-                            <input type="text" class="form-control" id="dni"/>
+                            <input type="text" class="form-control" id="dni" name="dni"/>
                             </div>
                          <div class="alerta" id="div-dni">
                             
@@ -232,7 +245,7 @@ var error1;
                      
                     
     <div>     Correo:
-           <input type="text" class="form-control"   id="correo"/>
+           <input type="text" class="form-control"   id="correo" name="correo"/>
            </div>
                             <div class="alerta" id="div-correo"></div>
 
@@ -243,7 +256,7 @@ var error1;
                                         
 
                                             <div>     Telefono:
-                                                <input  class="form-control" id="telefono" type="number"/></div>
+                                                <input  class="form-control" name="telefono" id="telefono" type="number"/></div>
                 <div class="alerta" id="div-telefono"></div>
                                        
                      
@@ -251,7 +264,7 @@ var error1;
                      
                                               
            <div>Dirección:
-            <input type="text"  class="form-control" id="direccion"/> </div>
+            <input type="text"  class="form-control" name="direccion" id="direccion"/> </div>
             <div class="alerta" id="div-direccion"></div>
            
                            
@@ -260,7 +273,7 @@ var error1;
                      
                
             <div>Codigo Postal:
-                <input  class="form-control" id="cp" type="number" /></div>
+                <input  class="form-control" id="cp" name="cp" type="number" /></div>
                 
                             <div class="alerta" id="div-cp"></div>
             
@@ -270,7 +283,7 @@ var error1;
                 
              
                  <div> Edad:
-           <select id="edad" class="form-control" style="max-width:35%;" value="Edades"  >              
+           <select id="edad" name="edad" class="form-control" style="max-width:35%;" value="Edades"  >              
     <option th:each="i: ${#numbers.sequence(18, 99)}" th:value="${i}"  th:utext="${i}"></option>
 
  
@@ -278,9 +291,14 @@ var error1;
            </select><br/>   
                </div>
                 <div class="alerta" id="div-edad"></div> 
-            
+         <label for="avatar">Elige una imagen de avatar:</label>
+
+<input type="file"
+       id="avatar" name ="image"
+       accept="image/png, image/jpeg"/><br> </br>
                        
-                <button class="btn btn-success" onclick="rellenarUsuario();" value ="Crear cliente">Crear Cliente </button>
+                <button class="btn btn-success" id="submitPeticionButton"  value ="Crear cliente">Crear Cliente </button>
+     </form>
            <!--Modal -->
             
 			<div th:include="pages/crud/modalExitoCrear"> content here </div>

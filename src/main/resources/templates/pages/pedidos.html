@@ -1,0 +1,637 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+  <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+      
+  <th:block layout:fragment="content">     
+ 	  <script type="text/javascript" th:src="@{/js/jquery.tablesorter.js}"></script>
+	 
+	   <link th:href="@{/css/datatables.css}" rel="stylesheet" type="text/css"/>
+	  <link th:href="@{/css/dataTables.bootstrap4.min.css}" rel="stylesheet" type="text/css"/>
+	  
+	<script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/dataTables.responsive.js}"></script>
+                   <script type="text/javascript" th:src="@{/js/dataTableSelect.js}"></script>
+               
+             <style>
+              .next a {padding-right: 85px!important;}
+.previous a {padding-right: 85px!important;}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0.5em 0.2em!important;
+
+}
+
+
+.main {
+    width: 70%;
+    margin: 50px auto;
+}
+
+#buscboton{
+   min-height:38px;
+   height: 0%;
+   min-width: 110px;
+    margin-left:30.5%;
+}
+
+
+
+
+
+
+.has-search .form-control-feedback {
+    right: initial;
+    left: 0;
+    color: #ccc;
+}
+
+.has-search .form-control {
+    padding-right: 12px;
+    padding-left: 34px;
+}  
+        .rot180 {
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	rotation: 180deg;
+        }
+           .rot0 {
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	rotation: 0deg;
+        }
+.triangulo  {
+ cursor:pointer;
+ color:green;
+ margin-left: 3.4%;
+}
+#buscresultClientes{
+    text-align: left;
+    
+}
+#spantri {
+  display: flex;
+  
+  
+   justify-content:space-between;
+  align-content: space-around;
+  
+}
+#padrebusc{
+     
+   display: flex;
+
+   
+}
+#buscresultClientes a {
+    min-width:100px;
+    max-width:20%;
+    max-height:20%;
+}
+
+#buscresultClientes a {
+    
+    display: flex;
+   justify-content: center;
+   align-items: center;
+    
+}
+ body a {
+    
+    display: flex;
+   justify-content: center;
+   align-items: center;
+    
+}
+.flexcolumn{
+     display: flex;
+  flex-direction: column;
+    
+    
+}
+body{
+    background-color: white;
+}
+#tablebody a {
+    
+    margin-top: 5px;
+}
+.cursor{
+    cursor: pointer;
+    
+}
+#buscboton{
+    margin: 0;
+    margin-left: 30px;
+}
+ 
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-top-color:#00c851;
+  border-bottom-color: #00c851;
+  
+  
+  
+   max-width:45px;
+ width:45px;
+ max-height:34px;
+ height:34px;
+}
+ 
+
+.pagination a.active {
+  background-color: #00c851;
+  color: white;
+  border: 1px solid #00c851;
+  border-radius: 0px;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+.pagination a:hover:first-child {background-color: #00c851;}
+.pagination a:hover:last-child {background-color: #00c851;}
+
+.pagination a:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: #00c851;
+  color:white;
+}
+
+.pagination a:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+    background-color: #00c851;
+  color:white;
+}
+             </style>  
+              
+                
+      
+                
+                <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
+                <div class="d-flex" >
+                     <div id="contenido" class="col-5">
+                <h1>Listado de Clientes</h1>    
+   
+            
+     
+ 
+                  
+                    <div class="">
+        <table id="buscresultClientes" class="table table-responsive table-bordered table-striped table-hover">
+            <thead>
+          <tr>
+            <th>ID</th>
+   
+            <th class="" ><div id=" " ><div>Nombre</div></div></th>
+            <th class=""   ><div id=" "><div>Apellidos</div></div></div></th>
+            <th class=""  ><div id=" "><div>DNI</div></div> </th>
+            <th class=""  ><div id=" "><div>Correo</div></div></th>
+            <th class=""  ><div id=" "><div>Telefono</div></div> </th>
+            <th class=""  ><div id=" "><div>Direccion</div></div></th>
+            <th class=""  ><div id=" "><div>CP</div></div></th>
+            <th class=""   ><div id=" "><div>Edad</div></div></th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+            
+          </tr>
+             
+            </thead>
+         
+       
+    <tbody id="tablebodyClientes">
+        
+        </tbody>
+         </table>
+                        </div>
+ 
+
+     </div>     
+                 <div id="contenido" class="col-6">
+                <h1>Listado de Productos</h1>    
+   
+            
+     
+ 
+                  
+                    <div class="">
+        <table id="productResult" class="table table-responsive table-bordered table-striped table-hover">
+            <thead>
+          <tr>
+            <th>ID</th>
+   
+            <th class="" ><div id=" " ><div>Nomenclatura</div></div></th>
+            <th class=""   ><div id=" "><div>Nombre</div></div></div></th>
+            <th class=""  ><div id=" "><div>ISBN</div></div> </th>
+            <th class=""  ><div id=" "><div>Descripcion</div></div></th>
+            
+         
+            
+          </tr>
+             
+            </thead>
+         
+       
+    <tbody id="tablebodyProducts">
+        
+        </tbody>
+         </table>
+                        </div>
+ 
+
+     </div>       
+    </div>            
+             <script  th:inline="javascript"  >
+            
+         var    clienteSelect   ="";    
+         var tablaPedidos ="";
+         var  productoSelect="";
+     mostrarUsuarios();
+
+     var _ctx = $("meta[name='_ctx']");
+     var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
+	
+	  
+    function mostrarUsuarios(){
+      
+
+  
+      var url4 ="http://"+ip+"/users";
+      
+    
+      
+       var list2=null;
+             $.ajax({
+            type : "GET",
+            url : url4,
+            dataType: "json",
+           data: {users: list2},
+           
+            success : function(result) {
+            	
+               $('#tablebodyClientes').html("");
+                  $.each(result,function(key, val) {
+                var clase = "class='btn btn-success'";  
+              var  dni="'" + val.dni + "'";
+ 			    var editar =' <button type="submit" class="btn btn-success" onclick="pasarUrl('+"'"+ val.dni+"'"+')" > Editar </button></form>';
+
+        
+        var  nombre="'" + val.nombre + "'";
+        var onclickElDni='parametroDni('+ nombre + ','+ dni + ')';
+               var div1='  <div onclick="'+onclickElDni + '">';
+                var boton1='<button type="button" id="botondni" class="btn btn-success"  data-toggle="modal" data-target="#exampleModal" >Eliminar</button>';
+ 
+  
+  
+  
+  
+var eliminar=div1+boton1+'</div>';
+
+var htmlrow ="<tr>"+"<td><div>" + val.id + "</td></div>"+"<td><div>" + val.nombre + "</td></div>"+"<td><div>" + val.apellidos + "</td></div>"+"<td><div>" + val.dni + "</td></div>"+"<td><div>" + val.correo + "</td></div>"+"<td><div>" + val.telefono + "</td></div>"+"<td><div>" + val.direccion + "</td></div>"+"<td><div>" + val.cp + "</td></div>"+"<td><div>" + val.edad + "</td></div>"+"<td><div>" +  editar + "</td></div>"+"<td><div>" +  eliminar + "</td></div>"+"</tr>";         
+             $('#tablebodyClientes').append(htmlrow);
+        });
+                  $(document).ready(function(){
+                	var tableClientes =  $('#buscresultClientes').DataTable({
+            			  responsive: true,
+            			  "info": false,
+            			  "bPaginate": true,
+          			    "bLengthChange": true,
+            			    
+            			    select: {
+            		            style: 'single'
+            		        },
+            			    //para cambiar el lenguaje a español
+            		        "language": {
+            		                "lengthMenu": "Mostrar _MENU_ registros",
+            		                "zeroRecords": "No se encontraron resultados",
+            		                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            		                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            		                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            		                "sSearch": "Buscar:",
+            		                "oPaginate": {
+            		                    "sFirst": "Primero",
+            		                    "sLast":"Último",
+            		                    "sNext":"Siguiente",
+            		                    "sPrevious": "Anterior"
+            					     },
+            					     "sProcessing":"Procesando...",
+            		            }
+            		    });     
+                	 $('#buscresultClientes tbody').on( 'click', 'tr', function () {
+                           clienteSelect = tableClientes.row( this ).data();
+                         
+                          
+                      /*   var div = document.createElement(div);
+                         div.innerHTML = clienteSelect[0];
+                         var text = div.textContent || div.innerText || "";*/
+                      } );
+                	 
+            	  }); 
+                  
+                  
+                 
+                  
+            } 
+           
+        });   
+             
+           
+             
+             
+    }
+   
+    function pasarUrl(dni){
+    	 var baseUrl = /*[[@{/editarCliente}]]*/'';
+         location.href = baseUrl + "?dni=" + dni;
+    	
+
+    }
+    
+    function quitarhtml(cadena){
+    	 
+    	var div = document.createElement("div");
+    	div.innerHTML = cadena;
+    	var text = div.textContent || div.innerText || "";
+    	return text;
+    }
+    function generaPedido(Cliente,Producto){
+  
+		
+
+		
+		
+		 
+		  var htmlRowPedidos  ="<tr>"+"<td><div>" + quitarhtml(Cliente[1]) + "</td></div>"+"<td><div>" + quitarhtml(Cliente[2]) + "</td></div>"+"<td><div>" + quitarhtml(Cliente[3]) + "</td></div>"+"<td><div>" + quitarhtml(Producto[1]) + "</td></div>"+"<td><div>" + quitarhtml(Producto[3]) + "</td></div>"+"<td><input type='number' min='1' value='1'><td><div class='d-flex justify-content-center' style='cursor:pointer;' ><i class='far fa-trash-alt icon-delete'></i></td></div></tr>";
+		  $.fn.dataTable.ext.errMode = 'throw';
+        $('#tablebodyPedidos').append(htmlRowPedidos);
+        
+       
+ 
+	}
+    $("body").on('click', 'i.icon-delete', function() {
+    	  $(this).closest('tr').remove();
+    	  compruebaBotonRealizarPedido();
+    	});
+    function realizarPedido(){
+         var myTableArray = [];
+    	$("table#tablaPedidos tr").each(function() {
+    	    var arrayOfThisRow = [];
+    	    var tableData = $(this).find('td');
+    	   if (tableData.length > 0) {
+    		   var i=0;
+    	        tableData.each(function() {
+    	        	if(i==2){
+         	        	arrayOfThisRow.push($(this).text());
+    	        	}
+    	        	if(i==4){
+         	        	arrayOfThisRow.push($(this).text());
+    	        	}
+    	        	if(i==5){
+        	        	arrayOfThisRow.push($(this).find("input[type='number']").val());
+    	        	}
+    	        i++;	
+    	        });
+    	        
+    	        myTableArray.push(arrayOfThisRow);
+    	    }
+    	});
+		
+    	
+    	
+        var url4 ="http://"+ip+"/pedidos";
+        
+        for (var i = 0; i < myTableArray.length; i++) {
+        	  var list2=null;
+              $.ajax({
+             type : "POST",
+             url : url4,
+            data: {dni: myTableArray[i][0],
+            isbn : myTableArray[i][1],
+            unidades : myTableArray[i][2]
+            },
+            
+            
+             success : function(result) {
+            	delete myTableArray[i];
+            	console.log(result);
+             }
+         });
+        	}
+       
+              
+        $("#tablebodyPedidos").html("");
+   
+        
+    }
+    mostrarProductos();
+    function mostrarProductos(){
+  	    
+  	  
+        var url4 ="http://"+ip+"/products";
+        
+      
+        
+         var list2=null;
+               $.ajax({
+              type : "GET",
+              url : url4,
+              dataType: "json",
+             data: {users: list2},
+             
+              success : function(result) {
+                  $('#tablebodyProducts').html("");
+                    $.each(result,function(key, val) {
+                  var clase = "class='btn btn-success'";  
+                var  dni="'" + val.dni + "'";
+   			    var editar =' <button type="submit" class="btn btn-success" onclick="pasarUrl('+"'"+ val.dni+"'"+')" > Editar </button></form>';
+
+          
+          var  nombre="'" + val.nombre + "'";
+          var onclickElDni='parametroDni('+ nombre + ','+ dni + ')';
+                 var div1='  <div onclick="'+onclickElDni + '">';
+                  var boton1='<button type="button" id="botondni" class="btn btn-success"  data-toggle="modal" data-target="#exampleModal" >Eliminar</button>';
+   
+    
+    
+    
+    
+  var eliminar=div1+boton1+'</div>';
+
+  var htmlrow ="<tr>"+"<td><div>" + val.id + "</td></div>"+"<td><div>" + val.nomenclatura + "</td></div>"+"<td><div>" + val.nombre + "</td></div>"+"<td><div>" + val.isbn + "</td></div>"+"<td><div>" + val.descripcion + "</td></div></tr>";         
+               $('#tablebodyProducts').append(htmlrow);
+          });
+                    $(document).ready(function(){
+                  	var tableProduct =  $('#productResult').DataTable({
+              			  responsive: true,
+              			  "info": false,
+              			   "bPaginate": false,
+              			    "bLengthChange": false,
+              			    select: {
+              		            style: 'single'
+              		        },
+              			    //para cambiar el lenguaje a español
+              		        "language": {
+              		                "lengthMenu": "Mostrar _MENU_ registros",
+              		                "zeroRecords": "No se encontraron resultados",
+              		                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+              		                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+              		                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+              		                "sSearch": "Buscar:",
+              		                "oPaginate": {
+              		                    "sFirst": "Primero",
+              		                    "sLast":"Último",
+              		                    "sNext":"Siguiente",
+              		                    "sPrevious": "Anterior"
+              					     },
+              					     "sProcessing":"Procesando...",
+              		            }
+              		    });     
+                  	 $('#productResult tbody').on( 'dblclick', 'tr', function () {
+                             productoSelect = tableProduct.row( this ).data();
+                            
+                            
+                          var div = document.createElement(div);
+                           div.innerHTML = productoSelect[0];
+                           
+                           generaPedido(clienteSelect,productoSelect );
+                           
+                          
+                       } );
+                  	 
+              	  }); 
+                    
+                    
+                   
+                    
+              } 
+             
+          });   
+               
+             
+               
+               
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+$(document).ready(function() {
+ 
+  $("table").tablesorter();
+	 
+  $('#exampleModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus');
+});
+  
+});
+
+
+
+
+
+
+   
+   
+</script>
+  			 <div class="col-12  d-flex justify-content-center"><h2>Tabla de pedidos</h2></div>
+  			 <div class="col-12 d-flex justify-content-center"> 
+  			 
+  			 <table id="tablaPedidos" class="table table-responsive table-bordered table-striped table-hover">
+            <thead>
+          <tr>
+            
+               <th class="" ><div id=" " ><div>Nombre</div></div></th>
+	            <th class=""   ><div id=" "><div>Apellidos</div></div></div></th>
+	            <th class=""  ><div id=" "><div>DNI</div></div> </th>
+	            <th class="" ><div id=" " ><div>Nomenclatura Producto</div></div></th>
+	            <th class=""  ><div id=" "><div>ISBN</div></div> </th>
+             <th class=""  ><div id=" "><div>Unidades</div></div> </th>
+           
+                        <th class=""  ><div id=" "><div>Borrar pedido</div></div> </th>
+           
+            
+         
+            
+          </tr>
+             
+            </thead>
+         
+       
+    <tbody id="tablebodyPedidos">
+        
+        </tbody>
+         </table>
+  			 
+  			 
+  			 
+  			 </div>
+  			 <div class="d-flex justify-content-end " >
+  			 <button id="botonRealizarPedido" class='btn btn-success'   onclick='realizarPedido()'>Realizar Pedido </button>
+  			 </div>
+  			 
+ <script>
+ compruebaBotonRealizarPedido();
+function compruebaBotonRealizarPedido(){
+	 $('table').dblclick(function(){
+		// console.log($("#tablebodyPedidos tr").length);
+		  if($("#tablebodyPedidos tr").length>0){
+			    
+			    $('#botonRealizarPedido').prop("disabled", false);
+
+		  }else{
+			  
+			  $('#botonRealizarPedido').prop("disabled", true);
+
+		  }
+	 });
+	 if($("#tablebodyPedidos tr").length>0){
+		 
+		    $('#botonRealizarPedido').prop("disabled", false);
+
+	  }else{
+		  
+		  $('#botonRealizarPedido').prop("disabled", true);
+
+	  }
+}
+
+		   
+	   
+	
+
+ 
+
+	 
+	 
+ 
+
+	
+	 
+ 
+ 
+ 
+ 
+ </script>
+    
+
+  
+                
+      
+    
+</th:block>

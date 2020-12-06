@@ -43,7 +43,11 @@ button#menu:focus +  #superior {
     display: block;
 }
 
- #superior div { margin-left:8px; color:violet; background:rgba(215, 211, 44, 0.2); border-radius:20px; 
+ #superior > div {
+  margin-left:8px; 
+  color:violet;
+   background:#e9ecef5c;
+    border-radius:5px; 
  padding-left:10px; 
  padding-right:10px;}
 #botonBurguer{display:none; }

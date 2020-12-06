@@ -50,6 +50,12 @@ public class userController {
 		   return  listaRoles;
 				    	 
 	    }
+	   @GetMapping("userLogin/userById")
+	    User buscarUsuariosPorEmail(@RequestParam("email") String email) {
+	        User user =  userRepository.findByEmail(email);
+	        return user;
+	    }
+	   
 	   @GetMapping("adminuser/byUser")
 	    List buscarUsuarios(@RequestParam("userId") Long idUsuario) {
 	        List listaRoles =  userRepository.findRolesbyUser(idUsuario);
@@ -75,11 +81,18 @@ public class userController {
 	        return listaRoles;
 	 
 	    }
-	  @GetMapping("adminuser/borrarRole")
-	    String borrarRole(@RequestParam("roleName") String roleName) {
-	        String listaRoles =  rolesFascades.borrarRole(roleName);
+	  @GetMapping("adminuser/borrarRoleaUsuario")
+	    String borrarRoleUsuario(@RequestParam("roleName") String roleName,@RequestParam("idUser") Long idUser) {
+	        String listaRoles =  rolesFascades.borrarRoleUser(idUser,roleName);
 	       
 	        
+	        return listaRoles;
+	 
+	    }
+	  @GetMapping("adminuser/borrarRolePorCompleto")
+	    String borrarRolePorCompleto(@RequestParam("roleName") String roleName) {
+	        String listaRoles =  rolesFascades.borrarRolePorCompleto(roleName);
+	       
 	        return listaRoles;
 	 
 	    }
