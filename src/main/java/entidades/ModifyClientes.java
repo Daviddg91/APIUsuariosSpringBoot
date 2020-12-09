@@ -50,7 +50,7 @@ import javax.validation.constraints.Size;
         @javax.validation.constraints.Email(message="Escriba un email valido")
         @javax.validation.constraints.NotEmpty(message="El correo no puede quedar vacio")
         private String correo;
-
+        private String imagen;
 
 
 

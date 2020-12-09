@@ -74,17 +74,17 @@ var searchParamDNI = url.searchParams.get("dni");
      
 var _ctx = $("meta[name='_ctx']");
 var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
-
+var url = "http://"+ip+"/users";
    buscarUsuario();
   
      function buscarUsuario(){
            
-         var url = "http://"+ip+"/users?dni="+searchParamDNI;
+         var urlUser = "http://"+ip+"/users?dni="+searchParamDNI;
  
        var list2=null;
              $.ajax({
             type : "GET", 
-            url : url,
+            url : urlUser,
             dataType: "json",
            
              success: function (result) {
@@ -99,7 +99,10 @@ var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
                document.getElementById("cp").value = result.cp;
                document.getElementById("edad").value = result.edad; 
                document.getElementById("direccion").value = result.direccion;
-              
+              if(result.imagen){
+            	  var imagen = buscarFichero(result.imagen);
+            	//  console.log(imagen);
+              }
           },
           error: function (xhr, ajaxOptions, thrownError) {
               
@@ -113,133 +116,164 @@ var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
        
         
     }
-var error1;
+     var imagen = "";
+     function buscarFichero(filename){
+    	 //console.log(filename);
+    	 var result = "";
+    	    $.ajax({
+                type : "GET", 
+                url : url+"/files/"+filename,
+                responseType: "string",
+               
+                 success: function (result) {
+                     
+				//console.log(result);
+                    imagen = result;
+                    var arrFilePath = result.split("static");
+                //    console.log(arrFilePath );
+                    $("#imagenFile").attr("src",arrFilePath[1]);
 
-     function rellenarUsuario(){
-  
-       
-          var nombre = document.getElementById("nombre").value;
-         var apellidos = document.getElementById("apellidos").value;
-         var dni = document.getElementById("dni").value;
-          var telefono = document.getElementById("telefono").value;
-          var correo = document.getElementById("correo").value;
-          var cp = document.getElementById("cp").value;
-          var edad = document.getElementById("edad").value;
-          var direccion = document.getElementById("direccion").value;
-            let json1 = [];
-             json1= {
-             nombre : nombre,
-                 edad  : edad,
-                 cp : cp,
-                 direccion : direccion,
-                 telefono : telefono,
-                 dni : dni,
-                 apellidos : apellidos,
-                 correo : correo};
-            
-           
-             
-             $.ajax({
-            type : "PUT", 
-            url : "http://"+ip+"/users",
-            contentType: 'application/json',
-            data:JSON.stringify(json1),
-             dataType: "json",
-            success: function (xhr, ajaxOptions, thrownError) {
-        
-            	
-         //   alert("hola2");
-          },
-         error: function(xhr, status, error) {
-                $("div[id^='div-']").empty();
-               $("input").removeClass("alertIcon");
-               $("input").removeClass("alertExito");
-             // alert(xhr.status);
-                 if(JSON.stringify(xhr.status)==200){
-                     var mensaje=JSON.stringify(xhr.responseText);
-                 $("#mensaje1").append(mensaje);
-                  $('#exampleModal2').modal('show');
-                   setTimeout(function(){
-                  $('#exampleModal2').modal('hide');
-                  location.reload();
-                  
-                     }, 2000);
-
-             }else{
+              },
+              error: function (xhr, ajaxOptions, thrownError) {
+                  console.log("error"+xhr);
                    
-              
- 
-            json1=JSON.parse(xhr.responseText);
              
-            jsonError=JSON.stringify(json1.errors);
-            let json2=JSON.parse(jsonError);
-            
-            
-            if(document.getElementById("nombre").value!=""){
-                
-                $('#'+"nombre").addClass("alertExito");
-            }
-              if(document.getElementById("apellidos").value!=""){
-                
-                $('#'+"apellidos").addClass("alertExito");
-            }
-           
-              if(document.getElementById("dni").value!=""){
-                
-                $('#'+"dni").addClass("alertExito");
-            }
-              if(document.getElementById("telefono").value!=""){
-                
-                $('#'+"telefono").addClass("alertExito");
-            }
-              if(document.getElementById("correo").value!=""){
-                
-                $('#'+"correo").addClass("alertExito");
-            }
-              if(document.getElementById("cp").value!=""){
-                
-                $('#'+"cp").addClass("alertExito");
-            }
-              if(document.getElementById("edad").value!=""){
-                
-                $('#'+"edad").addClass("alertExito");
-            }
-                if(document.getElementById("direccion").value!=""){
-                
-                $('#'+"direccion").addClass("alertExito");
-            }
-        
-             
-              for (let i in json2) {
-                var elementID=JSON.stringify(json2[i].field);
-                 elementID=elementID.replace(/['"]+/g, '');
-                 
-                var  elementIdDiv="div-"+elementID;
-                      
-                  $('#'+elementIdDiv).html('<div id="errores" class="alert2" >'+JSON.stringify(json2[i].defaultMessage)+"</div>"+"");
-                 $('#'+elementID).removeClass("alertExito");
-                  $('#'+elementID).addClass("alertIcon");
-                  
-          }
-             }
-}
-         
+              }
 
-            
-        });   
+                
+            });  
+    	 return result ;
+     }
+     $( document ).ready(function() {
+ 		
+ 		
+ 		
+         $("#submitPeticionButton").click(function(event) {
+         	event.preventDefault();
+ 		var form = $('#form1')[0];
+ 		//console.log(form);
+             	 var data = new FormData(form);
+  
+                          
+                          $.ajax({
+                              type: "PUT",
+                              url: "http://"+ip+"/users/modifyClient",
+                              data: data,
+                              enctype: 'multipart/form-data',
+                              processData: false, 
+                              contentType: false,
+                              cache: false,
+                              responseType: 'text',
+                           success: function (xhr, ajaxOptions, thrownError) {
+                                $("#mensaje1").append(xhr);
+                                 $('#exampleModal2').modal('show');
+                                  setTimeout(function(){
+                               	   setTimeout(function(){
+                                          $('#exampleModal2').modal('hide');
+                                          var baseUrl = /*/crearCliente*/'';
+                                          location.href = baseUrl;
+                                             }, 1000);
+                                    }, 2000);
+                      	  $(document).ready(function(){
+                    		  
+                              $('#exampleModal2').modal('show');
+                              setTimeout(function(){
+                                  $('#exampleModal2').modal('hide');
+                                  
+
+                                     }, 2000);
+                    	  });
+                     
+                      },
+                         error: function(xhr, status, error) {
+                            $("div[id^='div-']").empty();
+                           $("input").removeClass("alertIcon");
+                           $("input").removeClass("alertExito");
+                         // alert(xhr.status);
+                            
+                               
+                          
+                       json1=JSON.parse(xhr.responseText);
+                        jsonError=JSON.stringify(json1.errors);
+                        let json2=JSON.parse(jsonError);
+                        
+                        
+                        if(document.getElementById("nombre").value!=""){
+                            
+                            $('#'+"nombre").addClass("alertExito");
+                        }
+                          if(document.getElementById("apellidos").value!=""){
+                            
+                            $('#'+"apellidos").addClass("alertExito");
+                        }
+                       
+                          if(document.getElementById("dni").value!=""){
+                            
+                            $('#'+"dni").addClass("alertExito");
+                        }
+                          if(document.getElementById("telefono").value!=""){
+                            
+                            $('#'+"telefono").addClass("alertExito");
+                        }
+                          if(document.getElementById("correo").value!=""){
+                            
+                            $('#'+"correo").addClass("alertExito");
+                        }
+                          if(document.getElementById("cp").value!=""){
+                            
+                            $('#'+"cp").addClass("alertExito");
+                        }
+                          if(document.getElementById("edad").value!=""){
+                            
+                            $('#'+"edad").addClass("alertExito");
+                        }
+                            if(document.getElementById("direccion").value!=""){
+                            
+                            $('#'+"direccion").addClass("alertExito");
+                        }
+                    
+                         
+                          for (let i in json2) {
+                            var elementID=JSON.stringify(json2[i].field);
+                             elementID=elementID.replace(/['"]+/g, '');
+                             
+                            var  elementIdDiv="div-"+elementID;
+                                  
+                              $('#'+elementIdDiv).html('<div id="errores" class="alert2" >'+JSON.stringify(json2[i].defaultMessage)+"</div>"+"");
+                             $('#'+elementID).removeClass("alertExito");
+                              $('#'+elementID).addClass("alertIcon");
+                              
+                      }
+                         
+                         }
+                     
+
+                        
+                    });   
+                          });
+             
+
+      });
+      
+           
+             
           
-    }
+            
+     
+          
+    
   
      
-</script>     
-                    <div>Nombre:
-            <input type="text"  id="nombre" class="form-control" /></div>
+</script>   
+ <form id="form1" enctype="multipart/form-data"  >  
+                  <div>Nombre:
+            <input type="text"  id="nombre" name="nombre" class="form-control" /></div>
             <div class="alerta" id="div-nombre"></div>
             
                     
             
                             <div>Apellidos:
-                <input type="text" class="form-control" id="apellidos"/>
+                <input type="text" class="form-control" id="apellidos" name="apellidos"/>
                 </div>
                         <div class="alerta" id="div-apellidos"></div>
            
@@ -248,7 +282,7 @@ var error1;
                     
                        
                         <div>DNI:
-                            <input type="text" class="form-control" id="dni"/>
+                            <input type="text" class="form-control" id="dni" name="dni"/>
                             </div>
                          <div class="alerta" id="div-dni">
                             
@@ -259,7 +293,7 @@ var error1;
                      
                     
     <div>     Correo:
-           <input type="text" class="form-control"   id="correo"/>
+           <input type="text" class="form-control"   id="correo" name="correo"/>
            </div>
                             <div class="alerta" id="div-correo"></div>
 
@@ -270,7 +304,7 @@ var error1;
                                         
 
                                             <div>     Telefono:
-                                                <input  class="form-control" id="telefono" type="number"/></div>
+                                                <input  class="form-control" name="telefono" id="telefono" type="number"/></div>
                 <div class="alerta" id="div-telefono"></div>
                                        
                      
@@ -278,7 +312,7 @@ var error1;
                      
                                               
            <div>Dirección:
-            <input type="text"  class="form-control" id="direccion"/> </div>
+            <input type="text"  class="form-control" name="direccion" id="direccion"/> </div>
             <div class="alerta" id="div-direccion"></div>
            
                            
@@ -287,7 +321,7 @@ var error1;
                      
                
             <div>Codigo Postal:
-                <input  class="form-control" id="cp" type="number" /></div>
+                <input  class="form-control" id="cp" name="cp" type="number" /></div>
                 
                             <div class="alerta" id="div-cp"></div>
             
@@ -297,19 +331,25 @@ var error1;
                 
              
                  <div> Edad:
-           <select id="edad" class="form-control" style="max-width:35%;" value="Edades"  >              
+           <select id="edad" name="edad" class="form-control" style="max-width:35%;" value="Edades"  >              
     <option th:each="i: ${#numbers.sequence(18, 99)}" th:value="${i}"  th:utext="${i}"></option>
 
  
-	 
+	</c:forEach>
            </select><br/>   
                </div>
                 <div class="alerta" id="div-edad"></div> 
-            
+         <label for="avatar">Elige una imagen de avatar:</label>
+  <div>Imagen:
+                <img  id="imagenFile"  style="height:250px;width:250px;"/>
+                </div>
+<input type="file"
+       id="avatar" name ="image"
+       accept="image/png, image/jpeg"/><br> </br>
                        
-                <button class="btn btn-success" onclick="rellenarUsuario();" value ="Modificar">Modificar </button>
+                <button id="submitPeticionButton" class="btn btn-success"  value ="Modificar">Modificar </button>
            <!--Modal -->
-         
+ </form>        
 			<div th:include="pages/crud/modalExitoCrear"> content here </div>
            
 </th:block>

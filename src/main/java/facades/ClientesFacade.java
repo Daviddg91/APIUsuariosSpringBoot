@@ -5,12 +5,16 @@ import entidades.Clientes;
 import entidades.ModifyClientes;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import dto.clientesFileupload;
 import services.ClientesService;
+import storage.FileSystemStorageService;
+import storage.StorageProperties;
+import storage.StorageService;
 
 import javax.persistence.OrderBy;
 import javax.script.ScriptException;
@@ -25,10 +29,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class ClientesFacade {
-
+	 @Autowired
+	 StorageService storageService;
+	 @Autowired
+	 StorageProperties stoprageProp;
       @Autowired
      private ClientesService clientesService;
-
+       
 
      @Autowired
      public ClientesFacade(ClientesService clientesService) {
@@ -59,18 +66,23 @@ public class ClientesFacade {
     	 boolean conimagen=false ;
     	 if(imagen!=null) {
     	 if(!imagen.isEmpty()) {
-    		 Path directorioGuardado = Paths.get("src//main//resources//static/uploads");
-    		 String rutaAbsoluta = directorioGuardado.toFile().getAbsolutePath();
-    		 try {
-				byte[] bytesImg = imagen.getBytes();
-				Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-				Files.write(rutaCompleta, bytesImg);
-				conimagen = true;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//    		 Path directorioGuardado = Paths.get("src//main//resources//static/uploads");
+//    		 String rutaAbsoluta = directorioGuardado.toFile().getAbsolutePath();
+//    		 try {
+//				byte[] bytesImg = imagen.getBytes();
+//				Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
+//				Files.write(rutaCompleta, bytesImg);
+//				conimagen = true;
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+    		 stoprageProp.setLocation("src//main//resources//static/uploads");
+    		 storageService.store(imagen);
+    		 conimagen = true;
     	 }
+    		
+    		 
     	 }
     	 Clientes cliente2 = null;
          String resultado = "";
@@ -184,6 +196,61 @@ public class ClientesFacade {
           return resultado;
 
      }
+     public String modificarClienteImagen(ModifyClientes modifyClientes,MultipartFile imagen ) {
+         String resultado;
+         Optional<Clientes> clienteOptional = clientesService.getClientesDni(modifyClientes.getDni());
+         boolean hayImagen=false;	
+         if(imagen!=null && !imagen.isEmpty()) {
+         		hayImagen=true;
+         	}
+              if (clienteOptional.isPresent()) {
+                  Clientes clienteLocal =clienteOptional.get();
+                   clienteLocal.setNombre(modifyClientes.getNombre());
+                   clienteLocal.setApellidos(modifyClientes.getApellidos());
+                   clienteLocal.setCorreo(modifyClientes.getCorreo());
+                   clienteLocal.setDireccion(modifyClientes.getDireccion());
+                   clienteLocal.setCp(modifyClientes.getCp());
+                   clienteLocal.setTelefono(String.valueOf((modifyClientes.getTelefono())));
+                   clienteLocal.setEdad(modifyClientes.getEdad());
+
+                   if(clienteLocal.getImagen()==null || clienteLocal.getImagen()=="") {
+                	   if(hayImagen) {
+                		   storageService.store(imagen);
+                   		clienteLocal.setImagen(imagen.getOriginalFilename());
+                		   
+                	   }else {
+                		   
+                   		clienteLocal.setImagen("");
+                	   }
+                		
+                	   
+                   }else {
+                	   if(clienteLocal.getImagen()!="" && hayImagen) {
+                    	   Path directorioGuardado = Paths.get("src//main//resources//static/uploads");
+                    	   storageService.delete(directorioGuardado, clienteLocal.getImagen());
+
+                	   }
+                	   if(hayImagen) {
+                		   storageService.store(imagen);
+                   		clienteLocal.setImagen(imagen.getOriginalFilename());
+                		   
+                	   }else {
+                		   
+                   		clienteLocal.setImagen("");
+                	   }
+                   }
+                   
+                   clientesService.save(clienteLocal);
+                   resultado = "El cliente " + clienteLocal.getNombre() +" se ha modificado con exito";
+
+              }else{
+                   resultado="No existe un cliente con ese dni para ser modificado";
+
+              }
+
+         return resultado;
+
+    }
      public String borrarCliente(String dni) {
 
           Optional<Clientes> clienteOptional = clientesService.getClientesDni(dni);

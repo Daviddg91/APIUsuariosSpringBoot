@@ -9,14 +9,17 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import storage.StorageProperties;
+import storage.StorageService;
+
  
 
 
 @EnableJpaRepositories("repositories")
-@ComponentScan(basePackages = { "controllers","facades","repositories","services","util","validators","configs","dto","constraint" })
+@ComponentScan(basePackages = { "controllers","facades","repositories","services","util","validators","configs","dto","constraint","storage" })
 @EntityScan("entidades")
-@SpringBootApplication(scanBasePackages={
-		"controllers","facades","repositories","services","util","validators","configs","dto","constraint" })
+@EnableConfigurationProperties(StorageProperties.class)
+@SpringBootApplication
 public class DemoApplication {
 
 	public static void main(String[] args) {
@@ -24,6 +27,12 @@ public class DemoApplication {
 		 
 	}
 
-
+	@Bean
+	CommandLineRunner init(StorageService storageService) {
+		return (args) -> {
+			storageService.deleteAll();
+			storageService.init();
+		};
+	}
 
 }
