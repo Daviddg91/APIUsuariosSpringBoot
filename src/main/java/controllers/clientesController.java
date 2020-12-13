@@ -41,8 +41,7 @@ StorageService storageService;
     private ClientesFacade clientesFacade;
     @Autowired
     private ClientesService cleintesService;
-    @Autowired 
-    FileSystemStorageService fileSystemStorageService;
+     
     @PostMapping
     public String añadirCliente(@RequestBody @Valid Clientes cliente) {
     	
@@ -77,7 +76,7 @@ StorageService storageService;
 	public String serveFile(@PathVariable String filename) {
     	String fileUrl="";
 		 Path directorioGuardado = Paths.get("src//main//resources//static/uploads");
-    	fileSystemStorageService.setRootLocation(directorioGuardado);
+    	storageService.setRootLocation(directorioGuardado);
 
 		Resource file = storageService.loadAsResource(filename);
 		

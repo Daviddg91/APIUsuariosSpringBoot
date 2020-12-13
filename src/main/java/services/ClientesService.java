@@ -46,7 +46,10 @@ public  class ClientesService {
        return totalElements;
    }
 
- 
+ public List<Clientes> getClientesByFile(String filename){
+	return clientesRepository.getClientesByFile(filename);
+	
+ }
 
     public Optional<Clientes> getClientesDni(String dni) {
         Optional<Clientes> listaClientes = clientesRepository.findClientesByDni(dni);

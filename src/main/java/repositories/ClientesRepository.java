@@ -27,5 +27,7 @@ public interface ClientesRepository extends CrudRepository<Clientes, Long> {
     List<Clientes> findAllByNombreAndApellidosAndDni2(@Param("busqueda") String busqueda);
 
     Optional<Clientes> findClientesByDni(String dni);
-
+    
+    @Query("Select c from Clientes c where imagen  = :filename")
+    List <Clientes> getClientesByFile(String filename);
 }

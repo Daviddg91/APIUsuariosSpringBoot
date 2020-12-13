@@ -4,6 +4,7 @@ package facades;
 import entidades.Clientes;
 import entidades.ModifyClientes;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
@@ -20,9 +21,13 @@ import javax.persistence.OrderBy;
 import javax.script.ScriptException;
 import java.awt.print.Book;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -66,17 +71,7 @@ public class ClientesFacade {
     	 boolean conimagen=false ;
     	 if(imagen!=null) {
     	 if(!imagen.isEmpty()) {
-//    		 Path directorioGuardado = Paths.get("src//main//resources//static/uploads");
-//    		 String rutaAbsoluta = directorioGuardado.toFile().getAbsolutePath();
-//    		 try {
-//				byte[] bytesImg = imagen.getBytes();
-//				Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename());
-//				Files.write(rutaCompleta, bytesImg);
-//				conimagen = true;
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+ 
     		 stoprageProp.setLocation("src//main//resources//static/uploads");
     		 storageService.store(imagen);
     		 conimagen = true;
@@ -200,9 +195,57 @@ public class ClientesFacade {
          String resultado;
          Optional<Clientes> clienteOptional = clientesService.getClientesDni(modifyClientes.getDni());
          boolean hayImagen=false;	
-         if(imagen!=null && !imagen.isEmpty()) {
-         		hayImagen=true;
-         	}
+         String nombreImagenRepeat = null;
+          
+    	 String imagenFileName = null;
+		imagenFileName = imagen.getOriginalFilename();
+		
+	    if(imagen!=null && !imagen.isEmpty()) {
+     		hayImagen=true;
+     	} 
+	    boolean userReplaceFileRepeat = false;
+	    boolean fileExist = false;
+	    boolean fileRepeat = false;
+			if(hayImagen) {
+				fileExist = storageService.searchFile(storageService.getDirectorySave(),imagenFileName);
+		    	 List<Clientes> clienteRepeatFile = clientesService.getClientesByFile(imagenFileName);
+		    	 if(clienteRepeatFile.size()>1) {
+						userReplaceFileRepeat  = true;
+		    	 }
+					if(fileExist && !userReplaceFileRepeat) {
+						fileRepeat = true;
+					}
+				if(fileRepeat) {
+						
+				  String currentDate = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
+					  String fileNewString = null;
+					try {
+						fileNewString = imagen.getOriginalFilename().replace(imagen.getOriginalFilename(), FilenameUtils.getBaseName(imagen.getOriginalFilename()).concat(currentDate) + "." + FilenameUtils.getExtension(imagen.getOriginalFilename())).toLowerCase();
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				       
+				        String insPath = storageService.getDirectorySave() + fileNewString;
+				        nombreImagenRepeat = fileNewString;
+				        Path destinationFile = storageService.getDirectorySave().resolve(
+								Paths.get(fileNewString))
+								.normalize().toAbsolutePath();
+				        
+				        InputStream inputStream;
+						try {
+							inputStream = imagen.getInputStream();
+							Files.copy(inputStream, destinationFile,
+									StandardCopyOption.REPLACE_EXISTING);
+							
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				
+			} 
+			}
+     
               if (clienteOptional.isPresent()) {
                   Clientes clienteLocal =clienteOptional.get();
                    clienteLocal.setNombre(modifyClientes.getNombre());
@@ -215,9 +258,17 @@ public class ClientesFacade {
 
                    if(clienteLocal.getImagen()==null || clienteLocal.getImagen()=="") {
                 	   if(hayImagen) {
-                		   storageService.store(imagen);
-                   		clienteLocal.setImagen(imagen.getOriginalFilename());
-                		   
+                		   Path rootLocation = Paths.get("src//main//resources//static/uploads");
+                		storageService.setRootLocation(rootLocation);
+                		   if(fileRepeat) {
+                			   storageService.store(imagen);
+                          		clienteLocal.setImagen(nombreImagenRepeat);
+                			   
+                		   }else {
+                			   storageService.store(imagen);
+                          		clienteLocal.setImagen(imagen.getOriginalFilename());
+                			   
+                		   }
                 	   }else {
                 		   
                    		clienteLocal.setImagen("");
@@ -226,17 +277,30 @@ public class ClientesFacade {
                 	   
                    }else {
                 	   if(clienteLocal.getImagen()!="" && hayImagen) {
-                    	   Path directorioGuardado = Paths.get("src//main//resources//static/uploads");
-                    	   storageService.delete(directorioGuardado, clienteLocal.getImagen());
+                    	 //  Path directorioGuardado = Paths.get("src//main//resources//static/uploads");
+                    	  // storageService.delete(directorioGuardado, clienteLocal.getImagen());
 
                 	   }
                 	   if(hayImagen) {
-                		   storageService.store(imagen);
-                   		clienteLocal.setImagen(imagen.getOriginalFilename());
+                			   if(fileRepeat) {
+                    			   storageService.delete(storageService.getDirectorySave(), clienteLocal.getImagen());
+                    			   storageService.store(imagen);
+                              		clienteLocal.setImagen(nombreImagenRepeat);
+                    			   
+                    		   }else {
+                    			   storageService.store(imagen);
+                              		clienteLocal.setImagen(imagen.getOriginalFilename());
+                    			   
+                    		   }
+                			   
+                		 
                 		   
                 	   }else {
-                		   
+                		   if(clienteLocal.getImagen()!= null || clienteLocal.getImagen()!= "") {
+                			   clienteLocal.setImagen(clienteLocal.getImagen());
+                		   }else {
                    		clienteLocal.setImagen("");
+                		   }
                 	   }
                    }
                    

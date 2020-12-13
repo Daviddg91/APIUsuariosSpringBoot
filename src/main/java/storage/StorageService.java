@@ -12,13 +12,15 @@ public interface StorageService {
 
 	void store(MultipartFile file);
 	void delete(Path url, String file);
-	
+	Path getDirectorySave();
 	Stream<Path> loadAll();
 
 	Path load(String filename);
-
+	void setRootLocation(Path rootLocation);
 	Resource loadAsResource(String filename);
 
 	void deleteAll();
+
+	boolean searchFile(Path directorySave, String name);
 
 }
