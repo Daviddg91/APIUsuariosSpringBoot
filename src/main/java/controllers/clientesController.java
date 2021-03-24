@@ -30,7 +30,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin
+@CrossOrigin()
 @RestController
 @RequestMapping("/users")
 //@CrossOrigin(origins ={"http://localhost:9090","http://78.30.47.216:9090", "http://78.30.47.216:8080","http://192.168.1.133:8080","http://192.168.1.133:9090"})

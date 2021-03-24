@@ -24,6 +24,7 @@
 	
 	    
 			<div id="superior" class="h-100 col-12 col-md-12 col-xs-12 col-lg-12 col-xl-12 d-flex  justify-content-between ">
+			 	<div><a href="#" th:href="@{/welcome}">Inicio</a></div>
 			 	<div sec:authorize="!isAuthenticated()">
 			 	<a href="#" th:href="@{/login}">
 				 	<div class="d-flex">
@@ -32,6 +33,7 @@
 				 	</div>
 				 	</a>
 			 	</div>
+			 	
 				  <div><a href="#" th:href="@{/saludo}">Saludo</a></div>
 			 	  <div><a href="#" th:href="@{/pedidos}">Pedidos</a></div>			 	  
             	 <div><a href="#" th:href="@{/clientesVista}">clientesVista</a></div>
@@ -92,7 +94,7 @@
 		 <div class=" w-100 menuSlideContainer relative ">
 		  
     	 <div id="slideMenu" class=" estilosCollapsableMenu displayNone      ">
-			
+			<div><a href="#" th:href="@{/welcome}">Inicio</a></div>
 	 	<div sec:authorize="!isAuthenticated()">
 		 	<a href="#" th:href="@{/login}">
 		 	<div class="d-flex">

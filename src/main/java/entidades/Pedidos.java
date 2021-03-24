@@ -21,7 +21,8 @@ public class Pedidos {
 	   @GeneratedValue(strategy = GenerationType.AUTO)
 	   private Long idPedido;
 	   @ManyToOne
-		 @JoinColumn(name = "isbn")	    private   Productos productos;
+		 @JoinColumn(name = "isbn")	    
+	   private   Productos productos;
 	 @ManyToOne
 	 @JoinColumn(name = "dni")
 	   private  Clientes cliente;
