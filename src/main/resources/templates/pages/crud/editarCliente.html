@@ -73,12 +73,12 @@ var url = new URL(url_string);
 var searchParamDNI = url.searchParams.get("dni");
      
  
-var url = "http://"+api_ip_host+"/users";
+var url = api_ip_host+"/users";
    buscarUsuario();
   
      function buscarUsuario(){
            
-         var urlUser = "http://"+api_ip_host+"/users?dni="+searchParamDNI;
+         var urlUser = api_ip_host+"/users?dni="+searchParamDNI;
  
        var list2=null;
              $.ajax({
@@ -156,7 +156,7 @@ var url = "http://"+api_ip_host+"/users";
                           
                           $.ajax({
                               type: "PUT",
-                              url: "http://"+api_ip_host+"/users/modifyClient",
+                              url: api_ip_host+"/users/modifyClient",
                               data: data,
                               enctype: 'multipart/form-data',
                               processData: false, 

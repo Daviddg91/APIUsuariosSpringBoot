@@ -58,7 +58,7 @@
  function borrarClienteConfirmado(){
 	 var dni=document.getElementById("dniParam").value;
 	 
-    var url4 ="http://"+api_ip_host+"/users?eliminarDNI="+ dni;
+    var url4 =api_ip_host+"/users?eliminarDNI="+ dni;
 	 var list2=null;
      $.ajax({
     type : "POST",
