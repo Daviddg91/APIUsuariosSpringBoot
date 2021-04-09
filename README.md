@@ -1,7 +1,7 @@
 # APIUsuariosSpringBoot
 API Rest con SpringBoot, con interfaz de clientes y roles en SpringSecurity, mapeado de tablas automático con Spring Data, subida de ficheros y renderizado con Thymeleaf, configuración de Beans custom, validaciones custom, Maven y funcionalidades CRUD
 
-resour
+resoures application.properties file:
 
 spring.datasource.url=jdbc:mysql://host:3306/Database
 spring.datasource.username=root
