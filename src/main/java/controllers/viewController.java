@@ -22,6 +22,12 @@ class viewController {
 	@Autowired
 	ClientesService clientService;
 	
+	@GetMapping("/serviciosBeans")
+	ServiciosBeans getServiciosBeans() {
+        
+        return serviciosBeans;
+    }
+	
     @GetMapping("/welcome")
     String index(Model model) {
         model.addAttribute("now", LocalDateTime.now());
@@ -49,12 +55,7 @@ class viewController {
  
     	return "pages/pedidos";
     }
-    @GetMapping("/loremipsum")
-    String loremipsum() {
-    	
- 
-    	return "pages/loremipsum";
-    }
+
     @GetMapping("/clientesVista")
     String clientesVista(Model model ) {
     	List<Clientes> list = clientService.getClientes();

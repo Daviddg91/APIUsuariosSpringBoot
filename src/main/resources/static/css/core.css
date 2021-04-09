@@ -4,7 +4,10 @@ body {
    
     background-color: #f5f5f5;
 }
-.relative{position:relative}
+.relative{
+	position:absolute;     
+top: 53px;
+}
 .social-links {
     max-width: 800px;
     margin: 0 auto;
@@ -18,7 +21,10 @@ body {
     display: inline-block;
     margin: auto;
 }
-
+#superior a {
+	color:white ;
+	
+}
 .icon-bar{
  
 	    display: block;
@@ -38,17 +44,9 @@ body {
     display: none;
 }
 
-button#menu:focus +  #superior {
-    display: block;
-}
 
- #superior > div {
-  margin-left:8px; 
-  color:violet;
-   background:#e9ecef5c;
-    border-radius:5px; 
- padding-left:10px; 
- padding-right:10px;}
+
+
 #botonBurguer{display:none; }
 
 @media all and (max-width: 700px) {
@@ -73,22 +71,12 @@ button#menu:focus +  #superior {
 .estilosCollapsableMenu{background-color:black;
 border-radius:17px;
    margin-left: auto;
-   width:50%;}
+   width:40%;}
    .estilosCollapsableMenu div{
    margin-bottom:5px;
       margin-top:-5px;
    
    }
    
-.estilosCollapsableMenu div{
-margin-left:8px; color:violet; background:rgba(215, 211, 44, 0.2); border-radius:20px; 
- padding-left:10px; 
- padding-right:10px;}
-	
-	
-}
-.menuSlideContainer{
-    height: 145px!important;
-}
-
+ 
  

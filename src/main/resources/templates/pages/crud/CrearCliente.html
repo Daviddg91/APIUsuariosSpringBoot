@@ -65,22 +65,11 @@
                     
                      <script type="text/javascript">
  
-
-                	 var _ctx = $("meta[name='_ctx']");
-                	  var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
-                	  
- 
   
   
 var url_string = window.location.href;
 var url = new URL(url_string);
 var c = url.searchParams.get("dni");
-     
- 
-
-
- 
-    	 
   
             
 	$( document ).ready(function() {
@@ -96,7 +85,7 @@ var c = url.searchParams.get("dni");
                          
                          $.ajax({
                              type: "POST",
-                             url: "http://"+ip+"/users/addCliente",
+                             url: "http://"+api_ip_host+"/users/addCliente",
                              data: data,
                              enctype: 'multipart/form-data',
                              processData: false, 

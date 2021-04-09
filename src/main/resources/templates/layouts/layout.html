@@ -33,12 +33,17 @@
 
  
 <body class="">
+<input type="hidden" th:value="${@serviciosBeans.getApiHostURL()}" id="apiurl"   />
+
+<script>
+
+var apiurl =$("#apiurl");
+
+var api_ip_host = apiurl[0].value;
+
+
+</script>
 <div th:replace="fragments/header :: header" class=" col-12 col-md-12 col-xs-12 col-lg-12 col-xl-12">
-    <!-- ============================================================================ -->
-    <!-- This content is only used for static prototyping purposes (natural templates)-->
-    <!-- and is therefore entirely optional, as this markup fragment will be included -->
-    <!-- from "fragments/header.html" at runtime.                                     -->
-    <!-- ============================================================================ -->
   
 </div>
 

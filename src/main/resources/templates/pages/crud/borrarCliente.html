@@ -53,13 +53,12 @@
     			<div th:include="pages/crud/modalExitoBorrar"> content here </div>
  
  <script>
- var _ctx = $("meta[name='_ctx']");
- var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
+ 
  
  function borrarClienteConfirmado(){
 	 var dni=document.getElementById("dniParam").value;
 	 
-    var url4 ="http://"+ip+"/users?eliminarDNI="+ dni;
+    var url4 ="http://"+api_ip_host+"/users?eliminarDNI="+ dni;
 	 var list2=null;
      $.ajax({
     type : "POST",

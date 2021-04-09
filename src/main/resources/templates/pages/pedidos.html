@@ -252,16 +252,13 @@ body{
          var tablaPedidos ="";
          var  productoSelect="";
      mostrarUsuarios();
-
-     var _ctx = $("meta[name='_ctx']");
-     var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
-	
+ 
 	  
     function mostrarUsuarios(){
       
 
   
-      var url4 ="http://"+ip+"/users";
+      var url4 ="http://"+api_ip_host+"/users";
       
     
       
@@ -360,11 +357,6 @@ var htmlrow ="<tr>"+"<td><div>" + val.id + "</td></div>"+"<td><div>" + val.nombr
     	return text;
     }
     function generaPedido(Cliente,Producto){
-  
-		
-
-		
-		
 		 
 		  var htmlRowPedidos  ="<tr>"+"<td><div>" + quitarhtml(Cliente[1]) + "</td></div>"+"<td><div>" + quitarhtml(Cliente[2]) + "</td></div>"+"<td><div>" + quitarhtml(Cliente[3]) + "</td></div>"+"<td><div>" + quitarhtml(Producto[1]) + "</td></div>"+"<td><div>" + quitarhtml(Producto[3]) + "</td></div>"+"<td><input type='number' min='1' value='1'><td><div class='d-flex justify-content-center' style='cursor:pointer;' ><i class='far fa-trash-alt icon-delete'></i></td></div></tr>";
 		  $.fn.dataTable.ext.errMode = 'throw';
@@ -403,7 +395,7 @@ var htmlrow ="<tr>"+"<td><div>" + val.id + "</td></div>"+"<td><div>" + val.nombr
 		
     	
     	
-        var url4 ="http://"+ip+"/pedidos";
+        var url4 ="http://"+api_ip_host+"/pedidos";
         
         for (var i = 0; i < myTableArray.length; i++) {
         	  var list2=null;
@@ -432,7 +424,7 @@ var htmlrow ="<tr>"+"<td><div>" + val.id + "</td></div>"+"<td><div>" + val.nombr
     function mostrarProductos(){
   	    
   	  
-        var url4 ="http://"+ip+"/products";
+        var url4 ="http://"+api_ip_host+"/products";
         
       
         

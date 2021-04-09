@@ -6,13 +6,20 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.env.Environment;
 import org.springframework.web.context.annotation.RequestScope;
+
+ 
 @Configuration
 public class ServiciosBeans {
 
+	@Autowired
+	private Environment env;
+	
 	@Bean
 	@RequestScope
 	@Scope
@@ -20,7 +27,7 @@ public class ServiciosBeans {
 		
 		 Calendar cal = Calendar.getInstance();
 	 	    Date date=cal.getTime();
-	 	    DateFormat dateFormatHMS = new SimpleDateFormat("HH:mm:ss");
+	 	  //  DateFormat dateFormatHMS = new SimpleDateFormat("HH:mm:ss");
 	 	        DateFormat dateFormatHour = new SimpleDateFormat("HH");
 
 	 	        String hora=dateFormatHour.format(date);
@@ -75,8 +82,14 @@ public class ServiciosBeans {
 		    return pagina;
 		    
 		    }
+	   @Bean 
+	   @RequestScope
+	   @Scope
+		public String getApiHostURL() {
 		
-		
-		
+		    String path = env.getProperty("api_host.url");
+
+		    return path;
+		}
 	}
 

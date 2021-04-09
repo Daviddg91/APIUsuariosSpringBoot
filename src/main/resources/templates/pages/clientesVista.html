@@ -169,6 +169,7 @@ body{
 }
              </style>  
               
+              
                <input id="dniParam" name="prodId" type="hidden"  />
      			<input id="nombreParam" name="prodId" type="hidden"  />
                 <input type="hidden" id="limiteElementos" value="15"  />
@@ -177,15 +178,16 @@ body{
                 <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
                 
                      <div id="contenido">
-                <h1>Listado de Clientes</h1>    
-   
+              	       <div class="d-flex justify-content-center" >
+               					 <h1>Listado de Clientes</h1>    
+   						</div>
             
     
                  <a  href="#" th:href="@{/crearCliente}" class="btn btn-success"> Crear Nuevo Cliente </a>
  
                   
                     <div class="">
-        <table id="buscresult" class="table table-responsive table-bordered table-striped table-hover">
+        <table id="buscresult" class="table  table-bordered table-striped table-hover">
             <thead>
           <tr>
             <th>ID</th>
@@ -230,9 +232,10 @@ body{
  
 
 
-	 var _ctx = $("meta[name='_ctx']");
-	  var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
+	 
 	  
+
+ 
  
 function clickBusqueda(){
     
@@ -279,19 +282,9 @@ function clickBusqueda(){
 	
 	  
     function mostrarUsuarios(){
-      
-    	
-    	
-    		 
-    		
-    	
-
-     
     
-  
-      var url4 ="http://"+ip+"/users";
+      var url4 ="http://"+api_ip_host+"/users";
       
-    
       
        var list2=null;
              $.ajax({
