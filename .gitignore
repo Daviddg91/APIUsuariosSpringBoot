@@ -27,3 +27,6 @@ HELP.md
 
 ### VS Code ###
 .vscode/
+
+### Spring.boot application.properties :
+/src/main/resources/application.properties
