@@ -226,9 +226,7 @@ body{
  
  
 
-
-	 var _ctx = $("meta[name='_ctx']");
-	  var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
+ 
 	  
  
 function clickBusqueda(){
@@ -268,7 +266,7 @@ function clickBusqueda(){
     function mostrarUsuarios(){
 
   
-      var url4 ="http://"+ip+"/products";
+      var url4 =api_ip_host+"/products";
 
        var list2=null;
              $.ajax({

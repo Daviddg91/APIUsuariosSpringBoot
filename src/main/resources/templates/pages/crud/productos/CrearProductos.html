@@ -65,9 +65,7 @@
                     
                      <script type="text/javascript">
  
-
-                	 var _ctx = $("meta[name='_ctx']");
-                	  var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
+ 
                 	  
  
   
@@ -102,7 +100,7 @@ var error1;
             
              $.ajax({
             type : "POST", 
-            url : "http://"+ip+"/products",
+            url : api_ip_host + "/products",
             contentType: 'application/json',
             data:JSON.stringify(json1),
              dataType: "json",

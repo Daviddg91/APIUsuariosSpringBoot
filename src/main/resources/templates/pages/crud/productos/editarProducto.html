@@ -72,14 +72,13 @@ var url_string = window.location.href;
 var url = new URL(url_string);
 var searchParam = url.searchParams.get("isbnProduct");
      
-var _ctx = $("meta[name='_ctx']");
-var   ip = Object.values(Object.values(_ctx)[1])[0].location.host;
+
 
    buscarProducto();
   
      function buscarProducto(){
            
-         var url = "http://"+ip+"/products?isbnProduct="+searchParam;
+         var url = api_ip_host +"/products?isbnProduct="+searchParam;
  
        var list2=null;
              $.ajax({
@@ -132,7 +131,7 @@ var error1;
             
              $.ajax({
             type : "PUT", 
-            url : "http://"+ip+"/products",
+            url : api_ip_host +"/products",
             contentType: 'application/json',
             data:JSON.stringify(json1),
              dataType: "json",
