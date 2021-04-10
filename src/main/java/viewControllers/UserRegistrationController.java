@@ -1,4 +1,4 @@
-package controllers;
+package viewControllers;
 
 
 import java.io.File;
@@ -42,7 +42,7 @@ public class UserRegistrationController {
 
     @GetMapping
     public String showRegistrationForm(Model model) {
-        return "pages/registration";
+        return "pages/admin/registration";
     }
     public Optional<String> getExtensionByStringHandling(String filename) {
         return Optional.ofNullable(filename)
@@ -50,48 +50,12 @@ public class UserRegistrationController {
           .map(f -> f.substring(filename.lastIndexOf(".") + 1));
     }
     @PostMapping
-    public String registerUserAccount(@RequestParam("file") File file ,@ModelAttribute("user") @Valid UserRegistrationDto userDto,
+    public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto userDto,
                                       BindingResult result, Model model){
-
         User existing = userService.findByEmail(userDto.getEmail());
         if (existing != null){
-            result.rejectValue("email", null, "There is already an account registered with that email");
+            result.rejectValue("email", null, "Ya existe una cuenta con este email");
         }
-
-       String path = file.getAbsolutePath();
-        
-        if (file.exists()) {
-        	model.addAttribute("message", "Seleccione un archivo valido");
-            return "pages/registration";
-        } 
-        List arrayImagesExtends =  new ArrayList();
-        arrayImagesExtends.add("png");
-        String nameFile = file.getName();
-        //String extension = nameFile.spl; 
-      //  String extension = FilenameUtils.getExtension(file.getPath());
-        Optional<String> extension = this.getExtensionByStringHandling(nameFile);
-         if(arrayImagesExtends.contains(extension.get())){
-        	 String UPLOADED_FOLDER ="static/images/avatarsUsers/";
-            /* try {
-            	 String rutaCompleta = file.getAbsolutePath();
-            	 
-				//IOUtils.readFully(, buffer);.
-
-             } catch (IOException e) {
-                 e.printStackTrace();
-             }*/
-        	 
-        	 
-        }else {
-        	model.addAttribute("errorArchivo", "Suba un archivo de imagen");
-        	return "pages/registration";
-        }
-        	
-        
-        
- 
-        
-        
         
         if (result.hasErrors()){
             return "pages/registration";

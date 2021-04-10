@@ -22,7 +22,7 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-    private File avatar; 
+
     
     /* Aqui carga los roles */
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -39,13 +39,7 @@ public class User {
     
     public User() {}
 
-    public File getAvatar() {
-		return avatar;
-	}
 
-	public void setAvatar(File avatar) {
-		this.avatar = avatar;
-	}
 
 	public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;

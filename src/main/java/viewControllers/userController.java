@@ -1,4 +1,4 @@
-package controllers;
+package viewControllers;
 
 import java.time.LocalDateTime;
 import java.util.List;

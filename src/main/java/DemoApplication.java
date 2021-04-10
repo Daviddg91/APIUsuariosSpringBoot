@@ -16,7 +16,7 @@ import storage.StorageService;
 
 
 @EnableJpaRepositories("repositories")
-@ComponentScan(basePackages = { "controllers","facades","repositories","services","util","validators","configs","dto","constraint","storage" })
+@ComponentScan(basePackages = { "controllers","facades","repositories","services","util","validators","configs","dto","constraint","storage","viewControllers" })
 @EntityScan("entidades")
 @EnableConfigurationProperties(StorageProperties.class)
 @SpringBootApplication

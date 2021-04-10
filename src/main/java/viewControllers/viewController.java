@@ -1,4 +1,4 @@
-package controllers;
+package viewControllers;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -42,12 +42,10 @@ class viewController {
     	System.out.println(saludo);
     	return "pages/saludo/"+ saludo;
     }
+ 
     @GetMapping("/tecnologias")
     String tecnologiasVariadas() {
-    	
-    	
     	String inicio = serviciosBeans.getTecnologiasVariadas();
-    	
     	return "pages/inicios/"+ inicio;
     }
     @GetMapping("/pedidos")

@@ -12,91 +12,86 @@
  
 
 	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
+		<div class="">
+			<div class="col-12 d-flex justify-content-center row">
 
 				<div th:if="${param.success}">
-					<div class="alert alert-info">You've successfully registered
-						to our awesome app!</div>
+					<div class="alert alert-info">Te has registrado con exito</div>
 				</div>
 
-				<h1>Registration</h1>
+				<h1>Registro de usuarios:</h1>
 				<form th:action="@{/registration}" th:object="${user}" method="post" enctype="multipart/form-data">
 
 					<p class="error-message" th:if="${#fields.hasGlobalErrors()}"
-						th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation
-						error</p>
+						th:each="error : ${#fields.errors('global')}" th:text="${error}">Campos erroneos</p>
 
 					<div class="form-group"
 						th:classappend="${#fields.hasErrors('firstName')}? 'has-error':''">
-						<label for="firstName" class="control-label">First name</label> <input
+						<label for="firstName" class="control-label">Nombre</label> <input
 							id="firstName" class="form-control" th:field="*{firstName}" />
 						<p class="error-message"
 							th:each="error: ${#fields.errors('firstName')}"
-							th:text="${error}">Validation error</p>
+							th:text="${error}">El nombre no es correcto</p>
 					</div>
 					<div class="form-group"
 						th:classappend="${#fields.hasErrors('lastName')}? 'has-error':''">
-						<label for="lastName" class="control-label">Last name</label> <input
+						<label for="lastName" class="control-label">Apellidos</label> <input
 							id="lastName" class="form-control" th:field="*{lastName}" />
 						<p class="error-message"
 							th:each="error : ${#fields.errors('lastName')}"
-							th:text="${error}">Validation error</p>
+							th:text="${error}">El apellido no es correcto</p>
 					</div>
 					<div class="form-group"
 						th:classappend="${#fields.hasErrors('email')}? 'has-error':''">
 						<label for="email" class="control-label">E-mail</label> <input
 							id="email" class="form-control" th:field="*{email}" />
 						<p class="error-message"
-							th:each="error : ${#fields.errors('email')}" th:text="${error}">Validation
-							error</p>
+							th:each="error : ${#fields.errors('email')}" th:text="${error}">
+							El email no es correcto
+							</p>
 					</div>
 					<div class="form-group"
 						th:classappend="${#fields.hasErrors('confirmEmail')}? 'has-error':''">
-						<label for="confirmEmail" class="control-label">Confirm
+						<label for="confirmEmail" class="control-label">Confirma el
 							e-mail</label> <input id="confirmEmail" class="form-control"
 							th:field="*{confirmEmail}" />
 						<p class="error-message"
 							th:each="error : ${#fields.errors('confirmEmail')}"
-							th:text="${error}">Validation error</p>
+							th:text="${error}">El email es distinto al intruducido</p>
 					</div>
 					<div class="form-group"
 						th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
-						<label for="password" class="control-label">Password</label> <input
+						<label for="password" class="control-label">Contraseña</label> <input
 							id="password" class="form-control" type="password"
 							th:field="*{password}" />
 						<p class="error-message"
 							th:each="error : ${#fields.errors('password')}"
-							th:text="${error}">Validation error</p>
+							th:text="${error}">Contraseña incorrecta</p>
 					</div>
 					<div class="form-group"
 						th:classappend="${#fields.hasErrors('confirmPassword')}? 'has-error':''">
-						<label for="confirmPassword" class="control-label">Confirm
-							password</label> <input id="confirmPassword" class="form-control"
+						<label for="confirmPassword" class="control-label">Confirma
+							la contraseña</label> <input id="confirmPassword" class="form-control"
 							type="password" th:field="*{confirmPassword}" />
 						<p class="error-message"
 							th:each="error : ${#fields.errors('confirmPassword')}"
-							th:text="${error}">Validation error</p>
+							th:text="${error}">La contraseña es incorrecta a la introducida anteriormente</p>
 					</div>
-					<div class="form-group"
+					<div class="form-group d-flex"
 						th:classappend="${#fields.hasErrors('terms')}? 'has-error':''">
 						<input id="terms" type="checkbox" th:field="*{terms}" />   <label
-							class="control-label" for="terms"> I agree with the <a
-							href="#">terms and conditions</a> for Registration.
-						</label>
+							class="control-label" for="terms"> Estopy deacuerdo con los terminos y 
+							condiciones del registro</label>
 						<p class="error-message"
-							th:each="error : ${#fields.errors('terms')}" th:text="${error}">Validation
-							error</p>
+							th:each="error : ${#fields.errors('terms')}" th:text="${error}">No ha aceptado los terminos
+							y condiciones</p>
 					</div>
 					<div class="form-group">
-						<button type="submit" class="btn btn-success">Register</button>
-						<span>Already registered? <a href="/" th:href="@{/login}">Login
-								here</a></span>
+						<button type="submit" class="btn btn-success">Registrarse</button>
+						<span>¿ Ya esta registrado ? <a href="/" th:href="@{/login}">
+								Logueate aqui</a></span>
 					</div>
-					<div class="form-group">
- 						<span>Upload Avatar photo file</span>
-							<input type="file" name="file"  >
-							</div>
+ 
 				</form>
 			</div>
 		</div>

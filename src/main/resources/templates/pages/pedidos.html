@@ -174,7 +174,7 @@ body{
       
                 
                 <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
-                <div class="d-flex" >
+                <div class="d-flex col-12 row" >
                      <div id="contenido" class="col-5">
                 <h1>Listado de Clientes</h1>    
    
@@ -183,7 +183,7 @@ body{
  
                   
                     <div class="">
-        <table id="buscresultClientes" class="table table-responsive table-bordered table-striped table-hover">
+        <table id="buscresultClientes" class="table  table-bordered table-striped table-hover">
             <thead>
           <tr>
             <th>ID</th>
@@ -214,13 +214,8 @@ body{
      </div>     
                  <div id="contenido" class="col-6">
                 <h1>Listado de Productos</h1>    
-   
-            
-     
- 
-                  
                     <div class="">
-        <table id="productResult" class="table table-responsive table-bordered table-striped table-hover">
+        <table id="productResult" class="table table-bordered table-striped table-hover">
             <thead>
           <tr>
             <th>ID</th>
@@ -241,10 +236,12 @@ body{
         
         </tbody>
          </table>
+              Para reazaliar un pedido haga un click sobre la tabla clientes para seleccionar el cliente y doble click sobre el producto para seleccionar el producto 
+         
                         </div>
  
 
-     </div>       
+     </div>      
     </div>            
              <script  th:inline="javascript"  >
             
@@ -544,7 +541,7 @@ $(document).ready(function() {
   			 <div class="col-12  d-flex justify-content-center"><h2>Tabla de pedidos</h2></div>
   			 <div class="col-12 d-flex justify-content-center"> 
   			 
-  			 <table id="tablaPedidos" class="table table-responsive table-bordered table-striped table-hover">
+  			 <table id="tablaPedidos" class="table  table-bordered table-striped table-hover">
             <thead>
           <tr>
             
@@ -573,10 +570,11 @@ $(document).ready(function() {
   			 
   			 
   			 </div>
-  			 <div class="d-flex justify-content-end " >
-  			 <button id="botonRealizarPedido" class='btn btn-success'   onclick='realizarPedido()'>Realizar Pedido </button>
+  			 <div class="col-12">
+	  			 <div class="float-right " >
+	  				 <button id="botonRealizarPedido" class='btn btn-success'   onclick='realizarPedido()'>Realizar Pedido </button>
+	  			 </div>
   			 </div>
-  			 
  <script>
  compruebaBotonRealizarPedido();
 function compruebaBotonRealizarPedido(){

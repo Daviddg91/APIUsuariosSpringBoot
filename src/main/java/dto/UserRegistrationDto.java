@@ -10,8 +10,8 @@ import javax.validation.constraints.NotEmpty;
  import  constraint.FieldMatch;
 
 @FieldMatch.List({
-    @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
-    @FieldMatch(first = "email", second = "confirmEmail", message = "The email fields must match")
+    @FieldMatch(first = "password", second = "confirmPassword", message = "La contraseña no coincide"),
+    @FieldMatch(first = "email", second = "confirmEmail", message = "El email no coincide")
 })
 public class UserRegistrationDto {
 
@@ -38,15 +38,7 @@ public class UserRegistrationDto {
     @AssertTrue
     private Boolean terms;
 
-    public File getAvatar() {
-		return avatar;
-	}
-
-	public void setAvatar(File avatar) {
-		this.avatar = avatar;
-	}
-
-	private File avatar;
+  
     
     public String getFirstName() {
         return firstName;
