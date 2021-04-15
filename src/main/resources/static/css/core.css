@@ -71,7 +71,12 @@ top: 53px;
 .estilosCollapsableMenu{background-color:black;
 border-radius:17px;
    margin-left: auto;
-   width:40%;}
+   width:50%;
+   
+   }
+.z-index-200{
+  	z-index:200;
+  }
    .estilosCollapsableMenu div{
    margin-bottom:5px;
       margin-top:-5px;
