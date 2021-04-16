@@ -174,8 +174,8 @@ body{
       
                 
                 <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
-                <div class="d-flex col-12 row" >
-                     <div id="contenido" class="col-5">
+                <div class="d-flex col-12 row d-flex justify-content-center" >
+                     <div id="contenido" class="col-6">
                 <h1>Listado de Clientes</h1>    
    
             
@@ -186,7 +186,7 @@ body{
         <table id="buscresultClientes" class="table  table-bordered table-striped table-hover">
             <thead>
           <tr>
-            <th>ID</th>
+            <!--  <th>ID</th>  -->
    
             <th class="" ><div id=" " ><div>Nombre</div></div></th>
             <th class=""   ><div id=" "><div>Apellidos</div></div></div></th>
@@ -196,8 +196,7 @@ body{
             <th class=""  ><div id=" "><div>Direccion</div></div></th>
             <th class=""  ><div id=" "><div>CP</div></div></th>
             <th class=""   ><div id=" "><div>Edad</div></div></th>
-            <th>Editar</th>
-            <th>Eliminar</th>
+      
             
           </tr>
              
@@ -218,7 +217,7 @@ body{
         <table id="productResult" class="table table-bordered table-striped table-hover">
             <thead>
           <tr>
-            <th>ID</th>
+            <!-- <th>ID</th>   -->
    
             <th class="" ><div id=" " ><div>Nomenclatura</div></div></th>
             <th class=""   ><div id=" "><div>Nombre</div></div></div></th>
@@ -286,7 +285,7 @@ body{
   
 var eliminar=div1+boton1+'</div>';
 
-var htmlrow ="<tr>"+"<td><div>" + val.id + "</td></div>"+"<td><div>" + val.nombre + "</td></div>"+"<td><div>" + val.apellidos + "</td></div>"+"<td><div>" + val.dni + "</td></div>"+"<td><div>" + val.correo + "</td></div>"+"<td><div>" + val.telefono + "</td></div>"+"<td><div>" + val.direccion + "</td></div>"+"<td><div>" + val.cp + "</td></div>"+"<td><div>" + val.edad + "</td></div>"+"<td><div>" +  editar + "</td></div>"+"<td><div>" +  eliminar + "</td></div>"+"</tr>";         
+var htmlrow ="<tr>"+/*"<td><div>" + val.id + "</td>*/ "</div>"+"<td><div>" + val.nombre + "</td></div>"+"<td><div>" + val.apellidos + "</td></div>"+"<td><div>" + val.dni + "</td></div>"+"<td><div>" + val.correo + "</td></div>"+"<td><div>" + val.telefono + "</td></div>"+"<td><div>" + val.direccion + "</td></div>"+"<td><div>" + val.cp + "</td></div>"+"<td><div>" + val.edad + "</td></div>"+"<td><div>" +  editar + "</td></div>"+"<td><div>" +  eliminar + "</td></div>"+"</tr>";         
              $('#tablebodyClientes').append(htmlrow);
         });
                   $(document).ready(function(){
@@ -451,7 +450,7 @@ var htmlrow ="<tr>"+"<td><div>" + val.id + "</td></div>"+"<td><div>" + val.nombr
     
   var eliminar=div1+boton1+'</div>';
 
-  var htmlrow ="<tr>"+"<td><div>" + val.id + "</td></div>"+"<td><div>" + val.nomenclatura + "</td></div>"+"<td><div>" + val.nombre + "</td></div>"+"<td><div>" + val.isbn + "</td></div>"+"<td><div>" + val.descripcion + "</td></div></tr>";         
+  var htmlrow ="<tr>"+/*"<td><div>" + val.id + "</td>*/ +"</div>"+"<td><div>" + val.nomenclatura + "</td></div>"+"<td><div>" + val.nombre + "</td></div>"+"<td><div>" + val.isbn + "</td></div>"+"<td><div>" + val.descripcion + "</td></div></tr>";         
                $('#tablebodyProducts').append(htmlrow);
           });
                     $(document).ready(function(){

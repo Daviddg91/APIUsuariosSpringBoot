@@ -11,13 +11,14 @@
                             }
    
                         </style>
-                         <body>
-                Bienvenido a la pagina web de ejemplo de JSF numero:
-                <h:outputLabel value="#{inicioVariado.aleat}"/><br/>
+                <div class="m-auto">
+                Bienvenido a la pagina web de ejemplo de JSF numero: 
+                <span th:text="${@serviciosBeans.getAleat()}"></span>
+               <br/>
                 Una de las tecnologias usadas en esta web es JPA:<br/>
                      <img src="images/jpa.jpg" height="200" width="250"/>
 
-                 </body>
+                 </div>
         </th:block> 
 
   

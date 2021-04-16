@@ -56,15 +56,15 @@ public class ServiciosBeans {
 			Random r = new Random();
 			return r.nextInt((max - min) + 1) + min;
 		}
-	
+	 int aleat=0;
 	  
-	   @Bean 
+	   public int getAleat() {
+		return aleat;
+	}
+	@Bean 
 	   @RequestScope
 	   @Scope("prototype")
 	public String getTecnologiasVariadas() {
-		   int aleat=0;
-	 
-	 
 		  String pagina="";
 		  aleat = getRandomNumberInRange(1, 4);
 		        if(aleat==1){

@@ -36,10 +36,7 @@ class viewController {
     @GetMapping("/saludo")
     String indexSaludo(Model model2) {
     	model2.addAttribute("hora", LocalDateTime.now());
-    	
     	String saludo = serviciosBeans.getSaludo();
-    	
-    	System.out.println(saludo);
     	return "pages/saludo/"+ saludo;
     }
  
@@ -59,19 +56,19 @@ class viewController {
     	List<Clientes> list = clientService.getClientes();
     	model.addAttribute("list",list );
  
-    	return "pages/clientesVista";
+    	return "pages/crud/clientes/clientesVista";
     }
     @GetMapping("/crearCliente")
     String nuevoCliente() {
     	
  
-    	return "pages/crud/CrearCliente";
+    	return "pages/crud/clientes/CrearCliente";
     }
     @GetMapping("/editarCliente")
     String editarCliente() {
     	
  
-    	return "pages/crud/editarCliente";
+    	return "pages/crud/clientes/editarCliente";
     }
     @GetMapping("/login")
     public String login(Model model) {

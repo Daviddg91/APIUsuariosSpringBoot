@@ -25,12 +25,14 @@
             	 <div class="btn btn-primary mr-2"><a href="#" th:href="@{/clientesVista}">clientesVista</a></div>
             	 <div class="btn btn-primary mr-2"><a href="#" th:href="@{/productosVista}">ProductosVista</a></div>
             	  <div class="btn btn-primary mr-2"><a href="#" th:href="@{/tecnologias}">TecnologiasAleatorias</a></div>
-           	      <div th:if="${#httpServletRequest.isUserInRole('ROLE_ADMIN')}" ><a href="#" th:href="@{/adminuser}">ADMINistracion</a></div>
+           	      <div class="btn btn-primary mr-2"  th:if="${#httpServletRequest.isUserInRole('ROLE_ADMIN')}" ><a href="#" th:href="@{/adminuser}">AdminRoles</a></div>
 			 	<div sec:authorize="isAuthenticated()">
-			 		<a href="#" th:href="@{/logout}">
+			 		<a href="#"  th:href="@{/logout}">
 			 			<div class="d-flex btn btn-warning mr-2">
 			 				<div class=""><i class="fas fa-sign-out-alt"style="font-size:25px;color:white;"></i></div>
-			 				<div style="    display: contents;">Logout cuenta:<span id="nombreLogout"   ></span></div>
+			 				<div style="    display: contents;">Logout:
+			 				<span id="nombreLogout" th:text="${#authentication.principal.username}" ></span>
+			 				</div>
 			 			</div>
 			 		</a>
 			 	</div>
@@ -51,7 +53,7 @@
 
     var principal = /*[[${#authentication.principal}]]*/ ;
     if(principal.username!=null){
-    	  console.log(principal.username);
+
     	  var url4 ="http://"+api_ip_host+"/userLogin/userById";
     	  
     	    $.ajax({
@@ -93,7 +95,7 @@
 			<div class="d-flex justify-content-center"><a class="btn btn-primary w-100 mr-2 ml-2 mt-2 mb-1 " href="#" th:href="@{/clientesVista}">clientesVista</a></div>
 			<div class="d-flex justify-content-center"><a class="btn btn-primary w-100 mr-2 ml-2 mt-2 mb-1 " href="#" th:href="@{/productosVista}">ProductosVista</a></div>
 			<div class="d-flex justify-content-center "><a class="btn btn-primary w-100 mr-2 ml-2 mt-1 mb-1 " href="#" th:href="@{/tecnologias}">TecnologiasAleatorias</a></div>
-           	      <div class="d-flex justify-content-center" th:if="${#httpServletRequest.isUserInRole('ROLE_ADMIN')}" ><a href="#" th:href="@{/adminuser}">ADMINistracion</a></div>
+           	      <div class="d-flex justify-content-center" th:if="${#httpServletRequest.isUserInRole('ROLE_ADMIN')}" ><a href="#" class="btn btn-primary w-100 mr-2 ml-2 mt-1 mb-1" th:href="@{/adminuser}">AdminRoles</a></div>
 			 	<div class="d-flex justify-content-center" sec:authorize="isAuthenticated()">
 				 	<a class="btn btn-warning w-100 mr-2 ml-2 mt-1 mb-2 " href="#" th:href="@{/logout}">
 				 	<div class="">
