@@ -91,7 +91,7 @@ cargaUsuarios();
 </div>
       <script>
       function RecargaRolesUsuario(){
-          var url4 ="http://"+api_ip_host+"/adminuser/RolesbyUser";
+          var url4 =api_ip_host+"/adminuser/RolesbyUser";
              var idUser = document.getElementById("idUser").value;
         	  var list2=null;
     	        $.ajax({
@@ -119,7 +119,7 @@ cargaUsuarios();
      }
       
       function cargaRolesUsuario(){
-      var url4 ="http://"+ip+"/adminuser/RolesbyUser";
+      var url4 =api_ip_host+"/adminuser/RolesbyUser";
 
       
       $("#selectUsers").change(function(){
