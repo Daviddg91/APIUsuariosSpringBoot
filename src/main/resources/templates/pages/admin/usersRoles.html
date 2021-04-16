@@ -25,7 +25,7 @@
  
 
 function cargaRoles(){
-    var url4 ="http://"+api_ip_host+"/adminuser/roles";
+    var url4 =api_ip_host+"/adminuser/roles";
 
   	  var list2=null;
 	        $.ajax({
@@ -54,7 +54,7 @@ function cargaRoles(){
 }
 
 function cargaUsuarios(){
-	var url4 ="http://"+api_ip_host+"/adminuser/usuarios";
+	var url4 =api_ip_host+"/adminuser/usuarios";
 var list2=null;
       $.ajax({
      type : "GET",
@@ -183,7 +183,7 @@ cargaUsuarios();
     	  
           var idUser = document.getElementById("idUser").value;
 
-    	  var url4 ="http://"+api_ip_host+"/adminuser/AñadirRolesUser";
+    	  var url4 =api_ip_host+"/adminuser/AñadirRolesUser";
     	  
     	  var nombreRole = $('#roleName').val();
     	    
@@ -221,7 +221,7 @@ cargaUsuarios();
     	  
           var idUser = document.getElementById("idUser").value;
 
-    	  var url4 ="http://"+api_ip_host+"/adminuser/AñadirNewRoles";
+    	  var url4 =api_ip_host+"/adminuser/AñadirNewRoles";
     	  
     	  var nombreRole = $('#roleNewName').val();
     	 
@@ -245,7 +245,7 @@ cargaUsuarios();
     	  
           var idUser = document.getElementById("idUser").value;
 
-    	  var url4 ="http://"+api_ip_host+"/adminuser/borrarRoleaUsuario";
+    	  var url4 =api_ip_host+"/adminuser/borrarRoleaUsuario";
     	  
     	  var nombreRole = $('#roleDeleteName').val();
     	 
@@ -278,7 +278,7 @@ cargaUsuarios();
     	
     	 var idUser = document.getElementById("idUser").value;
 
-   	  var url4 ="http://"+api_ip_host+"/adminuser/borrarRolePorCompleto";
+   	  var url4 =api_ip_host+"/adminuser/borrarRolePorCompleto";
    	  
    	  var nombreRole = $('#roleDeleteName').val();
    	 
