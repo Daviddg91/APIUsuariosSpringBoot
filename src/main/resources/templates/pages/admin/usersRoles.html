@@ -8,16 +8,14 @@
                  <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
  
  <input type="hidden" id="idUser">
- 
- <a href="#" class="btn btn-success" th:href="@{/registration}">Registrar Usuarios</a></br>
- 
- Usuarios:
+ <div class="col-12 d-flex justify-content-center"><h1>Interfaz de Administración de usuarios y roles:</h1></div>
+ <div class="col-12 " > <a href="#" class="btn btn-success float-right" th:href="@{/registration}">Registrar nuevo usuario</a><br/></div>
+ <br/><br/><br/>
+<div class="col-12 d-flex">
+<div class="col-6">
 <div class="form-group blu-margin" style="max-width:35%">
-    <select id="selectUsers" class="form-control"   >
-   
-
-
-
+ 	<h1> Usuarios: </h1>
+    <select id="selectUsers" class="form-control">
     </select>
 </div>
     
@@ -79,8 +77,8 @@ var list2=null;
 cargaUsuarios();
 
 </script>
-<div class="d-flex">
-    <div class="form-group  col-6" style="">
+
+    <div class="form-group " style="">
   Roles del usuario: </br>
     <div id="selectUsersRoles" class="form-control w-100"   >
    
@@ -154,28 +152,17 @@ cargaUsuarios();
       
       
       </script> 
-  <div class="form-group   col-6" style="">
- Todos los Roles: </br>
-    <select  id="selectAllRoles" class="form-control"   >
-   
-
-
-
-    </select >
-</div>
-      <script>
-  
+      <div class="col-12"> 
      
       
-      </script> 
-   </div> 
-   <div class="d-flex">
-   <div class="d-flex col-6" >
+    <br/>
+     <div class="d-flex col-12" >
    <div class="col-6"> 
-      <input type="text" disabled  id="roleName"></input> <button class="btn" onclick="añadirRoleaUsuario()">Añadir Roles </button>
+      <input type="text" disabled  id="roleName"></input> <button class="btn btn-primary " onclick="añadirRoleaUsuario()">Asignar Role </button>
       </div>
        <div class="col-6"> 
-      <input type="text" disabled  id="roleDeleteName"></input> <button class="btn" onclick="borrarRoleUsuario()">Borrar Roles </button>
+      <input type="text" disabled  id="roleDeleteName"></input> <button class="btn btn-primary " onclick="borrarRoleUsuario()">Desasignar Role </button>
+      </div>
       </div>
       </div>
       <script>
@@ -197,7 +184,7 @@ cargaUsuarios();
    	       
    	      
    	       success : function(result) {
-			console.log("hola" + result);
+			 
 			RecargaRolesUsuario();
 
    	  }
@@ -206,16 +193,8 @@ cargaUsuarios();
       } 
       
       </script>
-       <div class="col-6 d-flex"> 
-        <div class="col-6"> 
-         <input type="text"    id="roleNewName"></input> <button class="btn" onclick="añadirRole()">Añadir Roles </button>
       </div>
-       <div class="col-6  ">
-             <input type="text"  disabled  id="hardDeleteRole"></input> <button class="btn" onclick="borrarRoleDefinitivamente()">Borrar Role Definitivo </button>
-    
-    
-    </div>
-      </div>
+      
       <script>
       function añadirRole(){
     	  
@@ -270,6 +249,29 @@ cargaUsuarios();
       } 
      
       </script>
+     
+  <div class="form-group  col-6" style="">
+ <h1>Roles:</h1> <br/>
+    <div class="col-12"> 
+         <input type="text"    id="roleNewName"></input> <button class="btn btn-primary" onclick="añadirRole()">Crear Role </button>
+      </div><br/>
+      <h3> Lista de Roles:</h3>
+ <div class="d-flex" >
+
+    <div class="col-6  ">
+	    <select  id="selectAllRoles" class="form-control"   >
+	   
+	    </select >
+    </div>
+ 
+     <div class="col-6  ">
+             <input type="text"  disabled  id="hardDeleteRole"></input> <button class="btn btn-primary mt-1" onclick="borrarRoleDefinitivamente()">Borrar Role </button>
+    
+    
+    </div>
+    
+</div>    
+   
      </div>    
    
     <script>
@@ -311,4 +313,6 @@ cargaUsuarios();
     
     
     </script>
+ 
+ 	</div>
 </th:block>
