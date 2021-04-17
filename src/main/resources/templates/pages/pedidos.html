@@ -210,39 +210,8 @@ body{
                         </div>
  
 
-     </div>     
-                 <div id="contenido" class="col-6">
-                <h1>Listado de Productos</h1>    
-                    <div class="">
-        <table id="productResult" class="table table-bordered table-striped table-hover">
-            <thead>
-          <tr>
-            <!-- <th>ID</th>   -->
-   
-            <th class="" ><div id=" " ><div>Nomenclatura</div></div></th>
-            <th class=""   ><div id=" "><div>Nombre</div></div></div></th>
-            <th class=""  ><div id=" "><div>ISBN</div></div> </th>
-            <th class=""  ><div id=" "><div>Descripcion</div></div></th>
-            
-         
-            
-          </tr>
-             
-            </thead>
-         
-       
-    <tbody id="tablebodyProducts">
-        
-        </tbody>
-         </table>
-              Para reazaliar un pedido haga un click sobre la tabla clientes para seleccionar el cliente y doble click sobre el producto para seleccionar el producto 
-         
-                        </div>
- 
-
-     </div>      
-    </div>            
-             <script  th:inline="javascript"  >
+     </div>   
+                  <script  th:inline="javascript"  >
             
          var    clienteSelect   ="";    
          var tablaPedidos ="";
@@ -271,7 +240,7 @@ body{
                   $.each(result,function(key, val) {
                 var clase = "class='btn btn-success'";  
               var  dni="'" + val.dni + "'";
- 			    var editar =' <button type="submit" class="btn btn-success" onclick="pasarUrl('+"'"+ val.dni+"'"+')" > Editar </button></form>';
+ 			    var editar =' <button type="submit" class="btn btn-success" onclick="pasarUrl('+"'"+ val.dni+"'"+')" > Editar </button>';
 
         
         var  nombre="'" + val.nombre + "'";
@@ -285,16 +254,16 @@ body{
   
 var eliminar=div1+boton1+'</div>';
 
-var htmlrow ="<tr>"+/*"<td><div>" + val.id + "</td>*/ "</div>"+"<td><div>" + val.nombre + "</td></div>"+"<td><div>" + val.apellidos + "</td></div>"+"<td><div>" + val.dni + "</td></div>"+"<td><div>" + val.correo + "</td></div>"+"<td><div>" + val.telefono + "</td></div>"+"<td><div>" + val.direccion + "</td></div>"+"<td><div>" + val.cp + "</td></div>"+"<td><div>" + val.edad + "</td></div>"+"<td><div>" +  editar + "</td></div>"+"<td><div>" +  eliminar + "</td></div>"+"</tr>";         
+var htmlrow ="<tr>"+/*"<td><div>" + val.id + "</td> </div>+*/"<td><div>" + val.nombre + "</td></div>"+"<td><div>" + val.apellidos + "</td></div>"+"<td><div>" + val.dni + "</td></div>"+"<td><div>" + val.correo + "</td></div>"+"<td><div>" + val.telefono + "</td></div>"+"<td><div>" + val.direccion + "</td></div>"+"<td><div>" + val.cp + "</td></div>"+"<td><div>" + val.edad + "</td></div>"/*+"<td><div>" +  editar + "</td></div>"+"<td><div>" +  eliminar + "</td></div>"*/+"</tr>";
+ 
              $('#tablebodyClientes').append(htmlrow);
         });
                   $(document).ready(function(){
                 	var tableClientes =  $('#buscresultClientes').DataTable({
-            			  responsive: true,
-            			  "info": false,
-            			  "bPaginate": true,
-          			    "bLengthChange": true,
-            			    
+                		  responsive: true,
+              			  "info": false,
+              			   "bPaginate": true,
+              			    "bLengthChange": false,
             			    select: {
             		            style: 'single'
             		        },
@@ -337,12 +306,46 @@ var htmlrow ="<tr>"+/*"<td><div>" + val.id + "</td>*/ "</div>"+"<td><div>" + val
              
              
     }
+    
+    </script>
+                 <div id="contenido" class="col-6">
+                <h1>Listado de Productos</h1>    
+                    <div class="">
+        <table id="productResult" class="table table-bordered table-striped table-hover">
+            <thead>
+          <tr>
+            <!-- <th>ID</th>   -->
+   
+            <th class="" ><div id=" " ><div>Nomenclatura</div></div></th>
+            <th class=""   ><div id=" "><div>Nombre</div></div></div></th>
+            <th class=""  ><div id=" "><div>ISBN</div></div> </th>
+            <th class=""  ><div id=" "><div>Descripcion</div></div></th>
+            
+         
+            
+          </tr>
+             
+            </thead>
+         
+       
+    <tbody id="tablebodyProducts">
+        
+        </tbody>
+         </table>
+              Para reazaliar un pedido haga un click sobre la tabla clientes para seleccionar el cliente y doble click sobre el producto para seleccionar el producto 
+         
+                        </div>
+ 
+
+     </div>      
+    </div>            
+             <script  th:inline="javascript"  >
+            
+ 
    
     function pasarUrl(dni){
     	 var baseUrl = /*[[@{/editarCliente}]]*/'';
          location.href = baseUrl + "?dni=" + dni;
-    	
-
     }
     
     function quitarhtml(cadena){
@@ -436,7 +439,7 @@ var htmlrow ="<tr>"+/*"<td><div>" + val.id + "</td>*/ "</div>"+"<td><div>" + val
                     $.each(result,function(key, val) {
                   var clase = "class='btn btn-success'";  
                 var  dni="'" + val.dni + "'";
-   			    var editar =' <button type="submit" class="btn btn-success" onclick="pasarUrl('+"'"+ val.dni+"'"+')" > Editar </button></form>';
+   			    var editar =' <button type="submit" class="btn btn-success" onclick="pasarUrl('+"'"+ val.dni+"'"+')" > Editar </button>';
 
           
           var  nombre="'" + val.nombre + "'";
@@ -450,14 +453,14 @@ var htmlrow ="<tr>"+/*"<td><div>" + val.id + "</td>*/ "</div>"+"<td><div>" + val
     
   var eliminar=div1+boton1+'</div>';
 
-  var htmlrow ="<tr>"+/*"<td><div>" + val.id + "</td>*/ +"</div>"+"<td><div>" + val.nomenclatura + "</td></div>"+"<td><div>" + val.nombre + "</td></div>"+"<td><div>" + val.isbn + "</td></div>"+"<td><div>" + val.descripcion + "</td></div></tr>";         
+  var htmlrow ="<tr>"+/*"<td><div>" + val.id + "</td> +"</div>"+*/"<td><div>" + val.nomenclatura + "</td></div>"+"<td><div>" + val.nombre + "</td></div>"+"<td><div>" + val.isbn + "</td></div>"+"<td><div>" + val.descripcion + "</td></div></tr>";         
                $('#tablebodyProducts').append(htmlrow);
           });
                     $(document).ready(function(){
                   	var tableProduct =  $('#productResult').DataTable({
               			  responsive: true,
               			  "info": false,
-              			   "bPaginate": false,
+              			   "bPaginate": true,
               			    "bLengthChange": false,
               			    select: {
               		            style: 'single'
@@ -504,16 +507,6 @@ var htmlrow ="<tr>"+/*"<td><div>" + val.id + "</td>*/ "</div>"+"<td><div>" + val
                
                
       }
-
-
-
-
-
-
-
-
-
-
 
 
 
