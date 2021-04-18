@@ -1,7 +1,55 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     
-     			
+  <script  th:inline="javascript"  >
+ 
+ 
+ function borrarClienteConfirmado(){
+	 var dni=document.getElementById("dniParam").value;
+	 
+    var url4 =api_ip_host+"/users?eliminarDNI="+ dni;
+	 var list2=null;
+     $.ajax({
+    type : "POST",
+    url : url4,
+   data: {users: list2},
+   
+    success : function(result) {
+    	
+    	 $(document).ready(function(){
+    		 $('#exampleModalBorrar').modal('hide');
+    	    	$("#mensajeBorrar2").html("Cliente Borrado con exito");
+    	        $('#exampleModalBorrar2').modal('show');
+    	         setTimeout(function(){
+    	        $('#exampleModalBorrar2').modal('hide');
+    	           }, 2000); 
+    	         setTimeout(function(){
+    	    	 	location.reload();
+	    	     }, 800);
+ 	  });
+    	
+    },
+    error : function(result) {
+    	 console.log(result);
+   	 $(document).ready(function(){
+   		$("#mensajeBorrar2").html("El cliente no fue borrado");
+        $('#exampleModalBorrar2').modal('show');
+         setTimeout(function(){
+        $('#exampleModalBorrar2').modal('hide');
+
+
+           }, 2000);
+	  });
+    
+    	
+    }
+});   
+     
+	
+}
+  
+     
+</script>   			
      
      
                     
@@ -50,54 +98,9 @@
  </script>
  
  
-    			<div th:include="pages/crud/modalExitoBorrar"> content here </div>
+    			<div th:include="pages/crud/ui/modalExitoBorrar"> content here </div>
  
- <script>
- 
- 
- function borrarClienteConfirmado(){
-	 var dni=document.getElementById("dniParam").value;
-	 
-    var url4 =api_ip_host+"/users?eliminarDNI="+ dni;
-	 var list2=null;
-     $.ajax({
-    type : "POST",
-    url : url4,
-   data: {users: list2},
-   
-    success : function(result) {
-    	
-    	 $(document).ready(function(){
-    		 $('#exampleModalBorrar').modal('hide');
-    	    	$("#mensajeBorrar2").html("Cliente Borrado con exito");
-    	        $('#exampleModalBorrar2').modal('show');
-    	         setTimeout(function(){
-    	        $('#exampleModalBorrar2').modal('hide');
-    	           }, 2000);        
- 	  });
-    	
-    },
-    error : function(result) {
-    	 console.log(result);
-   	 $(document).ready(function(){
-   		$("#mensajeBorrar2").html("El cliente no fue borrado");
-        $('#exampleModalBorrar2').modal('show');
-         setTimeout(function(){
-        $('#exampleModalBorrar2').modal('hide');
-
-
-           }, 2000);
-	  });
-    
-    	
-    }
-});   
-     
-	
-}
   
-     
-</script>  
 
  
 

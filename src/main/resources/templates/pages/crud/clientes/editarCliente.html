@@ -10,24 +10,8 @@
                     background-color:white;
                     
                     }
-                      .alert {
-                        padding: 0;
-                        margin: auto;
-                    }
-                  
-                    .alerta{
-                        max-width: 35%;
-                        color:red;
-                    }
-                    input{
-                         max-width: 35%;
-                      
-                       border: 1px solid #ced4da;
-                         
-                        -moz-box-shadow: none !important;
-                        box-shadow: none !important;
-                        
-                    }
+                   
+ 
                       .flex-container {
                         display: flex;
 
@@ -169,8 +153,8 @@ var url = api_ip_host+"/users";
                                   setTimeout(function(){
                                	   setTimeout(function(){
                                           $('#exampleModal2').modal('hide');
-                                          var baseUrl = /*/crearCliente*/'';
-                                          location.href = baseUrl;
+                                           location.href ="clientesVista";
+                                           
                                              }, 1000);
                                     }, 2000);
                       	  $(document).ready(function(){
@@ -264,17 +248,22 @@ var url = api_ip_host+"/users";
   
      
 </script>   
+<div class="col-12 d-flex justify-content-center" >
+<h1> Modificar usuario:</h1>
+</div>
+<div class="col-12 d-flex justify-content-center" >
+ 
  <form id="form1" enctype="multipart/form-data"  >  
                   <div>Nombre:
             <input type="text"  id="nombre" name="nombre" class="form-control" /></div>
-            <div class="alerta" id="div-nombre"></div>
+            <div class="alert-danger" id="div-nombre"></div>
             
                     
             
                             <div>Apellidos:
                 <input type="text" class="form-control" id="apellidos" name="apellidos"/>
                 </div>
-                        <div class="alerta" id="div-apellidos"></div>
+                        <div class="alert-danger" id="div-apellidos"></div>
            
                      
                      
@@ -283,7 +272,7 @@ var url = api_ip_host+"/users";
                         <div>DNI:
                             <input type="text" class="form-control" id="dni" name="dni"/>
                             </div>
-                         <div class="alerta" id="div-dni">
+                         <div class="alert-danger" id="div-dni">
                             
                         </div>
                   
@@ -294,7 +283,7 @@ var url = api_ip_host+"/users";
     <div>     Correo:
            <input type="text" class="form-control"   id="correo" name="correo"/>
            </div>
-                            <div class="alerta" id="div-correo"></div>
+                            <div class="alert-danger" id="div-correo"></div>
 
                     
                      
@@ -304,7 +293,7 @@ var url = api_ip_host+"/users";
 
                                             <div>     Telefono:
                                                 <input  class="form-control" name="telefono" id="telefono" type="number"/></div>
-                <div class="alerta" id="div-telefono"></div>
+                <div class="alert-danger" id="div-telefono"></div>
                                        
                      
                      
@@ -312,7 +301,7 @@ var url = api_ip_host+"/users";
                                               
            <div>Dirección:
             <input type="text"  class="form-control" name="direccion" id="direccion"/> </div>
-            <div class="alerta" id="div-direccion"></div>
+            <div class="alert-danger" id="div-direccion"></div>
            
                            
                      
@@ -322,7 +311,7 @@ var url = api_ip_host+"/users";
             <div>Codigo Postal:
                 <input  class="form-control" id="cp" name="cp" type="number" /></div>
                 
-                            <div class="alerta" id="div-cp"></div>
+                            <div class="alert-danger" id="div-cp"></div>
             
                      
                      
@@ -337,7 +326,7 @@ var url = api_ip_host+"/users";
 	</c:forEach>
            </select><br/>   
                </div>
-                <div class="alerta" id="div-edad"></div> 
+                <div class="alert-danger" id="div-edad"></div> 
          <label for="avatar">Elige una imagen de avatar:</label>
   <div>Imagen:
                 <img  id="imagenFile"  style="height:250px;width:250px;"/>
@@ -346,10 +335,11 @@ var url = api_ip_host+"/users";
        id="avatar" name ="image"
        accept="image/png, image/jpeg"/><br> </br>
                        
-                <button id="submitPeticionButton" class="btn btn-success"  value ="Modificar">Modificar </button>
+                <button id="submitPeticionButton" class="btn btn-success float-right"  value ="Modificar">Modificar </button>
            <!--Modal -->
- </form>        
-			<div th:include="pages/crud/modalExitoCrear"> content here </div>
+ </form> 
+ </div>       
+			<div th:include="pages/crud/ui/modalExitoCrear"> content here </div>
            
 </th:block>
 </html>

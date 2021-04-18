@@ -177,17 +177,17 @@ body{
                 
                 <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
                 
-                     <div id="contenido" class="m-auto">
+                     <div id="contenido" class="m-auto col-md-12 col-xs-12 col-lg-12 col-xl-12">
                      <div class="d-flex justify-content-center">
            				<h1>Listado de productos:</h1>    
    					</div>
             
     	<br/>
-                 <a  href="#" th:href="@{/crearProducto}" class="btn btn-success float-right"> Crear Nuevo Producto </a>
+                 <a  href="#" th:href="@{/crearProducto}" class="btn btn-success float-right"> Nuevo Producto </a>
  		<br/><br/>
                   
                     <div class="">
-        <table id="buscresult" class="table table-responsive table-bordered table-striped table-hover">
+        <table id="buscresult" class="table  table-bordered table-striped table-hover">
             <thead>
           <tr>
             <!--  <th>ID</th>  -->
@@ -223,13 +223,8 @@ body{
                 
                 
              <script  th:inline="javascript"  >
- 
 
- 
- 
 
- 
-	  
  
 function clickBusqueda(){
     
@@ -298,6 +293,8 @@ var eliminar=div1+boton1+'</div>';
 var htmlrow ="<tr>"+/*"<td><div>" + val.id + "</td>*/ + "</div>"+"<td><div>" + val.nomenclatura + "</td></div>"+"<td><div>" + val.nombre + "</td></div>"+"<td><div>" + val.isbn + "</td></div>"+"<td><div>" + val.descripcion + "</td></div>"+"<td><div>" +  editar + "</td></div>"+"<td><div>" +  eliminar + "</td></div>"+"</tr>";         
              $('#tablebody').append(htmlrow);
         });
+                  
+
                   $(document).ready(function(){
                 	  $('#buscresult').DataTable({
             			  responsive: true,

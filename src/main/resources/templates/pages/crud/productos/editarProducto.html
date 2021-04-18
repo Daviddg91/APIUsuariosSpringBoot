@@ -10,29 +10,6 @@
                     background-color:white;
                     
                     }
-                      .alert {
-                        padding: 0;
-                        margin: auto;
-                    }
-                  
-                    .alerta{
-                        max-width: 35%;
-                        color:red;
-                    }
-                    input{
-                         max-width: 35%;
-                      
-                       border: 1px solid #ced4da;
-                         
-                        -moz-box-shadow: none !important;
-                        box-shadow: none !important;
-                        
-                    }
-                      .flex-container {
-                        display: flex;
-
-                      }              
-                        
                            .alertIcon{
  
                     
@@ -135,10 +112,9 @@ var error1;
             contentType: 'application/json',
             data:JSON.stringify(json1),
              dataType: "json",
+             responseType:'text',
             success: function (xhr, ajaxOptions, thrownError) {
-        
-            
-         //   alert("hola2");
+        		
           },
          error: function(xhr, status, error) {
                 $("div[id^='div-']").empty();
@@ -146,12 +122,13 @@ var error1;
                $("input").removeClass("alertExito");
              // alert(xhr.status);
                  if(JSON.stringify(xhr.status)==200){
+                	 console.log("hola");
                      var mensaje=JSON.stringify(xhr.responseText);
                  $("#mensaje1").append(mensaje);
                   $('#exampleModal2').modal('show');
                    setTimeout(function(){
                   $('#exampleModal2').modal('hide');
-                  location.reload();
+                  location.href ="productosVista";
 
                      }, 2000);
 
@@ -207,43 +184,43 @@ var error1;
   
      
 </script>     
-                    <div>Nomenclatura:
-            <input type="text"  id="nomenclatura" class="form-control" /></div>
-            <div class="alerta" id="div-nomenclatura"></div>
+<div class="col-12 d-flex justify-content-center">
+	<h1>Editar producto:</h1>
+</div>
+<div class="col-12 d-flex justify-content-center">
+<div class="col-12">
+                    Nomenclatura:
+            <input type="text"  id="nomenclatura" class="form-control" />
+            <div class="alert-danger " id="div-nomenclatura"></div>
             
                     
             
-                            <div>Nombre:
+                            Nombre:
                 <input type="text" class="form-control" id="nombre"/>
-                </div>
-                        <div class="alerta" id="div-nombre"></div>
+                
+                        <div class="alert-danger " id="div-nombre"></div>
            
                      
                      
                     
                        
-                        <div>ISBN:
+                        ISBN:
                             <input type="text" class="form-control" id="isbn"/>
-                            </div>
-                         <div class="alerta" id="div-isbn">
                             
-                        </div>
-                  
-                     
-                     
-                     
-                    
-    <div>     Descripcion:
+                         <div class="alert-danger " id="div-isbn"></div>
+                            
+         Descripción:
            <input type="text" class="form-control"   id="descripcion"/>
-           </div>
-                            <div class="alerta" id="div-descripcion"></div>
+             <div class="alert-danger " id="div-descripcion"></div>
 
-                    
+                    <br/>
                
-                <button class="btn btn-success" onclick="rellenarProducto();" value ="Modificar">Modificar </button>
+                <button class="btn btn-success float-right" onclick="rellenarProducto();" value ="Modificar">Modificar </button>
+	</div>
+</div>
            <!--Modal -->
          
-			<div th:include="pages/crud/modalExitoCrear"> content here </div>
+			<div th:include="pages/crud/ui/modalExitoCrear"> content here </div>
         </th:block>
 </html>
 

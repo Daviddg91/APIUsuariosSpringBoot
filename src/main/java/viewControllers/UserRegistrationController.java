@@ -64,7 +64,7 @@ public class UserRegistrationController {
         	
         userService.save(userDto);
         }
-         return "pages/crud/modalExitoGenerica";
+         return "pages/crud/ui/modalExitoGenerica";
     }
 
 }

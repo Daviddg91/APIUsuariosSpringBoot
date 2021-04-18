@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import entidades.Clientes;
 import services.ClientesService;
-import services.ServiciosBeans;
+import Beans.ServiciosBeans;
 
 @Controller()
 class viewController {

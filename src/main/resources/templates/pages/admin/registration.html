@@ -80,7 +80,7 @@
 					<div class="form-group d-flex"
 						th:classappend="${#fields.hasErrors('terms')}? 'has-error':''">
 						<input id="terms" type="checkbox" th:field="*{terms}" />   <label
-							class="control-label" for="terms"> Estopy deacuerdo con los terminos y 
+							class="control-label" for="terms"> Estoy deacuerdo con los terminos y 
 							condiciones del registro</label>
 						<p class="error-message"
 							th:each="error : ${#fields.errors('terms')}" th:text="${error}">No ha aceptado los terminos

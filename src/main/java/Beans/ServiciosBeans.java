@@ -1,4 +1,4 @@
-package services;
+package Beans;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -67,21 +67,12 @@ public class ServiciosBeans {
 	public String getTecnologiasVariadas() {
 		  String pagina="";
 		  aleat = getRandomNumberInRange(1, 4);
-		        if(aleat==1){
-		            pagina="inicio_1";
-		        }
-		        if(aleat==2){
-		            pagina="inicio_2";
-		        }
-		        if(aleat==3){
-		            pagina="inicio_3";
-		        }
-		        if(aleat==4){
-		            pagina="inicio_4";
-		        }
-		    return pagina;
+		        
+		  pagina="inicio_"+ aleat;
+		      
+		  return pagina;
 		    
-		    }
+  }
 	   @Bean 
 	   @RequestScope
 	   @Scope

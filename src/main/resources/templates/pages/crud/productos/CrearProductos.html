@@ -17,19 +17,7 @@
                         margin: auto;
                     }
                   
-                    .alerta{
-                        max-width: 35%;
-                        color:red;
-                    }
-                    input{
-                         max-width: 35%;
-                      
-                       border: 1px solid #ced4da;
-                         
-                        -moz-box-shadow: none !important;
-                        box-shadow: none !important;
-                        
-                    }
+                   
                       .flex-container {
                         display: flex;
 
@@ -185,36 +173,41 @@ var error1;
   
      
 </script>     
-                 <div>Nomenclatura:
-            <input type="text"  id="nomenclatura" class="form-control" /></div>
-            <div class="alerta" id="div-nomenclatura"></div>
-
-                            <div>Nombre:
+<div class="col-12 d-flex justify-content-center">
+	<h1>Nuevo producto:</h1>
+</div>
+<div class="col-12 d-flex justify-content-center">
+<div class="col-12">
+                    Nomenclatura:
+            <input type="text"  id="nomenclatura" class="form-control" />
+            <div class="alert-danger " id="div-nomenclatura"></div>
+            
+                    
+            
+                            Nombre:
                 <input type="text" class="form-control" id="nombre"/>
-                </div>
-                        <div class="alerta" id="div-nombre"></div>
-
-                        <div>ISBN:
-                            <input type="text" class="form-control" id="isbn"/>
-                            </div>
-                         <div class="alerta" id="div-isbn">
-                            
-                        </div>
                 
-    <div>     Descripcion:
-           <input type="text" class="form-control"   id="descripcion"/>
-           </div>
-                            <div class="alerta" id="div-descripcion"></div>
-                            
-    
-            <br/>   
-         
-            
+                        <div class="alert-danger " id="div-nombre"></div>
+           
+                     
+                     
+                    
                        
-                <button class="btn btn-success" onclick="rellenarProducto();" value ="Crear cliente">Crear Producto </button>
-           <!--Modal -->
-            
-			<div th:include="pages/crud/modalExitoCrear"> content here </div>
+                        ISBN:
+                            <input type="text" class="form-control" id="isbn"/>
+                            
+                         <div class="alert-danger " id="div-isbn"></div>
+                            
+         Descripción:
+           <input type="text" class="form-control"   id="descripcion"/>
+             <div class="alert-danger " id="div-descripcion"></div>
+
+                    <br/>
+               
+                <button class="btn btn-success float-right" onclick="rellenarProducto();" value ="nuevo producto">Crear </button>
+	</div>
+</div>
+			<div th:include="pages/crud/ui/modalExitoCrear">  </div>
  </th:block> 
 
 </html>

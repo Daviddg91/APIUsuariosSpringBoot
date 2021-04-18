@@ -175,7 +175,7 @@ body{
                 
                 <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
                 <div class="d-flex col-12 row d-flex justify-content-center" >
-                     <div id="contenido" class="col-6">
+                     <div id="contenido" class="col-md-6 col-xs-6 col-lg-6 col-xl-6">
                 <h1>Listado de Clientes</h1>    
    
             
@@ -254,7 +254,7 @@ body{
   
 var eliminar=div1+boton1+'</div>';
 
-var htmlrow ="<tr>"+/*"<td><div>" + val.id + "</td> </div>+*/"<td><div>" + val.nombre + "</td></div>"+"<td><div>" + val.apellidos + "</td></div>"+"<td><div>" + val.dni + "</td></div>"+"<td><div>" + val.correo + "</td></div>"+"<td><div>" + val.telefono + "</td></div>"+"<td><div>" + val.direccion + "</td></div>"+"<td><div>" + val.cp + "</td></div>"+"<td><div>" + val.edad + "</td></div>"/*+"<td><div>" +  editar + "</td></div>"+"<td><div>" +  eliminar + "</td></div>"*/+"</tr>";
+var htmlrow ='<tr class="cursor" >'+/*"<td><div>" + val.id + "</td> </div>+*/"<td><div>" + val.nombre + "</td></div>"+"<td><div>" + val.apellidos + "</td></div>"+"<td><div>" + val.dni + "</td></div>"+"<td><div>" + val.correo + "</td></div>"+"<td><div>" + val.telefono + "</td></div>"+"<td><div>" + val.direccion + "</td></div>"+"<td><div>" + val.cp + "</td></div>"+"<td><div>" + val.edad + "</td></div>"/*+"<td><div>" +  editar + "</td></div>"+"<td><div>" +  eliminar + "</td></div>"*/+"</tr>";
  
              $('#tablebodyClientes').append(htmlrow);
         });
@@ -308,7 +308,7 @@ var htmlrow ="<tr>"+/*"<td><div>" + val.id + "</td> </div>+*/"<td><div>" + val.n
     }
     
     </script>
-                 <div id="contenido" class="col-6">
+                 <div id="contenido" class="col-md-6 col-xs-6 col-lg-6 col-xl-6">
                 <h1>Listado de Productos</h1>    
                     <div class="">
         <table id="productResult" class="table table-bordered table-striped table-hover">
@@ -332,7 +332,7 @@ var htmlrow ="<tr>"+/*"<td><div>" + val.id + "</td> </div>+*/"<td><div>" + val.n
         
         </tbody>
          </table>
-              Para reazaliar un pedido haga un click sobre la tabla clientes para seleccionar el cliente y doble click sobre el producto para seleccionar el producto 
+              Para realizar un pedido haga un click sobre la tabla clientes para seleccionar el cliente y doble click sobre el producto para seleccionar el producto 
          
                         </div>
  
@@ -340,8 +340,32 @@ var htmlrow ="<tr>"+/*"<td><div>" + val.id + "</td> </div>+*/"<td><div>" + val.n
      </div>      
     </div>            
              <script  th:inline="javascript"  >
-            
- 
+             $.fn.DataTable.ext.pager.numbers_length = 5;
+             var tablePedidos =  $('#tablaPedidos').DataTable({
+           	  responsive: true,
+           	  "info": false,
+           	   "bPaginate": false,
+           	    "bLengthChange": false,
+           	    select: {
+                    style: 'single'
+                },
+           	    //para cambiar el lenguaje a español
+                "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros",
+                        "zeroRecords": "No se encontraron resultados",
+                        "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sSearch": "Buscar:",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast":"Último",
+                            "sNext":"Siguiente",
+                            "sPrevious": "Anterior"
+           			     },
+           			     "sProcessing":"Procesando...",
+                    }
+            }); 
    
     function pasarUrl(dni){
     	 var baseUrl = /*[[@{/editarCliente}]]*/'';
@@ -360,7 +384,7 @@ var htmlrow ="<tr>"+/*"<td><div>" + val.id + "</td> </div>+*/"<td><div>" + val.n
 		  var htmlRowPedidos  ="<tr>"+"<td><div>" + quitarhtml(Cliente[1]) + "</td></div>"+"<td><div>" + quitarhtml(Cliente[2]) + "</td></div>"+"<td><div>" + quitarhtml(Cliente[3]) + "</td></div>"+"<td><div>" + quitarhtml(Producto[1]) + "</td></div>"+"<td><div>" + quitarhtml(Producto[3]) + "</td></div>"+"<td><input type='number' min='1' value='1'><td><div class='d-flex justify-content-center' style='cursor:pointer;' ><i class='far fa-trash-alt icon-delete'></i></td></div></tr>";
 		  $.fn.dataTable.ext.errMode = 'throw';
         $('#tablebodyPedidos').append(htmlRowPedidos);
-        
+        tablePedidos.reload();
        
  
 	}
@@ -453,7 +477,7 @@ var htmlrow ="<tr>"+/*"<td><div>" + val.id + "</td> </div>+*/"<td><div>" + val.n
     
   var eliminar=div1+boton1+'</div>';
 
-  var htmlrow ="<tr>"+/*"<td><div>" + val.id + "</td> +"</div>"+*/"<td><div>" + val.nomenclatura + "</td></div>"+"<td><div>" + val.nombre + "</td></div>"+"<td><div>" + val.isbn + "</td></div>"+"<td><div>" + val.descripcion + "</td></div></tr>";         
+  var htmlrow ='<tr class="cursor" >'+/*"<td><div>" + val.id + "</td> +"</div>"+*/"<td><div>" + val.nomenclatura + "</td></div>"+"<td><div>" + val.nombre + "</td></div>"+"<td><div>" + val.isbn + "</td></div>"+"<td><div>" + val.descripcion + "</td></div></tr>";         
                $('#tablebodyProducts').append(htmlrow);
           });
                     $(document).ready(function(){
@@ -531,7 +555,7 @@ $(document).ready(function() {
    
 </script>
   			 <div class="col-12  d-flex justify-content-center"><h2>Tabla de pedidos</h2></div>
-  			 <div class="col-12 d-flex justify-content-center"> 
+  			 <div class="col-md-12 col-xs-12 col-lg-12 col-xl-12 d-flex justify-content-center"> 
   			 
   			 <table id="tablaPedidos" class="table  table-bordered table-striped table-hover">
             <thead>
@@ -569,6 +593,9 @@ $(document).ready(function() {
   			 </div>
  <script>
  compruebaBotonRealizarPedido();
+ 
+    
+ 
 function compruebaBotonRealizarPedido(){
 	 $('table').dblclick(function(){
 		// console.log($("#tablebodyPedidos tr").length);
@@ -593,7 +620,7 @@ function compruebaBotonRealizarPedido(){
 	  }
 }
 
-		   
+
 	   
 	
 

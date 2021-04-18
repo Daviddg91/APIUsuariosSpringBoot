@@ -29,34 +29,46 @@
 <!-- Insert content into the layouts/layout.html -->
 <th:block layout:fragment="content">
     <div class="hero-unit" style="padding:45px;">
-
+<div class="col-12 d-flex justify-content-center">
    <h1>Aplicación y API Java </h1>
+   </div>
         <h6>
         Este proyecto es una aplicación web y una API Rest desarrollada con Spring Boot, 
-        tiene una interfaz de gestion de Clientes donde se puede acceder a las funcionalidades CRUD 
-        con validación customizada, búsqueda, paginación, subida de ficheros y ordenación de registros referente a los clientes.
+        tiene una interfaz de gestion de Clientes donde se puede acceder a las siguientes funcionalidades CRUD:
+        
+         <ul>
+         	<li>Formularios con validación customizada</li>
+         	<li>Búsqueda, paginación,  y ordenación de registros en las tablas </li>
+         	<li>Subida de ficheros</li>
+         	<li>Interfaz de administración de Usuarios y Roles disponible para usuarios logueados como administradores</li>
+         	<li>Interfaz de pedidos donde se pueden realizar pedidos asignando un cliente a una lista de productos y realizar un pedido.</li>
+         </ul>
         <br/>
-        También tiene una interfaz de productos donde se puede elegir entre los clientes y los productos 
-        para hacer los pedidos, luego estos pedidos se guardan automaticamente en una tabla.
-        <br/>
-       En su panel de administración logueandose con el usuario por defecto con rol de ADMIN,   
-        se puede acceder a una interfaz de administracion donde se pueden crear, asignar y modificar los usuarios y los roles.  
-        <br/>
-        También he podido experimentar con Beans de java donde se desarrollan funcionalidades especificas 
-        en las que se realizan páginas como Tecnologías aleatorias, donde se muestra 
-        una página diferente de forma aleatoria cada vez que se actualiza el navegador, y la pagina Saludo, que
-        muestra una página distinta dependiendo de la hora del día.
-        <br/>
-        <br/>
-        Esta aplicación incluye tecnologías como Spring Security, Spring Data, 
-        JPA (creación de los modelos de bases de datos automático mediante anotaciones de JPA), Maven,
-        renderizado con Thymeleaf, una librería que se incorpora a Spring boot con gestión de plantillas
-        . Ajax, Jquery, Bootstrap y diseño Front-end con menú reponsivo.
+          Las paginas que explotan las funcionalidades de los Beans son las siguientes:
+    <ul>
+      	    <li>  Tecnologías aleatorias, donde se muestra 
+        una página diferente de forma aleatoria cada vez que se actualiza la página</li>
+         	<li>Saludo, que muestra una página distinta dependiendo de la hora del día</li>
 
-
-         
-        </h6>
-       
+  
+         </ul> 
+         <br/>
+        Esta aplicación las siguientes incluye tecnologías:
+        
+          <ul>
+      	    <li>API Rest</li>
+         	<li>Spring Security</li>
+         	<li>Spring Data contra MySQL</li>
+         	<li>JPA (creación automática de los modelos de bases de datos mediante anotaciones)</li>
+         	<li>Maven</li>
+         	<li>Renderizado con Thymeleaf</li>
+         	<li>Ajax</li>
+         	<li>Jquery</li>
+         	<li>Bootstrap</li>
+         	<li>Diseño Front-end con menú reponsivo</li>
+         	<li>Beans customizados para realizar diversas funcionalidades</li>
+         </ul>
+         </h6>
     </div>
 </th:block>
 </html>
